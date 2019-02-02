@@ -1,8 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Relish.ViewModels"
              x:Class="Relish.App">
     <Application.Resources>
+        <!--ViewModels-->
+        <local:MainPageViewModel x:Key="MainPageViewModel"/>
 
+        <!--Colours-->
+        <Color x:Key="MainGreen">#118D25</Color>
+        <Color x:Key="BackgroundGreen">#9FE3AA</Color>
+        
+        <!--Styles-->        
+        <Style x:Key="RelishLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource MainGreen}"/>
+            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="Header" TargetType="Label">
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundGreen}"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="TextColor" Value="{StaticResource MainGreen}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Margin" Value="5,10"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

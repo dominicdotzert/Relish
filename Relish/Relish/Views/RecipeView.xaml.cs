@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace Relish
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Relish.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class RecipeView : ContentPage
     {
-        public MainPage()
+        public RecipeView()
         {
             InitializeComponent();
         }

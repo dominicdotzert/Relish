@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Relish"
+             xmlns:res="clr-namespace:Relish.Resources"
+             x:Class="Relish.MainPage"
+             NavigationPage.HasNavigationBar="False">
+             <!--BindingContext="{StaticResource MainPageViewModel}"-->
+
+    <StackLayout
+        Orientation="Vertical"
+        BackgroundColor="White">
+        <Label
+            Style="{StaticResource RelishLabel}"
+            Text="RELISH"
+            VerticalOptions="StartAndExpand"
+            Margin="20"/>
+        <Button
+            Style="{StaticResource MenuButton}"
+            Text="{x:Static res:Strings.FindRecipesBtn}"
+            Clicked="SearchButton_OnClicked"/>
+        <Button
+            Style="{StaticResource MenuButton}"
+            Text="{x:Static res:Strings.IngredientsBtn}"
+            Clicked="IngredientsButton_OnClicked"/>
+        <Button
+            Style="{StaticResource MenuButton}"
+            Text="{x:Static res:Strings.RecipeBookBtn}"
+            Clicked="RecipeButton_OnClicked"/>
+        <Button
+            Style="{StaticResource MenuButton}"
+            Text="{x:Static res:Strings.MealPrepBtn}"
+            Clicked="MealPlanButton_OnClicked"/>
+        <Button
+            Style="{StaticResource MenuButton}"
+            Text="{x:Static res:Strings.GroceryListBtn}"
+            Clicked="GroceryListButton_OnClicked"/>
+        <StackLayout HeightRequest="50"/>
+    </StackLayout>
+</ContentPage>
