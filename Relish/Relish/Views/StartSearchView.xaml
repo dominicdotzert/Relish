@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Relish.Views.StartSearchView">
+             xmlns:views="clr-namespace:Relish.Views"
+             xmlns:res="clr-namespace:Relish.Resources"
+             x:Class="Relish.Views.StartSearchView"
+             NavigationPage.HasNavigationBar="False"
+             Title="{x:Static res:Strings.Title_StartSearch}">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Search Page!!!"
@@ -9,4 +13,4 @@
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</views:CustomContentPage>

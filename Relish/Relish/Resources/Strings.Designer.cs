@@ -104,5 +104,59 @@ namespace Relish.Resources {
                 return ResourceManager.GetString("RecipeBookBtn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grocery List.
+        /// </summary>
+        internal static string Title_GroceryList {
+            get {
+                return ResourceManager.GetString("Title_GroceryList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HOME.
+        /// </summary>
+        internal static string Title_Home {
+            get {
+                return ResourceManager.GetString("Title_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients.
+        /// </summary>
+        internal static string Title_Ingredients {
+            get {
+                return ResourceManager.GetString("Title_Ingredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Plan.
+        /// </summary>
+        internal static string Title_MealPlan {
+            get {
+                return ResourceManager.GetString("Title_MealPlan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipes.
+        /// </summary>
+        internal static string Title_Recipes {
+            get {
+                return ResourceManager.GetString("Title_Recipes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string Title_StartSearch {
+            get {
+                return ResourceManager.GetString("Title_StartSearch", resourceCulture);
+            }
+        }
     }
 }

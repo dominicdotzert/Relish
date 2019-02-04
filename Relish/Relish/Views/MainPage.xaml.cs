@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Relish.Views;
 using Xamarin.Forms;
 
-namespace Relish
+namespace Relish.Views
 {
     public partial class MainPage : ContentPage
     {
