@@ -2,11 +2,19 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Relish.ViewModels"
+             xmlns:converters="clr-namespace:Relish.Converters"
              x:Class="Relish.App">
     <Application.Resources>
         <!--ViewModels-->
         <local:MainPageViewModel x:Key="MainPageViewModel"/>
 
+        <!--Converters-->
+        <converters:ToUpperConverter x:Key="ToUpperConverter"/>
+        <converters:CommonUnitToDisabledConverter x:Key="CommonUnitToDisabledConverter"/>
+        <converters:CommonUnitToEmptyStringConverter x:Key="NegativeToEmptyStringConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <converters:ErrorStringToVisibilityConverter x:Key="ErrorStringToVisibilityConverter"/>
+        
         <!--Colours-->
         <Color x:Key="MainGreen">#118D25</Color>
         <Color x:Key="BackgroundGreen">#9FE3AA</Color>

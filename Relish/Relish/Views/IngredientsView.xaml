@@ -1,15 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<customComponents:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Relish.Views"
+             xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              xmlns:res="clr-namespace:Relish.Resources"
              x:Class="Relish.Views.IngredientsView"
              Title="{x:Static res:Strings.Title_Ingredients}">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Ingredients!!!"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</views:CustomContentPage>
+
+    <customComponents:CustomContentPage.Resources>
+        <Style x:Key="GroupHeaderStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        
+        <Style x:Key="IngredientLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        
+        <Style x:Key="IngredientSecondaryText" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="Gray"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Gray"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="40"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+    </customComponents:CustomContentPage.Resources>
+
+    <customComponents:CustomContentPage.ToolbarItems>
+        <ToolbarItem 
+            Order="Primary" 
+            Text="{Binding EditToolbarText}"
+            Priority="0"
+            Command="{Binding EditToolbarCommand}"/>
+        <ToolbarItem 
+            Order="Primary" 
+            Text="{x:Static res:Strings.Ingredients_Toolbar_Add}"
+            Priority="1"
+            Command="{Binding AddToolbarCommand}"/>
+    </customComponents:CustomContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ActivityIndicator
+            IsVisible="{Binding IngredientsLoaded, Converter={StaticResource InverseBooleanConverter}}"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            IsRunning="True"
+            Color="Gray"/>
+
+        <ListView
+            x:Name="IngredientListView"
+            IsVisible="{Binding IngredientsLoaded}"
+            SelectionMode="None"
+            ItemsSource="{Binding IngredientMasterList}"
+            ItemTapped="ListView_OnItemTapped"
+            HasUnevenRows="True"
+            IsGroupingEnabled="True">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            BackgroundColor="{StaticResource BackgroundGreen}">
+                            <Label
+                                Style="{StaticResource GroupHeaderStyle}"
+                                Text="{Binding Category, Converter={StaticResource ToUpperConverter}}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid HorizontalOptions="Fill">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Style="{StaticResource IngredientLabel}"
+                                Text="{Binding Name}"/>
+                            <Label
+                                IsVisible="{Binding Path=BindingContext.EditMode, Source={x:Reference Name=IngredientListView}, Converter={StaticResource InverseBooleanConverter}}"
+                                Grid.Column="1"
+                                Style="{StaticResource IngredientSecondaryText}"
+                                Text="{Binding UnitDisplayName}"/>
+                            <Button
+                                IsVisible="{Binding Path=BindingContext.EditMode, Source={x:Reference Name=IngredientListView}}"
+                                Grid.Column="1"
+                                Style="{StaticResource DeleteButton}"
+                                Text="{x:Static res:Strings.Ingredients_Toolbar_Delete}"
+                                Command="{Binding Path=BindingContext.RemoveIngredientCommand, Source={x:Reference Name=IngredientListView}}"
+                                CommandParameter="{Binding}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</customComponents:CustomContentPage>

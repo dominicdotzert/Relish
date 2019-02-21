@@ -61,6 +61,15 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelBtn {
+            get {
+                return ResourceManager.GetString("CancelBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find Recipes.
         /// </summary>
         internal static string FindRecipesBtn {
@@ -79,11 +88,119 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        internal static string Ingredients_Quantity {
+            get {
+                return ResourceManager.GetString("Ingredients_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Ingredients_Toolbar_Add {
+            get {
+                return ResourceManager.GetString("Ingredients_Toolbar_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X.
+        /// </summary>
+        internal static string Ingredients_Toolbar_Delete {
+            get {
+                return ResourceManager.GetString("Ingredients_Toolbar_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string Ingredients_Toolbar_Done {
+            get {
+                return ResourceManager.GetString("Ingredients_Toolbar_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string Ingredients_Toolbar_Edit {
+            get {
+                return ResourceManager.GetString("Ingredients_Toolbar_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingredients.
         /// </summary>
         internal static string IngredientsBtn {
             get {
                 return ResourceManager.GetString("IngredientsBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The ingredient name must not be blank..
+        /// </summary>
+        internal static string IngredientsPopup_BlankNameError {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_BlankNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category:.
+        /// </summary>
+        internal static string IngredientsPopup_Category {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This ingredient already exists..
+        /// </summary>
+        internal static string IngredientsPopup_DuplicateIngredientError {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_DuplicateIngredientError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter ingredient here....
+        /// </summary>
+        internal static string IngredientsPopup_EntryPlaceholder {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_EntryPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must enter a positive quantity value..
+        /// </summary>
+        internal static string IngredientsPopup_InvalidQuantityError {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_InvalidQuantityError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity:.
+        /// </summary>
+        internal static string IngredientsPopup_Quantity {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit:.
+        /// </summary>
+        internal static string IngredientsPopup_Units {
+            get {
+                return ResourceManager.GetString("IngredientsPopup_Units", resourceCulture);
             }
         }
         
@@ -102,6 +219,15 @@ namespace Relish.Resources {
         internal static string RecipeBookBtn {
             get {
                 return ResourceManager.GetString("RecipeBookBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveBtn {
+            get {
+                return ResourceManager.GetString("SaveBtn", resourceCulture);
             }
         }
         

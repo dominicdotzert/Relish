@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="FindRecipesBtn" xml:space="preserve">
     <value>Find Recipes</value>
   </data>
@@ -126,11 +129,50 @@
   <data name="IngredientsBtn" xml:space="preserve">
     <value>Ingredients</value>
   </data>
+  <data name="IngredientsPopup_BlankNameError" xml:space="preserve">
+    <value>The ingredient name must not be blank.</value>
+  </data>
+  <data name="IngredientsPopup_Category" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="IngredientsPopup_DuplicateIngredientError" xml:space="preserve">
+    <value>This ingredient already exists.</value>
+  </data>
+  <data name="IngredientsPopup_EntryPlaceholder" xml:space="preserve">
+    <value>Enter ingredient here...</value>
+  </data>
+  <data name="IngredientsPopup_InvalidQuantityError" xml:space="preserve">
+    <value>Must enter a positive quantity value.</value>
+  </data>
+  <data name="IngredientsPopup_Quantity" xml:space="preserve">
+    <value>Quantity:</value>
+  </data>
+  <data name="IngredientsPopup_Units" xml:space="preserve">
+    <value>Unit:</value>
+  </data>
+  <data name="Ingredients_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Ingredients_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Ingredients_Toolbar_Delete" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Ingredients_Toolbar_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Ingredients_Toolbar_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="MealPrepBtn" xml:space="preserve">
     <value>Meal Prep</value>
   </data>
   <data name="RecipeBookBtn" xml:space="preserve">
     <value>Recipe Book</value>
+  </data>
+  <data name="SaveBtn" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Title_GroceryList" xml:space="preserve">
     <value>Grocery List</value>

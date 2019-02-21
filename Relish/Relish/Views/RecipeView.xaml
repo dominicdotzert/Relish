@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<customComponents:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Relish.Views"
              xmlns:res="clr-namespace:Relish.Resources"
+             xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.RecipeView"
              Title="{x:Static res:Strings.Title_Recipes}">
     <ContentPage.Content>
@@ -12,4 +13,4 @@
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
-</views:CustomContentPage>
+</customComponents:CustomContentPage>

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Relish.Views
+namespace Relish.Views.CustomComponents
 {
     // Override OnAppearing and OnDisappearing methods to show and hide the navigation bar.
     // This is needed to smooth the transition from the main page (without a navigation bar)

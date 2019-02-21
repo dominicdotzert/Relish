@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Relish.Models;
 using Relish.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +12,8 @@ namespace Relish
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            var ingredientManager = new IngredientManager();
+            MainPage = new NavigationPage(new MainPage(ingredientManager));
         }
 
         protected override void OnStart()

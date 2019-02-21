@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Relish.Views.CustomComponents;
+using Xamarin.Forms.Xaml;
 
 namespace Relish.Views
 {

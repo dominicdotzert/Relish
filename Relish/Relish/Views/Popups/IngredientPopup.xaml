@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:res="clr-namespace:Relish.Resources"
+             x:Class="Relish.Views.Popups.IngredientPopup"
+             CloseWhenBackgroundIsClicked="False">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="0.5"
+            ScaleOut="0.5"
+            DurationIn="100"
+            DurationOut="100"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <pages:PopupPage.Resources>
+        <Style x:Key="PopupLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style x:Key="PopupErrorLabel" TargetType="Label" BasedOn="{StaticResource PopupLabel}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="Red"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </pages:PopupPage.Resources>
+
+    <StackLayout
+        BackgroundColor="White"
+        Margin="15"
+        Padding="10"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+        
+        <Entry
+            FontSize="18"
+            FontAttributes="Bold"
+            TextColor="Black"
+            HorizontalTextAlignment="Center"
+            Text="{Binding IngredientName, Mode=TwoWay}"
+            Placeholder="{x:Static res:Strings.IngredientsPopup_EntryPlaceholder}">
+            <Entry.Keyboard>
+                <Keyboard x:FactoryMethod="Create">
+                    <x:Arguments>
+                        <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                    </x:Arguments>
+                </Keyboard>
+            </Entry.Keyboard>
+        </Entry>
+
+        <Label
+            IsVisible="{Binding IngredientNameError, Converter={StaticResource ErrorStringToVisibilityConverter}}"
+            Style="{StaticResource PopupErrorLabel}"
+            Text="{Binding IngredientNameError}"/>
+
+        <Grid
+            Margin="10"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Column="0"
+                Grid.Row="0"
+                Style="{StaticResource PopupLabel}"
+                Text="{x:Static res:Strings.IngredientsPopup_Category}"/>
+            <Picker
+                Grid.Column="1"
+                Grid.Row="0"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding AvailableCategories}"
+                SelectedItem="{Binding Category, Mode=TwoWay}"/>
+
+            <Label
+                Grid.Column="0"
+                Grid.Row="1"
+                Style="{StaticResource PopupLabel}"
+                Text="{x:Static res:Strings.IngredientsPopup_Quantity}"/>
+            <Entry
+                Grid.Column="1"
+                Grid.Row="1"
+                HorizontalTextAlignment="Center"
+                IsEnabled="{Binding Unit, Converter={StaticResource CommonUnitToDisabledConverter}}"
+                Text="{Binding Quantity, Mode=TwoWay, Converter={StaticResource NegativeToEmptyStringConverter}}"
+                Keyboard="Numeric"/>
+
+            <Label
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="2"
+                IsVisible="{Binding QuantityError, Converter={StaticResource ErrorStringToVisibilityConverter}}"
+                Style="{StaticResource PopupErrorLabel}"
+                Text="{Binding QuantityError}"/>
+
+            <Label
+                Grid.Column="0"
+                Grid.Row="3"
+                Style="{StaticResource PopupLabel}"
+                Text="{x:Static res:Strings.IngredientsPopup_Units}"/>
+            <Picker
+                Grid.Column="1"
+                Grid.Row="3"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding AvailableUnits}"
+                SelectedItem="{Binding Unit, Mode=TwoWay}"/>
+
+            <Button
+                Grid.Column="0"
+                Grid.Row="4"
+                Text="{x:Static res:Strings.CancelBtn}"
+                Command="{Binding CancelCommand}"/>
+            <Button
+                Grid.Column="1"
+                Grid.Row="4"
+                Text="{x:Static res:Strings.SaveBtn}"
+                Command="{Binding SaveCommand}"/>
+        </Grid>
+    </StackLayout>
+</pages:PopupPage>
