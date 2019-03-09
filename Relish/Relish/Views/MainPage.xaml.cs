@@ -8,11 +8,11 @@ namespace Relish.Views
 {
     public partial class MainPage : ContentPage
     {
-        private readonly IngredientManager _ingredientManager;
+        private readonly LocalDataManger _localDataManger;
 
-        public MainPage(IngredientManager ingredientManager)
+        public MainPage(LocalDataManger localDataManger)
         {
-            _ingredientManager = ingredientManager;
+            _localDataManger = localDataManger;
 
             InitializeComponent();
             BindingContext = new MainPageViewModel();
@@ -25,7 +25,7 @@ namespace Relish.Views
 
         private async void IngredientsButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new IngredientsView(_ingredientManager));
+            await NewPage(new IngredientsView(_localDataManger));
         }
 
         private async void RecipeButton_OnClicked(object sender, EventArgs e)

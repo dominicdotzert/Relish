@@ -16,17 +16,21 @@ namespace Relish.ViewModels
 {
     public class IngredientsViewModel : NotifyPropertyChanged
     {
-        private readonly IngredientManager _ingredientManager;
+        private readonly LocalDataManger _localDataManger;
 
         private ObservableCollection<IngredientList> _ingredientMasterList;
         private bool _loaded;
         private bool _editMode;
         private string _editText;
 
-        public IngredientsViewModel(IngredientManager ingredientManager)
+        /// <summary>
+        /// Initializes the ingredients page viewmodel.
+        /// </summary>
+        /// <param name="localDataManger">The LocalDataManger object for accessing saved ingredient data.</param>
+        public IngredientsViewModel(LocalDataManger localDataManger)
         {
-            _ingredientManager = ingredientManager;
-            _ingredientManager.DatabaseUpdated += UpdateList;
+            _localDataManger = localDataManger;
+            _localDataManger.IngredientTableUpdated += UpdateList;
 
             EditToolbarText = Strings.Ingredients_Toolbar_Edit;
 
@@ -41,6 +45,10 @@ namespace Relish.ViewModels
             });
         }
 
+        /// <summary>
+        /// Flag for if the Ingredients have finished loading.
+        /// When false, a loading animation will be displayed.
+        /// </summary>
         public bool IngredientsLoaded
         {
             get => _loaded;
@@ -55,6 +63,11 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Observable collection for all saved ingredients.
+        /// Sorted by ingredient category (in order specified in the IngredientCategories enum),
+        /// then alphabetically by ingredient name under each category.
+        /// </summary>
         public ObservableCollection<IngredientList> IngredientMasterList
         {
             get => _ingredientMasterList;
@@ -69,6 +82,10 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Flag for if user has entered the edit mode (by pressing the Edit button).
+        /// When in edit mode, delete buttons will be displayed instead of unit and quantity information.
+        /// </summary>
         public bool EditMode
         {
             get => _editMode;
@@ -83,6 +100,9 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// String for Edit toolbar button.
+        /// </summary>
         public string EditToolbarText
         {
             get => _editText;
@@ -97,16 +117,29 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command for pressing the Edit toolbar button.
+        /// </summary>
         public ICommand EditToolbarCommand { get; }
 
+        /// <summary>
+        /// Command for pressing the Add toolbar button.
+        /// </summary>
         public ICommand AddToolbarCommand { get; }
 
+        /// <summary>
+        /// Command for removing an ingredient item.
+        /// </summary>
         public ICommand RemoveIngredientCommand { get; }
 
+        /// <summary>
+        /// Loads the saved ingredient data from the local device database.
+        /// </summary>
+        /// <returns>The ObservableCollection containing the previously saved ingredients.</returns>
         private async Task<ObservableCollection<IngredientList>> LoadIngredientList()
         {
             // Load all ingredients saved on the users device.
-            var flatIngredientsList = await _ingredientManager.GetIngredients();
+            var flatIngredientsList = await _localDataManger.GetIngredients();
 
             // Initialize list of IngredientLists to required by ListView.
             var ingredientsList = new List<IngredientList>();
@@ -129,6 +162,11 @@ namespace Relish.ViewModels
             return new ObservableCollection<IngredientList>(ingredientsList);
         }
 
+        /// <summary>
+        /// Updates the ingredients collection whenever an ingredient is added or edited.
+        /// </summary>
+        /// <param name="sender">The ingredient which has been edited in the database.</param>
+        /// <param name="e">EventArg is unused.</param>
         private void UpdateList(object sender, EventArgs e)
         {
             var ingredient = (Ingredient)sender;
@@ -166,11 +204,23 @@ namespace Relish.ViewModels
             IngredientMasterList = new ObservableCollection<IngredientList>(IngredientMasterList.ToList());
         }
 
+        /// <summary>
+        /// Comparison method for sorting Ingredients by name.
+        /// </summary>
+        /// <param name="x">Ingredient x.</param>
+        /// <param name="y">Ingredient y.</param>
+        /// <returns></returns>
         private int OnIngredientComparison(Ingredient x, Ingredient y)
         {
             return string.Compare(x.Name, y.Name, CultureInfo.CurrentCulture, CompareOptions.IgnoreCase);
         }
 
+        /// <summary>
+        /// Comparison method for sorting IngredientLists by Category.
+        /// </summary>
+        /// <param name="x">IngredientList x.</param>
+        /// <param name="y">IngredientList y.</param>
+        /// <returns></returns>
         private int OnComparison(IngredientList x, IngredientList y)
         {
             if (x.Category.Equals(y.Category))
@@ -189,12 +239,18 @@ namespace Relish.ViewModels
             return 1;
         }
 
+        /// <summary>
+        /// Opens the ingredient popup for editing an existing ingredient.
+        /// </summary>
         private void EditButtonPressed()
         {
             EditMode = !EditMode;
             EditToolbarText = _editMode ? Strings.Ingredients_Toolbar_Done : Strings.Ingredients_Toolbar_Edit;
         }
 
+        /// <summary>
+        /// Opens the ingredient popup for entering a new ingredient.
+        /// </summary>
         private void AddButtonPressed()
         {
             // Prevent double clicks by only allowing one popup to display at a time.
@@ -205,15 +261,21 @@ namespace Relish.ViewModels
             }
 
             var ingredientList = IngredientMasterList.ToList();
-            PopupNavigation.Instance.PushAsync(new IngredientPopup(new Ingredient(), _ingredientManager, ingredientList, true));
+            PopupNavigation.Instance.PushAsync(new IngredientPopup(new Ingredient(), _localDataManger, ingredientList, true));
         }
 
-        private async void RemoveIngredient(object parameter)
+        /// <summary>
+        /// Removes an ingredient from both the ListView collection and from the local DB.
+        /// If an ingredient category becomes empty, it will be removed from the view.
+        /// If the ingredient list becomes empty, edit mode will be exited.
+        /// </summary>
+        /// <param name="ingredientObject">The ingredient to be removed.</param>
+        private async void RemoveIngredient(object ingredientObject)
         {
-            var ingredient = (Ingredient)parameter;
+            var ingredient = (Ingredient)ingredientObject;
 
             // Remove from Database
-            Task removeTask = _ingredientManager.RemoveIngredient(ingredient);
+            Task removeTask = _localDataManger.RemoveIngredient(ingredient);
 
             // Remove from Collection
             for (int i = 0; i < IngredientMasterList.Count; i++)
@@ -231,6 +293,7 @@ namespace Relish.ViewModels
             var list = IngredientMasterList.ToList();
             IngredientMasterList = new ObservableCollection<IngredientList>(list);
 
+            // Leave edit mode if list becomes empty
             if (list.Count == 0)
             {
                 EditMode = false;

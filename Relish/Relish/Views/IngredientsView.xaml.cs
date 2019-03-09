@@ -12,13 +12,13 @@ namespace Relish.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class IngredientsView : CustomContentPage
     {
-        private readonly IngredientManager _ingredientManager;
+        private readonly LocalDataManger _localDataManger;
 
-        public IngredientsView(IngredientManager ingredientManager)
+        public IngredientsView(LocalDataManger localDataManger)
         {
-            _ingredientManager = ingredientManager;
+            _localDataManger = localDataManger;
             InitializeComponent();
-            BindingContext = new IngredientsViewModel(ingredientManager);
+            BindingContext = new IngredientsViewModel(localDataManger);
         }
 
         private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -33,7 +33,7 @@ namespace Relish.Views
             var ingredient = (Ingredient)e.Item;
             var ingredientList = ((IngredientsViewModel)BindingContext).IngredientMasterList.ToList();
 
-            PopupNavigation.Instance.PushAsync(new IngredientPopup(ingredient, _ingredientManager, ingredientList, false));
+            PopupNavigation.Instance.PushAsync(new IngredientPopup(ingredient, _localDataManger, ingredientList, false));
         }
     }
 }

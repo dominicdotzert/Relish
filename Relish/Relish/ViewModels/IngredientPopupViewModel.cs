@@ -13,7 +13,7 @@ namespace Relish.ViewModels
 {
     public class IngredientPopupViewModel : NotifyPropertyChanged
     {
-        private readonly IngredientManager _ingredientManager;
+        private readonly LocalDataManger _localDataManger;
         private readonly Ingredient _ingredient;
         private readonly List<IngredientList> _ingredientList;
         private readonly bool _newIngredient;
@@ -25,10 +25,17 @@ namespace Relish.ViewModels
         private string _ingredientNameError;
         private string _quantityError;
 
-        public IngredientPopupViewModel(Ingredient ingredient, IngredientManager ingredientManager, List<IngredientList> ingredientList, bool newIngredient)
+        /// <summary>
+        /// Initializes new ingredient popup viewmodel.
+        /// </summary>
+        /// <param name="ingredient">The ingredient object. Default values if new.</param>
+        /// <param name="localDataManger">The LocalDataManager object for saving ingredient data locally to device.</param>
+        /// <param name="ingredientList">The current list of ingredients.</param>
+        /// <param name="newIngredient">Flag for if the ingredient is new.</param>
+        public IngredientPopupViewModel(Ingredient ingredient, LocalDataManger localDataManger, List<IngredientList> ingredientList, bool newIngredient)
         {
             _ingredient = ingredient;
-            _ingredientManager = ingredientManager;
+            _localDataManger = localDataManger;
             _ingredientList = ingredientList;
             _newIngredient = newIngredient;
 
@@ -47,6 +54,9 @@ namespace Relish.ViewModels
             SaveCommand = new Command(Save);
         }
 
+        /// <summary>
+        /// Name of the ingredient.
+        /// </summary>
         public string IngredientName
         {
             get => _name;
@@ -61,6 +71,10 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Unit for the ingredient.
+        /// Units are specified in the Units enum.
+        /// </summary>
         public string Unit
         {
             get => _unit;
@@ -80,8 +94,15 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// A list of all the units defined in the Units enum.
+        /// </summary>
         public List<string> AvailableUnits { get; } = Enum.GetNames(typeof(Units)).Select(x => x).ToList();
 
+        /// <summary>
+        /// The quantity of the ingredient in the specified unit.
+        /// Will be set to -1 if the "Common" unit type is specified.
+        /// </summary>
         public float Quantity
         {
             get => _quantity;
@@ -96,6 +117,10 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// The category which the ingredient belongs to.
+        /// Categories are specified in the IngredientCategories enum.
+        /// </summary>
         public string Category
         {
             get => _category;
@@ -110,9 +135,15 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// A list of all the categories defined in the IngredientCategories enum.
+        /// </summary>
         public List<string> AvailableCategories { get; } =
             Enum.GetNames(typeof(IngredientCategories)).Select(x => x).ToList();
 
+        /// <summary>
+        /// The error string for an invalid ingredient name.
+        /// </summary>
         public string IngredientNameError
         {
             get => _ingredientNameError;
@@ -127,6 +158,9 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// The error string for an invalid quantity value.
+        /// </summary>
         public string QuantityError
         {
             get => _quantityError;
@@ -141,15 +175,28 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command for when the user presses the Cancel button.
+        /// </summary>
         public ICommand CancelCommand { get; }
 
+        /// <summary>
+        /// Command for when the user presses the Save button.
+        /// </summary>
         public ICommand SaveCommand { get; }
 
+        /// <summary>
+        /// Removes the popup from the PopupNavigation stack.
+        /// </summary>
         private async void ClosePopup()
         {
             await PopupNavigation.Instance.PopAsync();
         }
 
+        /// <summary>
+        /// Validates the entries data and saves ingredient data locally to the device if valid.
+        /// Closes the popup on success.
+        /// </summary>
         private async void Save()
         {
             IngredientNameError = string.Empty;
@@ -162,12 +209,17 @@ namespace Relish.ViewModels
                 _ingredient.Quantity = Quantity;
                 _ingredient.Unit = (Units)Enum.Parse(typeof(Units), Unit);
 
-                await _ingredientManager.SaveIngredient(_ingredient);
+                await _localDataManger.SaveIngredient(_ingredient);
                 ClosePopup();
             }
         }
 
-        // Validate that all values are valid
+        /// <summary>
+        /// Validates that an ingredient name has been entered.
+        /// Validates that a positive quantity value has been entered (if the unit is not Common).
+        /// For a new ingredient, validates that it is not a duplicate.
+        /// </summary>
+        /// <returns>Returns if all fields are valid.</returns>
         private bool Validate()
         {
             var result = true;

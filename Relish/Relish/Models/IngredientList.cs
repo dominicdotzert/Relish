@@ -3,7 +3,7 @@
 namespace Relish.Models
 {
     /// <summary>
-    /// List object with a Category label (for ListView grouping).
+    /// List<Ingredient> object with a Category label (for ListView grouping).
     /// </summary>
     public class IngredientList : List<Ingredient>
     {
