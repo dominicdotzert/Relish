@@ -1,8 +1,8 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace Relish.Models
 {

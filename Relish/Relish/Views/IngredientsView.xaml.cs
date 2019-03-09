@@ -1,21 +1,21 @@
-﻿using Relish.Models;
+﻿using System.Linq;
+using Relish.Models;
 using Relish.ViewModels;
 using Relish.Views.CustomComponents;
 using Relish.Views.Popups;
 using Rg.Plugins.Popup.Services;
-using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Relish.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class IngredientsView : CustomContentPage
-	{
+    public partial class IngredientsView : CustomContentPage
+    {
         private readonly IngredientManager _ingredientManager;
 
         public IngredientsView(IngredientManager ingredientManager)
-		{
+        {
             _ingredientManager = ingredientManager;
             InitializeComponent();
             BindingContext = new IngredientsViewModel(ingredientManager);
@@ -31,8 +31,8 @@ namespace Relish.Views
             }
 
             var ingredient = (Ingredient)e.Item;
-            var ingredientList = ((IngredientsViewModel) BindingContext).IngredientMasterList.ToList();
-            
+            var ingredientList = ((IngredientsViewModel)BindingContext).IngredientMasterList.ToList();
+
             PopupNavigation.Instance.PushAsync(new IngredientPopup(ingredient, _ingredientManager, ingredientList, false));
         }
     }

@@ -1,6 +1,6 @@
-﻿using Relish.Models;
-using System;
+﻿using System;
 using System.Globalization;
+using Relish.Models;
 using Xamarin.Forms;
 
 namespace Relish.Converters
@@ -17,6 +17,5 @@ namespace Relish.Converters
         {
             throw new NotImplementedException();
         }
-
     }
 }

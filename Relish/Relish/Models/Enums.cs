@@ -1,6 +1,6 @@
 ﻿namespace Relish.Models
 {
-    public static  class Enums
+    public static class Enums
     {
         // TODO finish implementing Units enum
         public enum Units
@@ -10,17 +10,13 @@
             g,
             kg,
             lbs,
-
             mL,
             L,
-
-            //Tsp,
-            //Tbsp,
-            //Cup,
-
-            //Oz,
-            //Pint,
-
+            ////Tsp,
+            ////Tbsp,
+            ////Cup,
+            ////Oz,
+            ////Pint,
             Common,
         }
 

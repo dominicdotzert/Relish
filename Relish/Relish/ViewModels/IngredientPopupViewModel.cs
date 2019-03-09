@@ -1,11 +1,11 @@
-﻿using Relish.Models;
-using Relish.Resources;
-using Rg.Plugins.Popup.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Relish.Models;
+using Relish.Resources;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using static Relish.Models.Enums;
 
@@ -160,7 +160,7 @@ namespace Relish.ViewModels
                 _ingredient.Name = IngredientName.Trim();
                 _ingredient.Category = (IngredientCategories)Enum.Parse(typeof(IngredientCategories), Category);
                 _ingredient.Quantity = Quantity;
-                _ingredient.Unit = (Units) Enum.Parse(typeof(Units), Unit);
+                _ingredient.Unit = (Units)Enum.Parse(typeof(Units), Unit);
 
                 await _ingredientManager.SaveIngredient(_ingredient);
                 ClosePopup();

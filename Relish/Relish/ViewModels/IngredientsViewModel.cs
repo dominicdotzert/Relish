@@ -1,14 +1,14 @@
-﻿using Relish.Models;
-using Relish.Resources;
-using Relish.Views.Popups;
-using Rg.Plugins.Popup.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Relish.Models;
+using Relish.Resources;
+using Relish.Views.Popups;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using static Relish.Models.Enums;
 
@@ -24,7 +24,6 @@ namespace Relish.ViewModels
         private string _editText;
 
         public IngredientsViewModel(IngredientManager ingredientManager)
-
         {
             _ingredientManager = ingredientManager;
             _ingredientManager.DatabaseUpdated += UpdateList;
@@ -211,7 +210,7 @@ namespace Relish.ViewModels
 
         private async void RemoveIngredient(object parameter)
         {
-            var ingredient = (Ingredient) parameter;
+            var ingredient = (Ingredient)parameter;
 
             // Remove from Database
             Task removeTask = _ingredientManager.RemoveIngredient(ingredient);
