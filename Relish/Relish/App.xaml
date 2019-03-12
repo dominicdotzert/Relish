@@ -14,6 +14,8 @@
         <converters:CommonUnitToEmptyStringConverter x:Key="NegativeToEmptyStringConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <converters:ErrorStringToVisibilityConverter x:Key="ErrorStringToVisibilityConverter"/>
+        <converters:EntryZeroValueToNotVisibleConverter x:Key="ZeroIntToFalseConverter"/>
+        <converters:IsEnabledOpacityConverter x:Key="IsEnabledOpacityConverter"/>
         
         <!--Colours-->
         <Color x:Key="MainGreen">#118D25</Color>
@@ -40,6 +42,13 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="Margin" Value="5,10"/>
             <Setter Property="Padding" Value="20"/>
+        </Style>
+
+        <Style x:Key="LoadingSpinner" TargetType="ActivityIndicator">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="IsRunning" Value="True"/>
+            <Setter Property="Color" Value="Gray"/>
         </Style>
         
     </Application.Resources>

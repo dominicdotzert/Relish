@@ -120,6 +120,36 @@
   <data name="CancelBtn" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Delete_Btn" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Filter_CookTime" xml:space="preserve">
+    <value>Cook Time</value>
+  </data>
+  <data name="Filter_Cuisine" xml:space="preserve">
+    <value>Cuisine Type</value>
+  </data>
+  <data name="Filter_Ingredient" xml:space="preserve">
+    <value>Search for specific ingredients</value>
+  </data>
+  <data name="Filter_Keyword" xml:space="preserve">
+    <value>Keyword Search</value>
+  </data>
+  <data name="Filter_MealType" xml:space="preserve">
+    <value>Meal Type</value>
+  </data>
+  <data name="Filter_PrepStyle" xml:space="preserve">
+    <value>Preperation Style</value>
+  </data>
+  <data name="Filter_PrepTime" xml:space="preserve">
+    <value>Prep Time</value>
+  </data>
+  <data name="Filter_TimeFilter_Label" xml:space="preserve">
+    <value>Enter max time (mins):</value>
+  </data>
+  <data name="Filter_UseAllIngredients" xml:space="preserve">
+    <value>Use all ingredients?</value>
+  </data>
   <data name="FindRecipesBtn" xml:space="preserve">
     <value>Find Recipes</value>
   </data>
@@ -151,13 +181,10 @@
     <value>Unit:</value>
   </data>
   <data name="Ingredients_Quantity" xml:space="preserve">
-    <value>Quantity</value>
+    <value>Qty</value>
   </data>
   <data name="Ingredients_Toolbar_Add" xml:space="preserve">
     <value>Add</value>
-  </data>
-  <data name="Ingredients_Toolbar_Delete" xml:space="preserve">
-    <value>X</value>
   </data>
   <data name="Ingredients_Toolbar_Done" xml:space="preserve">
     <value>Done</value>
@@ -190,6 +217,6 @@
     <value>Recipes</value>
   </data>
   <data name="Title_StartSearch" xml:space="preserve">
-    <value>Search</value>
+    <value>Search for Recipes</value>
   </data>
 </root>

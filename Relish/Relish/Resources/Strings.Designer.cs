@@ -70,6 +70,96 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X.
+        /// </summary>
+        internal static string Delete_Btn {
+            get {
+                return ResourceManager.GetString("Delete_Btn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cook Time.
+        /// </summary>
+        internal static string Filter_CookTime {
+            get {
+                return ResourceManager.GetString("Filter_CookTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cuisine Type.
+        /// </summary>
+        internal static string Filter_Cuisine {
+            get {
+                return ResourceManager.GetString("Filter_Cuisine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for specific ingredients.
+        /// </summary>
+        internal static string Filter_Ingredient {
+            get {
+                return ResourceManager.GetString("Filter_Ingredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyword Search.
+        /// </summary>
+        internal static string Filter_Keyword {
+            get {
+                return ResourceManager.GetString("Filter_Keyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Type.
+        /// </summary>
+        internal static string Filter_MealType {
+            get {
+                return ResourceManager.GetString("Filter_MealType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preperation Style.
+        /// </summary>
+        internal static string Filter_PrepStyle {
+            get {
+                return ResourceManager.GetString("Filter_PrepStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prep Time.
+        /// </summary>
+        internal static string Filter_PrepTime {
+            get {
+                return ResourceManager.GetString("Filter_PrepTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter max time (mins):.
+        /// </summary>
+        internal static string Filter_TimeFilter_Label {
+            get {
+                return ResourceManager.GetString("Filter_TimeFilter_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use all ingredients?.
+        /// </summary>
+        internal static string Filter_UseAllIngredients {
+            get {
+                return ResourceManager.GetString("Filter_UseAllIngredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find Recipes.
         /// </summary>
         internal static string FindRecipesBtn {
@@ -88,7 +178,7 @@ namespace Relish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantity.
+        ///   Looks up a localized string similar to Qty.
         /// </summary>
         internal static string Ingredients_Quantity {
             get {
@@ -102,15 +192,6 @@ namespace Relish.Resources {
         internal static string Ingredients_Toolbar_Add {
             get {
                 return ResourceManager.GetString("Ingredients_Toolbar_Add", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X.
-        /// </summary>
-        internal static string Ingredients_Toolbar_Delete {
-            get {
-                return ResourceManager.GetString("Ingredients_Toolbar_Delete", resourceCulture);
             }
         }
         
@@ -277,7 +358,7 @@ namespace Relish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Search for Recipes.
         /// </summary>
         internal static string Title_StartSearch {
             get {

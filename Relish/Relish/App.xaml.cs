@@ -12,8 +12,8 @@ namespace Relish
         {
             InitializeComponent();
 
-            var localDataManger = new LocalDataManger();
-            MainPage = new NavigationPage(new MainPage(localDataManger));
+            var localDataManager = new LocalDataManager();
+            MainPage = new NavigationPage(new MainPage(localDataManager));
         }
 
         protected override void OnStart()

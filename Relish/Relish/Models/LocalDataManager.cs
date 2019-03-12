@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Relish.Models.Filters;
 using SQLite;
+using SQLiteNetExtensions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace Relish.Models
 {
     /// <summary>
     /// Class for managing local data stored in a SQLite database.
     /// </summary>
-    public class LocalDataManger
+    public class LocalDataManager
     {
         private const string DatabaseName = "LocalData.db3";
         private readonly SQLiteAsyncConnection _database;
@@ -17,13 +20,14 @@ namespace Relish.Models
         /// <summary>
         /// Initializes LocalDataManager object and opens connection to local database.
         /// </summary>
-        public LocalDataManger()
+        public LocalDataManager()
         {
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseName);
             _database = new SQLiteAsyncConnection(databasePath);
 
             // Initializes table for Ingredient data.
             _database.CreateTableAsync<Ingredient>().Wait();
+            _database.CreateTableAsync<FilterData>().Wait();
 
             #region debug
 
@@ -87,6 +91,26 @@ namespace Relish.Models
         public Task<int> RemoveIngredient(Ingredient ingredient)
         {
             return _database.DeleteAsync(ingredient);
+        }
+
+        public Task SaveFilterSettings(FilterData data)
+        {
+            var countTask = _database.Table<FilterData>().CountAsync();
+
+            if (countTask.Result != 0)
+            {
+                data.Id = 1;
+                return _database.UpdateWithChildrenAsync(data);
+            }
+            else
+            {
+                return _database.InsertWithChildrenAsync(data);
+            }
+        }
+
+        public Task<FilterData> GetFilterSettings()
+        {
+            return _database.GetWithChildrenAsync<FilterData>(1);
         }
     }
 }

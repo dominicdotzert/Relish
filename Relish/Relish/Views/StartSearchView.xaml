@@ -1,17 +1,264 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <customComponents:CustomContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Relish.Views"
              xmlns:res="clr-namespace:Relish.Resources"
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.StartSearchView"
              NavigationPage.HasNavigationBar="False"
              Title="{x:Static res:Strings.Title_StartSearch}">
-    <ContentPage.Content>
+
+    <customComponents:CustomContentPage.Resources>
+        <Style x:Key="FilterNameLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style x:Key="IngredientNameLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+        </Style>
+
+        <Style x:Key="TimeFilterLabel" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+        </Style>
+
+        <Style x:Key="TimeEntry" TargetType="Entry">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Keyboard" Value="Numeric"/>
+        </Style>
+
+        <Style x:Key="CategoryPicker" TargetType="Picker">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+        </Style>
+    </customComponents:CustomContentPage.Resources>
+
+    <customComponents:CustomContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Save"
+            Order="Secondary"
+            Priority="0"
+            Command="{Binding SaveCommand}"/>
+
+        <ToolbarItem
+            Text="Reset to defaults"
+            Order="Secondary"
+            Priority="1"
+            Command="{Binding ClearFiltersCommand}"/>
+    </customComponents:CustomContentPage.ToolbarItems>
+
+    <customComponents:CustomContentPage.Content>
         <StackLayout>
-            <Label Text="Search Page!!!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ActivityIndicator
+                IsVisible="{Binding DataLoaded, Converter={StaticResource InverseBooleanConverter}}"
+                Style="{StaticResource LoadingSpinner}"/>
+
+            <ScrollView
+                IsVisible="{Binding DataLoaded}">
+                <StackLayout>
+                    <!--Keyword Filter-->
+                    <Label
+                        Margin="20,20,20,0"
+                        Style="{StaticResource FilterNameLabel}"
+                        Text="{x:Static res:Strings.Filter_Keyword}"/>
+                    <Entry
+                        Margin="20,0"
+                        HorizontalOptions="Fill"
+                        Placeholder="Enter keyword search..."
+                        Text="{Binding KeywordString, Mode=TwoWay}">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </Entry>
+
+                    <!--Use all ingredient checkbox-->
+                    <StackLayout
+                        Margin="20,20,20,0"
+                        Orientation="Horizontal">
+                        <Label
+                            Style="{StaticResource FilterNameLabel}"
+                            HorizontalOptions="StartAndExpand"
+                            Text="{x:Static res:Strings.Filter_UseAllIngredients}"/>
+                        <Button
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            Text="{Binding UseAllIngredientsText}"
+                            Command="{Binding UseAllIngredientsCommand}"/>
+                    </StackLayout>
+
+                    <!--Selected Ingredient ListView-->
+                    <Label
+                        Margin="20,20,20,0"
+                        Style="{StaticResource FilterNameLabel}"
+                        Text="{x:Static res:Strings.Filter_Ingredient}"
+                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"/>
+                    <StackLayout
+                        x:Name="IngredientListLayout"
+                        Margin="20,0"
+                        IsEnabled="{Binding UseAllIngredients, Converter={StaticResource InverseBooleanConverter}}"
+                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"
+                        BackgroundColor="{StaticResource BackgroundGreen}"
+                        BindableLayout.ItemsSource="{Binding SelectedIngredients}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="2"
+                                    HorizontalOptions="Fill">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Style="{StaticResource IngredientNameLabel}"
+                                        Text="{Binding Name}"/>
+                                    <Label
+                                        Grid.Column="1"
+                                        FontSize="10"
+                                        VerticalOptions="Center"
+                                        Text="{Binding UnitDisplayName}"/>
+                                    <Button
+                                        Grid.Column="2"
+                                        TextColor="Red"
+                                        BackgroundColor="{StaticResource BackgroundGreen}"
+                                        Text="{x:Static res:Strings.Delete_Btn}"
+                                        Command="{Binding Path=BindingContext.RemoveIngredientCommand, Source={x:Reference IngredientListLayout}}"
+                                        CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <Button
+                        Margin="0,0,20,0"
+                        HorizontalOptions="End"
+                        IsEnabled="{Binding UseAllIngredients, Converter={StaticResource InverseBooleanConverter}}"
+                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"
+                        Text="+"
+                        FontSize="24"
+                        Command="{Binding SpecifyIngredientCommand}"/>
+
+                    <!--Prep time filter-->
+                    <Label
+                        Margin="20,20,20,0"
+                        Style="{StaticResource FilterNameLabel}"
+                        Text="{x:Static res:Strings.Filter_PrepTime}"/>
+                    <StackLayout
+                        Margin="20,0"
+                        HorizontalOptions="Fill"
+                        Orientation="Horizontal">
+                        <!--<Entry Style="{StaticResource TimeEntry}"/>
+                        <Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="mins -"/>-->
+                        <Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
+                        <Entry
+                            Style="{StaticResource TimeEntry}"
+                            Text="{Binding PrepTime, Mode=TwoWay, Converter={StaticResource ZeroIntToFalseConverter}}"/>
+                        <!--<Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="mins"/>-->
+                    </StackLayout>
+
+                    <!--Cook time filter-->
+                    <Label
+                        Margin="20,20,20,0"
+                        Style="{StaticResource FilterNameLabel}"
+                        Text="{x:Static res:Strings.Filter_CookTime}"/>
+                    <StackLayout
+                        Margin="20,0"
+                        HorizontalOptions="Fill"
+                        Orientation="Horizontal">
+                        <!--<Entry Style="{StaticResource TimeEntry}"/>
+                        <Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="mins -"/>-->
+                        <Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
+                        <Entry
+                            Style="{StaticResource TimeEntry}"
+                            Text="{Binding CookTime, Mode=TwoWay, Converter={StaticResource ZeroIntToFalseConverter}}"/>
+                        <!--<Label
+                            Style="{StaticResource TimeFilterLabel}"
+                            Text="mins"/>-->
+                    </StackLayout>
+
+                    <!--Category Filters-->
+                    <Grid Margin="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!--Cuisine Type-->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Style="{StaticResource FilterNameLabel}"
+                            Text="{x:Static res:Strings.Filter_Cuisine}"/>
+                        <Picker
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Style="{StaticResource CategoryPicker}"
+                            ItemsSource="{Binding CuisineTypes}"
+                            SelectedItem="{Binding Cuisine, Mode=TwoWay}"/>
+
+                        <!--Preparation Style-->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Style="{StaticResource FilterNameLabel}"
+                            Text="{x:Static res:Strings.Filter_PrepStyle}"/>
+                        <Picker
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Style="{StaticResource CategoryPicker}"
+                            ItemsSource="{Binding PrepTypes}"
+                            SelectedItem="{Binding PrepType, Mode=TwoWay}"/>
+                        
+                        <!--Meal Type-->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Style="{StaticResource FilterNameLabel}"
+                            Text="{x:Static res:Strings.Filter_MealType}"/>
+                        <Picker
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Style="{StaticResource CategoryPicker}"
+                            ItemsSource="{Binding MealTypes}"
+                            SelectedItem="{Binding MealType, Mode=TwoWay}"/>
+                    </Grid>
+
+                    <Button
+                        IsVisible="{Binding DataLoaded}"
+                        Margin="20"
+                        HorizontalOptions="Fill"
+                        FontSize="24"
+                        FontFamily="Bold"
+                        Text="SEARCH"
+                        TextColor="{StaticResource MainGreen}"
+                        BackgroundColor="{StaticResource BackgroundGreen}"/>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-    </ContentPage.Content>
+    </customComponents:CustomContentPage.Content>
 </customComponents:CustomContentPage>

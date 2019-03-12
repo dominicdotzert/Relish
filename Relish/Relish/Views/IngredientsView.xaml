@@ -58,10 +58,7 @@
     <StackLayout>
         <ActivityIndicator
             IsVisible="{Binding IngredientsLoaded, Converter={StaticResource InverseBooleanConverter}}"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            IsRunning="True"
-            Color="Gray"/>
+            Style="{StaticResource LoadingSpinner}"/>
 
         <ListView
             x:Name="IngredientListView"
@@ -104,7 +101,7 @@
                                 IsVisible="{Binding Path=BindingContext.EditMode, Source={x:Reference Name=IngredientListView}}"
                                 Grid.Column="1"
                                 Style="{StaticResource DeleteButton}"
-                                Text="{x:Static res:Strings.Ingredients_Toolbar_Delete}"
+                                Text="{x:Static res:Strings.Delete_Btn}"
                                 Command="{Binding Path=BindingContext.RemoveIngredientCommand, Source={x:Reference Name=IngredientListView}}"
                                 CommandParameter="{Binding}"/>
                         </Grid>

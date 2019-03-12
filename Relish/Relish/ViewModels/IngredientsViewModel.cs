@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Relish.Models;
 using Relish.Resources;
+using Relish.Utilities;
 using Relish.Views.Popups;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ namespace Relish.ViewModels
 {
     public class IngredientsViewModel : NotifyPropertyChanged
     {
-        private readonly LocalDataManger _localDataManger;
+        private readonly LocalDataManager _localDataManager;
 
         private ObservableCollection<IngredientList> _ingredientMasterList;
         private bool _loaded;
@@ -26,11 +27,11 @@ namespace Relish.ViewModels
         /// <summary>
         /// Initializes the ingredients page viewmodel.
         /// </summary>
-        /// <param name="localDataManger">The LocalDataManger object for accessing saved ingredient data.</param>
-        public IngredientsViewModel(LocalDataManger localDataManger)
+        /// <param name="localDataManager">The LocalDataManager object for accessing saved ingredient data.</param>
+        public IngredientsViewModel(LocalDataManager localDataManager)
         {
-            _localDataManger = localDataManger;
-            _localDataManger.IngredientTableUpdated += UpdateList;
+            _localDataManager = localDataManager;
+            _localDataManager.IngredientTableUpdated += UpdateList;
 
             EditToolbarText = Strings.Ingredients_Toolbar_Edit;
 
@@ -139,7 +140,7 @@ namespace Relish.ViewModels
         private async Task<ObservableCollection<IngredientList>> LoadIngredientList()
         {
             // Load all ingredients saved on the users device.
-            var flatIngredientsList = await _localDataManger.GetIngredients();
+            var flatIngredientsList = await _localDataManager.GetIngredients();
 
             // Initialize list of IngredientLists to required by ListView.
             var ingredientsList = new List<IngredientList>();
@@ -183,7 +184,7 @@ namespace Relish.ViewModels
                         if (list.Category == ingredient.Category.ToString())
                         {
                             list.Ingredients.Add(ingredient);
-                            list.Sort(OnIngredientComparison);
+                            list.Sort(IngredientComparisons.CompareIngredients);
                             break;
                         }
                     }
@@ -193,7 +194,7 @@ namespace Relish.ViewModels
                 {
                     var list = IngredientMasterList.ToList();
                     list.Add(new IngredientList(ingredient.Category) { ingredient });
-                    list.Sort(OnComparison);
+                    list.Sort(IngredientComparisons.CompareIngredientLists);
 
                     IngredientMasterList = new ObservableCollection<IngredientList>(list);
                     return;
@@ -204,42 +205,7 @@ namespace Relish.ViewModels
             IngredientMasterList = new ObservableCollection<IngredientList>(IngredientMasterList.ToList());
         }
 
-        /// <summary>
-        /// Comparison method for sorting Ingredients by name.
-        /// </summary>
-        /// <param name="x">Ingredient x.</param>
-        /// <param name="y">Ingredient y.</param>
-        /// <returns></returns>
-        private int OnIngredientComparison(Ingredient x, Ingredient y)
-        {
-            return string.Compare(x.Name, y.Name, CultureInfo.CurrentCulture, CompareOptions.IgnoreCase);
-        }
-
-        /// <summary>
-        /// Comparison method for sorting IngredientLists by Category.
-        /// </summary>
-        /// <param name="x">IngredientList x.</param>
-        /// <param name="y">IngredientList y.</param>
-        /// <returns></returns>
-        private int OnComparison(IngredientList x, IngredientList y)
-        {
-            if (x.Category.Equals(y.Category))
-            {
-                return 0;
-            }
-
-            var a = (IngredientCategories)Enum.Parse(typeof(IngredientCategories), x.Category);
-            var b = (IngredientCategories)Enum.Parse(typeof(IngredientCategories), y.Category);
-
-            if (a < b)
-            {
-                return -1;
-            }
-
-            return 1;
-        }
-
-        /// <summary>
+       /// <summary>
         /// Opens the ingredient popup for editing an existing ingredient.
         /// </summary>
         private void EditButtonPressed()
@@ -261,7 +227,7 @@ namespace Relish.ViewModels
             }
 
             var ingredientList = IngredientMasterList.ToList();
-            PopupNavigation.Instance.PushAsync(new IngredientPopup(new Ingredient(), _localDataManger, ingredientList, true));
+            PopupNavigation.Instance.PushAsync(new IngredientPopup(new Ingredient(), _localDataManager, ingredientList, true));
         }
 
         /// <summary>
@@ -275,7 +241,7 @@ namespace Relish.ViewModels
             var ingredient = (Ingredient)ingredientObject;
 
             // Remove from Database
-            Task removeTask = _localDataManger.RemoveIngredient(ingredient);
+            Task removeTask = _localDataManager.RemoveIngredient(ingredient);
 
             // Remove from Collection
             for (int i = 0; i < IngredientMasterList.Count; i++)

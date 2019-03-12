@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Relish.Models
+namespace Relish.Models.Filters
 {
-    public abstract class Filter
+    class CategoryFilter
     {
     }
 }

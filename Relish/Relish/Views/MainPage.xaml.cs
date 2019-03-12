@@ -8,11 +8,11 @@ namespace Relish.Views
 {
     public partial class MainPage : ContentPage
     {
-        private readonly LocalDataManger _localDataManger;
+        private readonly LocalDataManager _localDataManager;
 
-        public MainPage(LocalDataManger localDataManger)
+        public MainPage(LocalDataManager localDataManager)
         {
-            _localDataManger = localDataManger;
+            _localDataManager = localDataManager;
 
             InitializeComponent();
             BindingContext = new MainPageViewModel();
@@ -20,12 +20,12 @@ namespace Relish.Views
 
         private async void SearchButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new StartSearchView());
+            await NewPage(new StartSearchView(_localDataManager));
         }
 
         private async void IngredientsButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new IngredientsView(_localDataManger));
+            await NewPage(new IngredientsView(_localDataManager));
         }
 
         private async void RecipeButton_OnClicked(object sender, EventArgs e)
@@ -40,14 +40,15 @@ namespace Relish.Views
 
         private async void GroceryListButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new GroceryListView());
+            await NewPage(new GroceryListView(_localDataManager));
         }
 
         // Prevent double clicks of button
         private async Task NewPage(Page page)
         {
             var stack = Navigation.NavigationStack;
-            if (stack[stack.Count - 1].GetType() != page.GetType())
+            ////if (stack[stack.Count - 1].GetType() != page.GetType())
+            if (stack.Count == 1)
             {
                 await Navigation.PushAsync(page);
             }

@@ -9,10 +9,10 @@ namespace Relish.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class IngredientPopup : PopupPage
     {
-        public IngredientPopup(Ingredient ingredient, LocalDataManger localDataManger, List<IngredientList> ingredientList, bool newIngredient)
+        public IngredientPopup(Ingredient ingredient, LocalDataManager localDataManager, List<IngredientList> ingredientList, bool newIngredient)
         {
             InitializeComponent();
-            BindingContext = new IngredientPopupViewModel(ingredient, localDataManger, ingredientList, newIngredient);
+            BindingContext = new IngredientPopupViewModel(ingredient, localDataManager, ingredientList, newIngredient);
         }
     }
 }

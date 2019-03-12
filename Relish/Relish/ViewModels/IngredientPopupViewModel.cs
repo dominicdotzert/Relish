@@ -13,7 +13,7 @@ namespace Relish.ViewModels
 {
     public class IngredientPopupViewModel : NotifyPropertyChanged
     {
-        private readonly LocalDataManger _localDataManger;
+        private readonly LocalDataManager _localDataManager;
         private readonly Ingredient _ingredient;
         private readonly List<IngredientList> _ingredientList;
         private readonly bool _newIngredient;
@@ -29,13 +29,13 @@ namespace Relish.ViewModels
         /// Initializes new ingredient popup viewmodel.
         /// </summary>
         /// <param name="ingredient">The ingredient object. Default values if new.</param>
-        /// <param name="localDataManger">The LocalDataManager object for saving ingredient data locally to device.</param>
+        /// <param name="localDataManager">The LocalDataManager object for saving ingredient data locally to device.</param>
         /// <param name="ingredientList">The current list of ingredients.</param>
         /// <param name="newIngredient">Flag for if the ingredient is new.</param>
-        public IngredientPopupViewModel(Ingredient ingredient, LocalDataManger localDataManger, List<IngredientList> ingredientList, bool newIngredient)
+        public IngredientPopupViewModel(Ingredient ingredient, LocalDataManager localDataManager, List<IngredientList> ingredientList, bool newIngredient)
         {
             _ingredient = ingredient;
-            _localDataManger = localDataManger;
+            _localDataManager = localDataManager;
             _ingredientList = ingredientList;
             _newIngredient = newIngredient;
 
@@ -209,7 +209,7 @@ namespace Relish.ViewModels
                 _ingredient.Quantity = Quantity;
                 _ingredient.Unit = (Units)Enum.Parse(typeof(Units), Unit);
 
-                await _localDataManger.SaveIngredient(_ingredient);
+                await _localDataManager.SaveIngredient(_ingredient);
                 ClosePopup();
             }
         }
