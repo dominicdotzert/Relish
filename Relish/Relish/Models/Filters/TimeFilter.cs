@@ -1,16 +1,19 @@
-﻿using System;
-using static Relish.Models.Enums;
-
+﻿
 namespace Relish.Models.Filters
 {
     public class TimeFilter : Filter
     {
-        public TimeFilter(FilterAttribute filterAttribute) : base(filterAttribute)
+        private readonly int _maxTime;
+
+        public TimeFilter(Enums.FilterTypes filterType, int maxTime) : base(filterType)
         {
+            _maxTime = maxTime;
         }
 
-        public TimeSpan LowerBound { get; set; }
-
-        public TimeSpan UpperBound { get; set; }
+        public override string ReturnQueryElement()
+        {
+            ////return $"\"{FilterType.ToString()}\" : {_maxTime}";
+            return $"{FilterType}={_maxTime}";
+        }
     }
 }

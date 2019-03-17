@@ -256,7 +256,8 @@
                         FontFamily="Bold"
                         Text="SEARCH"
                         TextColor="{StaticResource MainGreen}"
-                        BackgroundColor="{StaticResource BackgroundGreen}"/>
+                        BackgroundColor="{StaticResource BackgroundGreen}"
+                        Command="{Binding SearchCommand}"/>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

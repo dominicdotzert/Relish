@@ -4,32 +4,33 @@ using static Relish.Models.Enums;
 
 namespace Relish.Utilities
 {
+    // TODO add remaining enums
     public static class EnumToFriendlyStringConverter
     {
-        public static string FilterAttributeToString(FilterAttribute attribute)
+        public static string FilterAttributeToString(FilterTypes type)
         {
-            switch (attribute)
+            switch (type)
             {
-                case FilterAttribute.Ingredients:
+                case FilterTypes.Ingredients:
                     return Strings.Filter_Ingredient;
 
-                case FilterAttribute.PrepTime:
+                case FilterTypes.PrepTime:
                     return Strings.Filter_PrepTime;
 
-                case FilterAttribute.CookTime:
+                case FilterTypes.CookTime:
                     return Strings.Filter_CookTime;
 
-                case FilterAttribute.Cuisine:
+                case FilterTypes.Cuisine:
                     return Strings.Filter_Cuisine;
 
-                case FilterAttribute.PrepStyle:
+                case FilterTypes.PrepStyle:
                     return Strings.Filter_PrepStyle;
 
-                case FilterAttribute.MealType:
+                case FilterTypes.MealType:
                     return Strings.Filter_MealType;
 
                 default:
-                    return attribute.ToString();
+                    return type.ToString();
             }
         }
     }

@@ -358,6 +358,15 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        internal static string Title_Results {
+            get {
+                return ResourceManager.GetString("Title_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for Recipes.
         /// </summary>
         internal static string Title_StartSearch {

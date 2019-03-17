@@ -13,7 +13,7 @@ namespace Relish.Views
         public StartSearchView(LocalDataManager localDataManager)
         {
             InitializeComponent();
-            BindingContext = new StartSearchViewModel(localDataManager);
+            BindingContext = new StartSearchViewModel(localDataManager, Navigation);
         }
     }
 }

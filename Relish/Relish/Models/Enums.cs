@@ -1,5 +1,6 @@
 ﻿namespace Relish.Models
 {
+    // TODO: Cindy to update enums.
     public static class Enums
     {
         public enum Cuisines
@@ -11,8 +12,9 @@
             French
         }
 
-        public enum FilterAttribute
+        public enum FilterTypes
         {
+            Keyword,
             Ingredients,
             PrepTime,
             CookTime,
@@ -21,7 +23,6 @@
             MealType,
         }
 
-        // TODO finish implementing IngredientsCategories enum
         public enum IngredientCategories
         {
             Meat,
@@ -47,7 +48,6 @@
             BBQ
         }
 
-        // TODO finish implementing Units enum
         public enum Units
         {
             Quantity,

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using static Relish.Models.Enums;
 
 namespace Relish.Models

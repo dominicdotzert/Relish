@@ -216,6 +216,9 @@
   <data name="Title_Recipes" xml:space="preserve">
     <value>Recipes</value>
   </data>
+  <data name="Title_Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
   <data name="Title_StartSearch" xml:space="preserve">
     <value>Search for Recipes</value>
   </data>

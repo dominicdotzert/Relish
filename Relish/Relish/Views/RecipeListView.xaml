@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:res="clr-namespace:Relish.Resources"
+             x:Class="Relish.Views.RecipeListView"
+             Title="{x:Static res:Strings.Title_Results}">
+
+    <ContentPage.Resources>
+        <Style x:Key="RecipeResultsList" TargetType="ListView">
+            <Setter Property="HasUnevenRows" Value="True"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="SeparatorColor" Value="{StaticResource MainGreen}"/>
+        </Style>
+
+        <Style x:Key="RecipeResult" TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontFamily" Value="Bold"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator
+                Style="{StaticResource LoadingSpinner}"
+                IsVisible="{Binding SearchComplete, Converter={StaticResource InverseBooleanConverter}}"/>
+            <ListView
+                Style="{StaticResource RecipeResultsList}"
+                IsVisible="{Binding SearchComplete}"
+                ItemsSource="{Binding RecipeResults}"
+                CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Orientation="Horizontal"
+                                HorizontalOptions="Fill">
+                                <Image
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    Source="{Binding ImageUrl}"/>
+                                <Label
+                                    Style="{StaticResource RecipeResult}"
+                                    Margin="20, 10"
+                                    Text="{Binding Name}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

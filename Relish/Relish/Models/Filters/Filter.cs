@@ -1,4 +1,5 @@
-﻿using Relish.Utilities;
+﻿using System;
+using Relish.Utilities;
 using static Relish.Models.Enums;
 
 namespace Relish.Models.Filters
@@ -6,17 +7,13 @@ namespace Relish.Models.Filters
 {
     public abstract class Filter
     {
-        protected Filter(FilterAttribute filterAttribute)
+        protected Filter(FilterTypes filterType)
         {
-            FriendlyName = EnumToFriendlyStringConverter.FilterAttributeToString(filterAttribute);
-            FilterAttribute = filterAttribute;
+            FilterType = filterType;
         }
+        
+        public FilterTypes FilterType { get; }
 
-        /// <summary>
-        /// Name of the filter. Descriptive name which will be displayed in UI.
-        /// </summary>
-        public string FriendlyName { get; }
-
-        public FilterAttribute FilterAttribute { get; }
+        public abstract string ReturnQueryElement();
     }
 }

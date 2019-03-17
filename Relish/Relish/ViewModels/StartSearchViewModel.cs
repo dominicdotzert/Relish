@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Relish.Database;
 using Relish.Models;
 using Relish.Models.Filters;
+using Relish.Views;
 using Relish.Views.Popups;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
@@ -16,6 +18,7 @@ namespace Relish.ViewModels
     public class StartSearchViewModel : NotifyPropertyChanged
     {
         private readonly LocalDataManager _localDataManager;
+        private readonly INavigation _navigation;
 
         private string _keywordString;
         private bool _useAllIngredients = true;
@@ -26,9 +29,10 @@ namespace Relish.ViewModels
         private string _prepType;
         private bool _dataLoaded;
 
-        public StartSearchViewModel(LocalDataManager localDataManager)
+        public StartSearchViewModel(LocalDataManager localDataManager, INavigation navigation)
         {
             _localDataManager = localDataManager;
+            _navigation = navigation;
 
             SelectedIngredients = new ObservableCollection<Ingredient>();
             Cuisine = Cuisines.All.ToString();
@@ -298,9 +302,70 @@ namespace Relish.ViewModels
             SelectedIngredients.Remove(ingredient);
         }
 
-        private void BeginSearch()
+        private async void BeginSearch()
         {
+            if (!Validate())
+            {
+                return;
+            }
+
             // Construct filters
+            var filterList = new List<Filter>();
+
+            if (!string.IsNullOrEmpty(KeywordString))
+            {
+                //filterList.Add(new KeywordFilter(FilterTypes.Keyword, KeywordString)));
+            }
+
+            if (UseAllIngredients)
+            {
+                //filterList.Add(new IngredientFilter());
+            }
+            else
+            {
+                //filterList.Add(new IngredientFilter());
+            }
+
+            if (PrepTime > 0)
+            {
+                filterList.Add(new TimeFilter(FilterTypes.PrepTime, PrepTime));
+            }
+
+            if (CookTime > 0)
+            {
+                filterList.Add(new TimeFilter(FilterTypes.CookTime, CookTime));
+            }
+
+            //filterList.Add(new CategoryFilter(FilterTypes.Cuisine, Cuisine));
+            //filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepType));
+            //filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType));
+
+            var query = new SearchQuery(filterList);
+            await _navigation.PushAsync(new RecipeListView(query));
+        }
+
+        private bool Validate()
+        {
+            if (_navigation.NavigationStack[_navigation.NavigationStack.Count - 1].GetType() == typeof(RecipeListView))
+            {
+                return false;
+            }
+
+            // User must specify ingredients if they are not using all ingredients
+            if (!UseAllIngredients && SelectedIngredients.Count == 0)
+            {
+                // TODO set error string
+                return false;
+            }
+
+            if (Ingredients.Count == 0)
+            {
+                // TODO set error string
+                SaveFilterData();
+                return false;
+            }
+
+            return true;
         }
     }
 }
