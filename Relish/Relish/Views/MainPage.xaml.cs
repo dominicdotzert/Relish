@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Relish.Models;
+using System.Net.Http;
 using Relish.ViewModels;
+using Relish.Controllers;
 using Xamarin.Forms;
 
 namespace Relish.Views
@@ -9,6 +11,7 @@ namespace Relish.Views
     public partial class MainPage : ContentPage
     {
         private readonly LocalDataManger _localDataManger;
+        private ISearchController searchController;
 
         public MainPage(LocalDataManger localDataManger)
         {
@@ -20,6 +23,10 @@ namespace Relish.Views
 
         private async void SearchButton_OnClicked(object sender, EventArgs e)
         {
+            searchController = new SearchController();
+
+            var content = await searchController.GetRecipeAsync();
+
             await NewPage(new StartSearchView());
         }
 

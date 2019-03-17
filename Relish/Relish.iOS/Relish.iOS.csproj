@@ -153,7 +153,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Relish\Relish.csproj">
-      <Project>{2BB0B6E6-C800-43FF-8A06-0FF63F110D64}</Project>
+      <Project>{133A86AB-6692-4AF8-8078-D50E29B0D0F4}</Project>
       <Name>Relish</Name>
     </ProjectReference>
   </ItemGroup>
