@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Relish.Converters
 {
-    public class EntryZeroValueToNotVisibleConverter : IValueConverter
+    public class ZeroIntToFalseConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

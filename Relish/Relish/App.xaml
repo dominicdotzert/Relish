@@ -13,8 +13,8 @@
         <converters:CommonUnitToDisabledConverter x:Key="CommonUnitToDisabledConverter"/>
         <converters:CommonUnitToEmptyStringConverter x:Key="NegativeToEmptyStringConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-        <converters:ErrorStringToVisibilityConverter x:Key="ErrorStringToVisibilityConverter"/>
-        <converters:EntryZeroValueToNotVisibleConverter x:Key="ZeroIntToFalseConverter"/>
+        <converters:EmptyStringToNotVisibleConverter x:Key="EmptyStringToNotVisibleConverter"/>
+        <converters:ZeroIntToFalseConverter x:Key="ZeroIntToFalseConverter"/>
         <converters:IsEnabledOpacityConverter x:Key="IsEnabledOpacityConverter"/>
         
         <!--Colours-->

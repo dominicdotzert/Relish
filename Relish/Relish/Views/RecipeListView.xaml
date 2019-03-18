@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:res="clr-namespace:Relish.Resources"
+             xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.RecipeListView"
              Title="{x:Static res:Strings.Title_Results}">
 
@@ -14,8 +15,9 @@
 
         <Style x:Key="RecipeResult" TargetType="Label">
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="FontFamily" Value="Bold"/>
-            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
         </Style>
     </ContentPage.Resources>
@@ -29,7 +31,13 @@
                 Style="{StaticResource RecipeResultsList}"
                 IsVisible="{Binding SearchComplete}"
                 ItemsSource="{Binding RecipeResults}"
-                CachingStrategy="RecycleElement">
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
+                SelectionMode="None"
+                SeparatorColor="{StaticResource MainGreen}">
+                <ListView.Behaviors>
+                    <customComponents:ListViewTappedBehaviour Command="{Binding OpenRecipeCommand}"/>
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -40,10 +48,33 @@
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"
                                     Source="{Binding ImageUrl}"/>
-                                <Label
-                                    Style="{StaticResource RecipeResult}"
-                                    Margin="20, 10"
-                                    Text="{Binding Name}"/>
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    HorizontalOptions="Fill">
+                                    <Label
+                                        Style="{StaticResource RecipeResult}"
+                                        Margin="20, 10"
+                                        Text="{Binding Name}"/>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Margin="20, 10"
+                                        IsVisible="{Binding ServingSize, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
+                                        Text="{Binding ServingSize}"/>
+                                    <StackLayout
+                                        Orientation="Horizontal"
+                                        HorizontalOptions="Fill">
+                                        <Label
+                                            HorizontalOptions="Start"
+                                            Margin="20, 10"
+                                            IsVisible="{Binding PrepTime, Converter={StaticResource ZeroIntToFalseConverter}}"
+                                            Text="{Binding PrepTime, StringFormat={x:Static res:Strings.Results_PrepTime}}"/> 
+                                        <Label
+                                            HorizontalOptions="End"
+                                            Margin="20, 10"
+                                            IsVisible="{Binding CookTime, Converter={StaticResource ZeroIntToFalseConverter}}"
+                                            Text="{Binding CookTime, StringFormat={x:Static res:Strings.Results_CookTime}}"/>
+                                    </StackLayout>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

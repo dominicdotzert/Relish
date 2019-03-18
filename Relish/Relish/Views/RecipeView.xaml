@@ -6,9 +6,11 @@
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.RecipeView"
              Title="{x:Static res:Strings.Title_Recipes}">
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Recipes!!!"
+            <Label 
+                Text="{Binding Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

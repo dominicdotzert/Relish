@@ -11,7 +11,7 @@ namespace Relish.Views
 		public RecipeListView(SearchQuery query)
 		{
 			InitializeComponent();
-            BindingContext = new RecipeListViewModel(query);
+            BindingContext = new RecipeListViewModel(query, Navigation);
         }
 	}
 }

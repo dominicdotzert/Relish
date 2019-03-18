@@ -268,7 +268,7 @@ namespace Relish.ViewModels
         private void SpecifyNewIngredient()
         {
             var stack = PopupNavigation.Instance.PopupStack;
-            if (stack.Count != 0)
+            if (stack[stack.Count - 1].GetType() == typeof(IngredientFilterPopup))
             {
                 return;
             }

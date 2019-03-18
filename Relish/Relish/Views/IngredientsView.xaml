@@ -65,9 +65,11 @@
             IsVisible="{Binding IngredientsLoaded}"
             SelectionMode="None"
             ItemsSource="{Binding IngredientMasterList}"
-            ItemTapped="ListView_OnItemTapped"
             HasUnevenRows="True"
             IsGroupingEnabled="True">
+            <ListView.Behaviors>
+                <customComponents:ListViewTappedBehaviour Command="{Binding EditIngredientCommand}"/>
+            </ListView.Behaviors>
             <ListView.GroupHeaderTemplate>
                 <DataTemplate>
                     <ViewCell>

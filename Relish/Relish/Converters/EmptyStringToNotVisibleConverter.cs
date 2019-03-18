@@ -5,11 +5,11 @@ using Xamarin.Forms;
 namespace Relish.Converters
 {
     /// <summary>
-    /// Converter class for checking if an error string is empty.
+    /// Converter class for checking if a string is empty.
     ///
-    /// Usage: sets the IsVisible property of an error label element to true if its error string is not empty.
+    /// Usage: sets the IsVisible property of an label element to true if its string is not empty.
     /// </summary>
-    public class ErrorStringToVisibilityConverter : IValueConverter
+    public class EmptyStringToNotVisibleConverter : IValueConverter
     {
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.Popups.IngredientFilterPopup">
     
     <pages:PopupPage.Animation>
@@ -24,11 +25,13 @@
             Margin="15"
             Padding="10"
             VerticalOptions="Center"
-            HorizontalOptions="Center"> 
+            HorizontalOptions="Center">
             <ListView
                 SelectionMode="None"
-                ItemsSource="{Binding UnselectedIngredients}"
-                ItemTapped="ListView_OnItemTapped">
+                ItemsSource="{Binding UnselectedIngredients}">
+                <ListView.Behaviors>
+                    <customComponents:ListViewTappedBehaviour Command="{Binding IngredientTappedCommand}"/>
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

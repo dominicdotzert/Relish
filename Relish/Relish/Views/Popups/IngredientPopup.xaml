@@ -58,7 +58,7 @@
         </Entry>
 
         <Label
-            IsVisible="{Binding IngredientNameError, Converter={StaticResource ErrorStringToVisibilityConverter}}"
+            IsVisible="{Binding IngredientNameError, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
             Style="{StaticResource PopupErrorLabel}"
             Text="{Binding IngredientNameError}"/>
 
@@ -108,7 +108,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.Row="2"
-                IsVisible="{Binding QuantityError, Converter={StaticResource ErrorStringToVisibilityConverter}}"
+                IsVisible="{Binding QuantityError, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
                 Style="{StaticResource PopupErrorLabel}"
                 Text="{Binding QuantityError}"/>
 

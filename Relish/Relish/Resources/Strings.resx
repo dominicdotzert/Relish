@@ -198,6 +198,12 @@
   <data name="RecipeBookBtn" xml:space="preserve">
     <value>Recipe Book</value>
   </data>
+  <data name="Results_CookTime" xml:space="preserve">
+    <value>Cook time: {0}</value>
+  </data>
+  <data name="Results_PrepTime" xml:space="preserve">
+    <value>Prep time: {0}</value>
+  </data>
   <data name="SaveBtn" xml:space="preserve">
     <value>Save</value>
   </data>

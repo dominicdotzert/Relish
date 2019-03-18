@@ -304,6 +304,24 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cook time: {0}.
+        /// </summary>
+        internal static string Results_CookTime {
+            get {
+                return ResourceManager.GetString("Results_CookTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prep time: {0}.
+        /// </summary>
+        internal static string Results_PrepTime {
+            get {
+                return ResourceManager.GetString("Results_PrepTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string SaveBtn {

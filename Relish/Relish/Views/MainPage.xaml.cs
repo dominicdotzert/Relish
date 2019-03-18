@@ -28,9 +28,8 @@ namespace Relish.Views
             await NewPage(new IngredientsView(_localDataManager));
         }
 
-        private async void RecipeButton_OnClicked(object sender, EventArgs e)
+        private void RecipeButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new RecipeView());
         }
 
         private async void MealPlanButton_OnClicked(object sender, EventArgs e)
@@ -47,7 +46,6 @@ namespace Relish.Views
         private async Task NewPage(Page page)
         {
             var stack = Navigation.NavigationStack;
-            ////if (stack[stack.Count - 1].GetType() != page.GetType())
             if (stack.Count == 1)
             {
                 await Navigation.PushAsync(page);

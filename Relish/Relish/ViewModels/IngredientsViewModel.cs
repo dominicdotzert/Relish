@@ -38,6 +38,7 @@ namespace Relish.ViewModels
             EditToolbarCommand = new Command(EditButtonPressed);
             AddToolbarCommand = new Command(AddButtonPressed);
             RemoveIngredientCommand = new Command(RemoveIngredient);
+            EditIngredientCommand = new Command(EditIngredient);
 
             Task.Run(async () =>
             {
@@ -124,14 +125,19 @@ namespace Relish.ViewModels
         public ICommand EditToolbarCommand { get; }
 
         /// <summary>
+        /// Command for removing an ingredient item.
+        /// </summary>
+        public ICommand RemoveIngredientCommand { get; }
+
+        /// <summary>
         /// Command for pressing the Add toolbar button.
         /// </summary>
         public ICommand AddToolbarCommand { get; }
 
         /// <summary>
-        /// Command for removing an ingredient item.
+        /// Command for editing an ingredient item.
         /// </summary>
-        public ICommand RemoveIngredientCommand { get; }
+        public ICommand EditIngredientCommand { get; }
 
         /// <summary>
         /// Loads the saved ingredient data from the local device database.
@@ -221,13 +227,32 @@ namespace Relish.ViewModels
         {
             // Prevent double clicks by only allowing one popup to display at a time.
             var stack = PopupNavigation.Instance.PopupStack;
-            if (stack.Count != 0)
+            if (stack[stack.Count-1].GetType() == typeof(IngredientPopup))
             {
                 return;
             }
 
             var ingredientList = IngredientMasterList.ToList();
             PopupNavigation.Instance.PushAsync(new IngredientPopup(new Ingredient(), _localDataManager, ingredientList, true));
+        }
+
+        /// <summary>
+        /// Opens the ingredient popup for editing an existing ingredient.
+        /// </summary>
+        /// <param name="ingredientObject">The ingredient to be edited.</param>
+        private void EditIngredient(object ingredientObject)
+        {
+            var ingredient = (Ingredient)ingredientObject;
+
+            // Prevent double clicks by only allowing one popup to display at a time.
+            var stack = PopupNavigation.Instance.PopupStack;
+            if (stack[stack.Count - 1].GetType() == typeof(IngredientPopup))
+            {
+                return;
+            }
+
+            var ingredientList = IngredientMasterList.ToList();
+            PopupNavigation.Instance.PushAsync(new IngredientPopup(ingredient, _localDataManager, ingredientList, false));
         }
 
         /// <summary>
