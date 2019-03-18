@@ -4,6 +4,7 @@
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              xmlns:res="clr-namespace:Relish.Resources"
              x:Class="Relish.Views.IngredientsView"
+             NavigationPage.HasNavigationBar="False"
              Title="{x:Static res:Strings.Title_Ingredients}">
 
     <customComponents:CustomContentPage.Resources>

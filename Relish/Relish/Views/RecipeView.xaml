@@ -4,8 +4,7 @@
              xmlns:views="clr-namespace:Relish.Views"
              xmlns:res="clr-namespace:Relish.Resources"
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
-             x:Class="Relish.Views.RecipeView"
-             Title="{x:Static res:Strings.Title_Recipes}">
+             x:Class="Relish.Views.RecipeView">
     
     <ContentPage.Content>
         <StackLayout>

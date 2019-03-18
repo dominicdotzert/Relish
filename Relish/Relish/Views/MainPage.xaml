@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:res="clr-namespace:Relish.Resources"
              x:Class="Relish.Views.MainPage"
-             NavigationPage.HasNavigationBar="False"
-             Title="{x:Static res:Strings.Title_Home}">
+             NavigationPage.HasNavigationBar="False">
 
     <StackLayout
         Orientation="Vertical"

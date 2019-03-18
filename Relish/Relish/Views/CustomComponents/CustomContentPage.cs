@@ -19,7 +19,10 @@ namespace Relish.Views.CustomComponents
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            NavigationPage.SetHasNavigationBar(this, false);
+            if (Navigation.NavigationStack.Count == 2)
+            {
+                NavigationPage.SetHasNavigationBar(this, false);
+            }
         }
     }
 }

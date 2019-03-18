@@ -1,10 +1,6 @@
-﻿using System.Linq;
-using Relish.Models;
+﻿using Relish.Models;
 using Relish.ViewModels;
 using Relish.Views.CustomComponents;
-using Relish.Views.Popups;
-using Rg.Plugins.Popup.Services;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Relish.Views
