@@ -1,9 +1,6 @@
-﻿using System;
-using Relish.Utilities;
-using static Relish.Models.Enums;
+﻿using static Relish.Models.Enums;
 
 namespace Relish.Models.Filters
-
 {
     public abstract class Filter
     {

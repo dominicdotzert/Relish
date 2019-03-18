@@ -1,5 +1,4 @@
-﻿
-namespace Relish.Models.Filters
+﻿namespace Relish.Models.Filters
 {
     public class TimeFilter : Filter
     {

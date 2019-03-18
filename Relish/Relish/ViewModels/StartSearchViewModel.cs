@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Relish.Database;
+using Relish.Data;
 using Relish.Models;
 using Relish.Models.Filters;
 using Relish.Views;
@@ -268,7 +268,7 @@ namespace Relish.ViewModels
         private void SpecifyNewIngredient()
         {
             var stack = PopupNavigation.Instance.PopupStack;
-            if (stack[stack.Count - 1].GetType() == typeof(IngredientFilterPopup))
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(IngredientFilterPopup))
             {
                 return;
             }
@@ -309,6 +309,8 @@ namespace Relish.ViewModels
                 return;
             }
 
+            SaveFilterData();
+
             // Construct filters
             var filterList = new List<Filter>();
 
@@ -344,9 +346,11 @@ namespace Relish.ViewModels
             await _navigation.PushAsync(new RecipeListView(query));
         }
 
+        // TODO Implement filter validation
         private bool Validate()
         {
-            if (_navigation.NavigationStack[_navigation.NavigationStack.Count - 1].GetType() == typeof(RecipeListView))
+            var stack = _navigation.NavigationStack;
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(RecipeListView))
             {
                 return false;
             }

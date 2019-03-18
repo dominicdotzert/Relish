@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Relish.Models;
 using Relish.Models.Filters;
 using SQLite;
-using SQLiteNetExtensions;
 using SQLiteNetExtensionsAsync.Extensions;
 
-namespace Relish.Models
+namespace Relish.Data
 {
     /// <summary>
     /// Class for managing local data stored in a SQLite database.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Relish.Database;
+using Relish.Data;
 using Relish.Models;
 using Relish.Views;
 using Xamarin.Forms;
@@ -50,7 +50,8 @@ namespace Relish.ViewModels
 
         private void OpenRecipe(object recipeObject)
         {
-            if (_navigation.NavigationStack[_navigation.NavigationStack.Count - 1].GetType() == typeof(RecipeView))
+            var stack = _navigation.NavigationStack;
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(RecipeView))
             {
                 return;
             }

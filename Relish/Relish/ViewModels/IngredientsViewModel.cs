@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Relish.Data;
 using Relish.Models;
 using Relish.Resources;
 using Relish.Utilities;
@@ -227,7 +227,7 @@ namespace Relish.ViewModels
         {
             // Prevent double clicks by only allowing one popup to display at a time.
             var stack = PopupNavigation.Instance.PopupStack;
-            if (stack[stack.Count-1].GetType() == typeof(IngredientPopup))
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(IngredientPopup))
             {
                 return;
             }
@@ -246,7 +246,7 @@ namespace Relish.ViewModels
 
             // Prevent double clicks by only allowing one popup to display at a time.
             var stack = PopupNavigation.Instance.PopupStack;
-            if (stack[stack.Count - 1].GetType() == typeof(IngredientPopup))
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(IngredientPopup))
             {
                 return;
             }

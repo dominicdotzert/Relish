@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Relish.Models;
 using Relish.Models.Filters;
-using Xamarin.Forms;
 
-namespace Relish.Database
+namespace Relish.Data
 {
     public class SearchQuery
     {

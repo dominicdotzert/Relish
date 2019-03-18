@@ -1,4 +1,4 @@
-﻿using Relish.Models;
+﻿using Relish.Data;
 using Relish.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

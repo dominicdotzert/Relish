@@ -4,7 +4,6 @@ using Xamarin.Forms;
 
 namespace Relish.Views.CustomComponents
 {
-    // TODO document behaviour class and remove Converter
     class ListViewTappedBehaviour : Behavior<ListView>
     {
         public static readonly BindableProperty CommandProperty = 
@@ -13,22 +12,10 @@ namespace Relish.Views.CustomComponents
                 typeof(ICommand),
                 typeof(ListViewTappedBehaviour));
 
-        public static readonly BindableProperty InputConverterProperty =
-            BindableProperty.Create(
-                nameof(Converter),
-                typeof(IValueConverter),
-                typeof(ListViewTappedBehaviour));
-
         public ICommand Command
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
-        }
-
-        public IValueConverter Converter
-        {
-            get => (IValueConverter)GetValue(InputConverterProperty);
-            set => SetValue(InputConverterProperty, value);
         }
 
         public ListView AssociatedObject { get; private set; }

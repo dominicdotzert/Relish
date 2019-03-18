@@ -41,9 +41,12 @@ namespace Relish.ViewModels
 
         private void AddIngredient(object ingredientObject)
         {
-            var ingredient = (Ingredient)ingredientObject;
-            _addIngredient(ingredient);
-            PopupNavigation.Instance.PopAsync();
+            if (PopupNavigation.Instance.PopupStack.Count > 0)
+            {
+                var ingredient = (Ingredient)ingredientObject;
+                _addIngredient(ingredient);
+                PopupNavigation.Instance.PopAsync();
+            }
         }
     }
 }

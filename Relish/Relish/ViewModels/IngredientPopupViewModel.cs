@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Relish.Data;
 using Relish.Models;
 using Relish.Resources;
 using Rg.Plugins.Popup.Services;
@@ -190,7 +191,10 @@ namespace Relish.ViewModels
         /// </summary>
         private async void ClosePopup()
         {
-            await PopupNavigation.Instance.PopAsync();
+            if (PopupNavigation.Instance.PopupStack.Count > 0)
+            {
+                await PopupNavigation.Instance.PopAsync();
+            }
         }
 
         /// <summary>
