@@ -7,22 +7,38 @@ namespace Relish.Models
     {
         public Recipe(
             string name,
+            string thumbnailUrl,
             string imageUrl,
+            string url,
             string servingSize,
             int prepTime,
-            int cookTime)
+            int cookTime,
+            string cuisine,
+            string prepStyle,
+            string mealType,
+            List<string> ingredients,
+            List<string> directions)
         {
             Name = name;
+            ThumbnailUrl = thumbnailUrl;
             ImageUrl = imageUrl;
+            Url = url;
             ServingSize = servingSize;
             PrepTime = prepTime;
             CookTime = cookTime;
+            Cuisine = cuisine;
+            PrepStyle = prepStyle;
+            MealType = mealType;
+            Ingredients = ingredients;
+            Directions = directions;
         }
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; }
+
+        public string ThumbnailUrl { get; }
         
         public string ImageUrl { get; }
 
@@ -43,5 +59,9 @@ namespace Relish.Models
         public string MealType { get; }
 
         public string ServingSize { get; }
+
+        public bool IsMealPrepped { get; set; }
+
+        public bool IsSaved { get; set; }
     }
 }

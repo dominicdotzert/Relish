@@ -5,13 +5,113 @@
              xmlns:res="clr-namespace:Relish.Resources"
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
              x:Class="Relish.Views.RecipeView">
-    
-    <ContentPage.Content>
-        <StackLayout>
-            <Label 
-                Text="{Binding Name}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <customComponents:CustomContentPage.Resources>
+        <Style x:Key="TitleLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+
+        <Style x:Key="TextLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="IngredientsLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Italic"/>
+            <Setter Property="Margin" Value="15, 5"/>
+        </Style>
+
+        <Style x:Key="DirectionsLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="15, 5"/>
+        </Style>
+    </customComponents:CustomContentPage.Resources>
+
+    <customComponents:CustomContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label 
+                    Style="{StaticResource TitleLabel}"
+                    Text="{Binding Name}"/>
+                <Image
+                    Margin="0,20"
+                    Source="{Binding ImageUrl}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding PrepTime}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding CookTime}"/>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding Servings}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding Cuisine}"/>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding PrepStyle}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Style="{StaticResource TextLabel}"
+                        Text="{Binding MealType}"/>
+                </Grid>
+                <Label
+                    Style="{StaticResource TextLabel}"
+                    Text="Ingredients:"/>
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding Ingredients}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                Style="{StaticResource IngredientsLabel}"
+                                Text="{Binding}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label
+                    Style="{StaticResource TextLabel}"
+                    Text="Directions:"/>
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding Directions}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                Style="{StaticResource DirectionsLabel}"
+                                Text="{Binding}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </customComponents:CustomContentPage.Content>
 </customComponents:CustomContentPage>
