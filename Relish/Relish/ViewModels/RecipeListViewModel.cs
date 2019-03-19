@@ -10,12 +10,14 @@ namespace Relish.ViewModels
 {
     public class RecipeListViewModel : NotifyPropertyChanged
     {
+        private readonly LocalDataManager _localDataManager;
         private readonly INavigation _navigation;
 
         private bool _searchComplete;
 
-        public RecipeListViewModel(SearchQuery query, INavigation navigation)
+        public RecipeListViewModel(SearchQuery query, LocalDataManager localDataManager, INavigation navigation)
         {
+            _localDataManager = localDataManager;
             _navigation = navigation;
 
             OpenRecipeCommand = new Command(OpenRecipe);
@@ -57,7 +59,7 @@ namespace Relish.ViewModels
             }
 
             var recipe = (Recipe)recipeObject;
-            _navigation.PushAsync(new RecipeView(recipe));
+            _navigation.PushAsync(new RecipeView(recipe, _localDataManager));
         }
     }
 }

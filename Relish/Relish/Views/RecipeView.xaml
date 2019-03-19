@@ -38,6 +38,22 @@
     <customComponents:CustomContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Text="{Binding SaveButtonText}"
+                        HorizontalOptions="Fill"
+                        Command="{Binding SaveCommand}"/>
+                    <Button
+                        Grid.Column="1"
+                        Text="{Binding PrepareButtonText}"
+                        HorizontalOptions="Fill"
+                        Command="{Binding PrepareCommand}"/>
+                </Grid>
                 <Label 
                     Style="{StaticResource TitleLabel}"
                     Text="{Binding Name}"/>

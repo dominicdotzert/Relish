@@ -13,11 +13,13 @@ namespace Relish.Data
         private const string GetRecipesEndPoint = @"/dbAPI/recipes/getRecipe/filter?";
 
         private readonly List<Filter> _filterList;
+        private readonly LocalDataManager _localDataManager;
         private readonly HttpClient _client;
 
-        public SearchQuery(List<Filter> filterList)
+        public SearchQuery(List<Filter> filterList, LocalDataManager localDataManager)
         {
             _filterList = filterList;
+            _localDataManager = localDataManager;
             _client = new HttpClient()
             {
                 BaseAddress = new Uri(BaseUrl)
@@ -48,16 +50,30 @@ namespace Relish.Data
             ////    return null;
             ////}
 
-            await Task.Delay(TimeSpan.FromSeconds(3));
+            await Task.Delay(TimeSpan.FromSeconds(1));
 
-            return DummySearchData.RecipeResults1;
+            var list = DummySearchData.RecipeResults1;
+            var savedRecipes = await _localDataManager.GetRecipes();
+            foreach (var r in list)
+            {
+                foreach (var saved in savedRecipes)
+                {
+                    if (r.Url == saved.Url)
+                    {
+                        r.IsSaved = saved.IsSaved;
+                        r.IsMealPrepped = saved.IsMealPrepped;
+                    }
+                }
+            }
+
+            return list;
         }
     }
 
     public static class DummySearchData
     {
         public static List<Recipe> RecipeResults1 =>
-            new List<Recipe>()
+            new List<Recipe>
             {
                 new Recipe(
                     "Corned Beef and Cabbage",
@@ -75,7 +91,7 @@ namespace Relish.Data
                 new Recipe(
                     "Chicken Curry with Sweet Potato and Lemongrass",
                     "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
+                    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2.jpg",
                     "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
                     "4 to 6 servings",
                     5,

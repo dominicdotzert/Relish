@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace Relish.Models
 {
     public class Recipe
     {
+        public Recipe()
+        {
+        }
+
         public Recipe(
             string name,
             string thumbnailUrl,
@@ -36,29 +41,35 @@ namespace Relish.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public string ThumbnailUrl { get; }
+        public string ThumbnailUrl { get; set; }
         
-        public string ImageUrl { get; }
+        public string ImageUrl { get; set; }
 
-        public string Url { get; }
+        public string Url { get; set; }
 
-        public List<string> Ingredients { get; }
+        [TextBlob(nameof(IngredientsBlobbed))]
+        public List<string> Ingredients { get; set; }
 
-        public List<string> Directions { get; }
+        public string IngredientsBlobbed { get; set; }
 
-        public int PrepTime { get; }
+        [TextBlob(nameof(DirectionsBlobbed))]
+        public List<string> Directions { get; set; }
 
-        public int CookTime { get; }
+        public string DirectionsBlobbed { get; set; }
 
-        public string Cuisine { get; }
+        public int PrepTime { get; set; }
 
-        public string PrepStyle { get; }
+        public int CookTime { get; set; }
 
-        public string MealType { get; }
+        public string Cuisine { get; set; }
 
-        public string ServingSize { get; }
+        public string PrepStyle { get; set; }
+
+        public string MealType { get; set; }
+
+        public string ServingSize { get; set; }
 
         public bool IsMealPrepped { get; set; }
 

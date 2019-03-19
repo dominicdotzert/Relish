@@ -28,6 +28,7 @@ namespace Relish.Data
             // Initializes table for Ingredient data.
             _database.CreateTableAsync<Ingredient>().Wait();
             _database.CreateTableAsync<FilterData>().Wait();
+            _database.CreateTableAsync<Recipe>().Wait();
 
             #region debug
 
@@ -111,6 +112,30 @@ namespace Relish.Data
         public Task<FilterData> GetFilterSettings()
         {
             return _database.GetWithChildrenAsync<FilterData>(1);
+        }
+
+        public Task<List<Recipe>> GetRecipes()
+        {
+            return _database.GetAllWithChildrenAsync<Recipe>(null, true);
+        }
+
+        public Task UpdateRecipe(Recipe recipe)
+        {
+            if (recipe.IsMealPrepped || recipe.IsSaved)
+            {
+                if (recipe.Id != 0)
+                {
+                    return _database.UpdateWithChildrenAsync(recipe);
+                }
+                else
+                {
+                    return _database.InsertWithChildrenAsync(recipe);
+                }
+            }
+            else
+            {
+                return _database.DeleteAsync(recipe);
+            }
         }
     }
 }

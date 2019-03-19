@@ -342,8 +342,8 @@ namespace Relish.ViewModels
             //filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepType));
             //filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType));
 
-            var query = new SearchQuery(filterList);
-            await _navigation.PushAsync(new RecipeListView(query));
+            var query = new SearchQuery(filterList, _localDataManager);
+            await _navigation.PushAsync(new RecipeListView(query, _localDataManager));
         }
 
         // TODO Implement filter validation
