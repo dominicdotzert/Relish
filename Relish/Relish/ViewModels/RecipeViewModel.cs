@@ -36,7 +36,7 @@ namespace Relish.ViewModels
 
         public string Cuisine => $"Cuisine: {_recipe.Cuisine}";
 
-        public string PrepStyle => $"Prep Time: {_recipe.PrepStyle}";
+        public string PrepStyle => $"Prep Style: {_recipe.PrepStyle}";
 
         public string MealType => $"Meal Type: {_recipe.MealType}";
 
@@ -59,7 +59,8 @@ namespace Relish.ViewModels
             }
         }
 
-        public string SaveButtonText => !Saved ? "Save" : "Unsave";
+        public string SaveButtonText => !Saved ?
+            "Add to recipe book" : "Remove from recipe book";
 
         public bool Prepared
         {
@@ -76,7 +77,8 @@ namespace Relish.ViewModels
             }
         }
 
-        public string PrepareButtonText => !Prepared ? "Prepare" : "Unprepare";
+        public string PrepareButtonText => !Prepared ?
+            "Add to Meal Prep" : "Remove from Meal Prep";
 
         public ICommand SaveCommand { get; }
 

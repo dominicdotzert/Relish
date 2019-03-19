@@ -11,6 +11,7 @@ namespace Relish.Data
     {
         private const string BaseUrl = @"https://us-central1-relish-4f211.cloudfunctions.net";
         private const string GetRecipesEndPoint = @"/dbAPI/recipes/getRecipe/filter?";
+        private const string TestEndPoint = @"/dbAPI/recipes/getRecipe?id=JuTShfnKv5uBofHpGrSK";
 
         private readonly List<Filter> _filterList;
         private readonly LocalDataManager _localDataManager;
