@@ -11,7 +11,7 @@ namespace Relish.Data
     {
         private const string BaseUrl = @"https://us-central1-relish-4f211.cloudfunctions.net";
         private const string GetRecipesEndPoint = @"/dbAPI/recipes/getRecipe/filter?";
-        private const string TestEndPoint = @"/dbAPI/recipes/getRecipe?id=JuTShfnKv5uBofHpGrSK";
+        private const string TestEndPoint = @"/dbAPI/recipes/getRecipe?id=wcmrXAzXCS8zB1NxpPuU";
 
         private readonly List<Filter> _filterList;
         private readonly LocalDataManager _localDataManager;
@@ -21,7 +21,7 @@ namespace Relish.Data
         {
             _filterList = filterList;
             _localDataManager = localDataManager;
-            _client = new HttpClient()
+            _client = new HttpClient
             {
                 BaseAddress = new Uri(BaseUrl)
             };
@@ -29,33 +29,44 @@ namespace Relish.Data
 
         public async Task<List<Recipe>> StartSearch()
         {
-            ////var query = GetRecipesEndPoint;
+            // TODO remove fake list
+            await Task.Delay(500);
+            return DummySearchData.RecipeResults1;
 
-            ////for (int i = 0; i < _filterList.Count; i++)
-            ////{
-            ////    if (i != 0)
-            ////    {
-            ////        query += "&";
-            ////    }
-            ////    query += _filterList[i].ReturnQueryElement();
-            ////}
+            // Get query
+            var query = FormQuery();
 
-            ////var response = await _client.GetAsync(query);
+            // Hit endpoint and await response
+            HttpResponseMessage response;
+            try
+            {
+                response = await _client.GetAsync(query);
+            }
+            catch (HttpRequestException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                throw;
+            }
 
-            ////try
-            ////{
-            ////    var content = await response.Content.ReadAsStringAsync();
-            ////}
-            ////catch
-            ////{
-            ////    return null;
-            ////}
+            // Extract response
+            var content = await response.Content.ReadAsStringAsync();
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            if (string.IsNullOrEmpty(content))
+            {
+                return new List<Recipe>(); // return empty list
+            }
 
-            var list = DummySearchData.RecipeResults1;
+            // Parse response
+            var recipes = JsonParser.ParseJson(content);
+
+            if (recipes.Count == 0)
+            {
+                return recipes;
+            }
+
+            // Check if any recipes were previously saved and update recipe flags
             var savedRecipes = await _localDataManager.GetRecipes();
-            foreach (var r in list)
+            foreach (var r in recipes)
             {
                 foreach (var saved in savedRecipes)
                 {
@@ -67,7 +78,25 @@ namespace Relish.Data
                 }
             }
 
-            return list;
+            return recipes;
+        }
+
+        private string FormQuery()
+        {
+            // TODO implement query when database is ready
+            ////var query = GetRecipesEndPoint;
+
+            ////for (int i = 0; i < _filterList.Count; i++)
+            ////{
+            ////    if (i != 0)
+            ////    {
+            ////        query += "&";
+            ////    }
+            ////    query += _filterList[i].ReturnQueryElement();
+            ////}
+
+            // For testing
+            return TestEndPoint;
         }
     }
 

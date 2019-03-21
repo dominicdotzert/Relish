@@ -267,12 +267,14 @@ namespace Relish.ViewModels
 
         private void SpecifyNewIngredient()
         {
+            // Prevent button double clicks
             var stack = PopupNavigation.Instance.PopupStack;
             if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(IngredientFilterPopup))
             {
                 return;
             }
 
+            // Don't open popup if all ingredients have already been specified
             if (SelectedIngredients.Count == Ingredients.Count)
             {
                 return;
@@ -304,28 +306,26 @@ namespace Relish.ViewModels
 
         private async void BeginSearch()
         {
+            // Verify all filter inputs are valid
             if (!Validate())
             {
                 return;
             }
 
+            // Save filter data on valid search
             SaveFilterData();
 
             // Construct filters
-            var filterList = new List<Filter>();
+            var filterList = new List<Filter>
+            {
+                UseAllIngredients
+                    ? new IngredientFilter(FilterTypes.Ingredients, SelectedIngredients.ToList())
+                    : new IngredientFilter(FilterTypes.Ingredients, Ingredients)
+            };
 
             if (!string.IsNullOrEmpty(KeywordString))
             {
-                //filterList.Add(new KeywordFilter(FilterTypes.Keyword, KeywordString)));
-            }
-
-            if (UseAllIngredients)
-            {
-                //filterList.Add(new IngredientFilter());
-            }
-            else
-            {
-                //filterList.Add(new IngredientFilter());
+                filterList.Add(new KeywordFilter(FilterTypes.Keyword, KeywordString));
             }
 
             if (PrepTime > 0)
@@ -338,17 +338,29 @@ namespace Relish.ViewModels
                 filterList.Add(new TimeFilter(FilterTypes.CookTime, CookTime));
             }
 
-            //filterList.Add(new CategoryFilter(FilterTypes.Cuisine, Cuisine));
-            //filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepType));
-            //filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType));
+            if (Cuisine != Cuisines.All.ToString())
+            {
+                filterList.Add(new CategoryFilter(FilterTypes.Cuisine, Cuisine));
+            }
 
+            if (PrepType != Enums.PrepTypes.All.ToString())
+            {
+                filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepType)); 
+            }
+
+            if (MealType != Enums.MealType.All.ToString())
+            {
+                filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType)); 
+            }
+            
             var query = new SearchQuery(filterList, _localDataManager);
-            await _navigation.PushAsync(new RecipeListView(query, _localDataManager));
+            await _navigation.PushAsync(new RecipeListView(query.StartSearch(), _localDataManager, "No recipes found."));
         }
 
         // TODO Implement filter validation
         private bool Validate()
         {
+            // Prevent double clicks
             var stack = _navigation.NavigationStack;
             if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(RecipeListView))
             {

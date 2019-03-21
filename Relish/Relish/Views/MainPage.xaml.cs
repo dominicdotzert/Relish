@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Relish.Data;
-using Relish.Models;
 using Relish.ViewModels;
 using Xamarin.Forms;
 

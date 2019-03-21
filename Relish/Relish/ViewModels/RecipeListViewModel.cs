@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Relish.Data;
@@ -13,26 +14,51 @@ namespace Relish.ViewModels
         private readonly LocalDataManager _localDataManager;
         private readonly INavigation _navigation;
 
+        private bool _loadError;
         private bool _searchComplete;
 
-        public RecipeListViewModel(SearchQuery query, LocalDataManager localDataManager, INavigation navigation)
+        public RecipeListViewModel(Task<List<Recipe>> loadTask, LocalDataManager localDataManager, string noResultsString, INavigation navigation)
         {
             _localDataManager = localDataManager;
             _navigation = navigation;
 
+            NoResultsString = noResultsString;
             OpenRecipeCommand = new Command(OpenRecipe);
-
+            
             Task.Run(async () =>
             {
-                var result = await query.StartSearch();
+                try
+                {
+                    var result = await loadTask;
+                    RecipeResults = new ObservableCollection<Recipe>(result);
+                }
+                catch
+                {
+                    LoadError = true;
+                    RecipeResults = new ObservableCollection<Recipe>();
+                    return;
+                }
 
                 SearchComplete = true;
-                RecipeResults = new ObservableCollection<Recipe>(result);
                 OnPropertyChanged(nameof(RecipeResults));
             });
         }
 
         public ICommand OpenRecipeCommand { get; }
+
+        public bool LoadError
+        {
+            get => _loadError;
+
+            set
+            {
+                if (_loadError != value)
+                {
+                    _loadError = value;
+                    OnPropertyChanged(nameof(LoadError));
+                }
+            }
+        }
 
         public bool SearchComplete
         {
@@ -44,9 +70,14 @@ namespace Relish.ViewModels
                 {
                     _searchComplete = value;
                     OnPropertyChanged(nameof(SearchComplete));
+                    OnPropertyChanged(nameof(SearchHasResults));
                 } 
             }
         }
+
+        public bool SearchHasResults => !LoadError && RecipeResults.Count != 0;
+
+        public string NoResultsString { get; }
 
         public ObservableCollection<Recipe> RecipeResults { get; private set; }
 

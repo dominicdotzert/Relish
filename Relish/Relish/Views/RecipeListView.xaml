@@ -27,59 +27,68 @@
             <ActivityIndicator
                 Style="{StaticResource LoadingSpinner}"
                 IsVisible="{Binding SearchComplete, Converter={StaticResource InverseBooleanConverter}}"/>
-            <ListView
+            <StackLayout IsVisible="{Binding SearchComplete}">
+                <Label
+                    IsVisible="{Binding LoadError}"
+                    Text="Load error"/>
+                <Label
+                    IsVisible="{Binding SearchHasResults, Converter={StaticResource InverseBooleanConverter}}"
+                    Text="No results"/>
+                <Label/>
+                <ListView
                 Style="{StaticResource RecipeResultsList}"
-                IsVisible="{Binding SearchComplete}"
+                IsVisible="{Binding SearchHasResults}"
                 ItemsSource="{Binding RecipeResults}"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
                 SelectionMode="None"
                 SeparatorColor="{StaticResource MainGreen}">
-                <ListView.Behaviors>
-                    <customComponents:ListViewTappedBehaviour Command="{Binding OpenRecipeCommand}"/>
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout
+                    <ListView.Behaviors>
+                        <customComponents:ListViewTappedBehaviour Command="{Binding OpenRecipeCommand}"/>
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout
                                 Orientation="Horizontal"
                                 HorizontalOptions="Fill">
-                                <Image
+                                    <Image
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"
                                     Source="{Binding ThumbnailUrl}"/>
-                                <StackLayout
+                                    <StackLayout
                                     Orientation="Vertical"
                                     HorizontalOptions="Fill">
-                                    <Label
+                                        <Label
                                         Style="{StaticResource RecipeResult}"
                                         Margin="20, 10"
                                         Text="{Binding Name}"/>
-                                    <Label
+                                        <Label
                                         HorizontalOptions="Center"
                                         Margin="20, 10"
                                         IsVisible="{Binding ServingSize, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
                                         Text="{Binding ServingSize}"/>
-                                    <StackLayout
+                                        <StackLayout
                                         Orientation="Horizontal"
                                         HorizontalOptions="Fill">
-                                        <Label
+                                            <Label
                                             HorizontalOptions="Start"
                                             Margin="20, 10"
                                             IsVisible="{Binding PrepTime, Converter={StaticResource ZeroIntToFalseConverter}}"
-                                            Text="{Binding PrepTime, StringFormat={x:Static res:Strings.Results_PrepTime}}"/> 
-                                        <Label
+                                            Text="{Binding PrepTime, StringFormat={x:Static res:Strings.Results_PrepTime}}"/>
+                                            <Label
                                             HorizontalOptions="End"
                                             Margin="20, 10"
                                             IsVisible="{Binding CookTime, Converter={StaticResource ZeroIntToFalseConverter}}"
                                             Text="{Binding CookTime, StringFormat={x:Static res:Strings.Results_CookTime}}"/>
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </customComponents:CustomContentPage>

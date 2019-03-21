@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Relish.Data;
 
 namespace Relish.Models.Filters
 {
     public class IngredientFilter : Filter
     {
-        public IngredientFilter(Enums.FilterTypes filterType, LocalDataManager localDataManager)
+        private List<Ingredient> _ingredients;
+
+        public IngredientFilter(Enums.FilterTypes filterType, List<Ingredient> ingredients)
             : base(filterType)
         {
-            Task.Run(async () => AllIngredients = await localDataManager.GetIngredients());
+            _ingredients = ingredients;
         }
-
-        public List<Ingredient> AllIngredients { get; private set; }
 
         public override string ReturnQueryElement()
         {

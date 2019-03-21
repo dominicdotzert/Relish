@@ -38,6 +38,14 @@
         </Style>
     </customComponents:CustomContentPage.Resources>
 
+    <customComponents:CustomContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Open in Browser"
+            Order="Secondary"
+            Priority="0"
+            Command="{Binding OpenInBrowserCommand}"/>
+    </customComponents:CustomContentPage.ToolbarItems>
+
     <customComponents:CustomContentPage.Content>
         <ScrollView>
             <StackLayout>

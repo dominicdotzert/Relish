@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Relish.Data;
 using Relish.Models;
@@ -16,6 +17,7 @@ namespace Relish.ViewModels
             _recipe = recipe;
             _localDataManager = localDataManager;
 
+            OpenInBrowserCommand = new Command(OpenInBrowser);
             SaveCommand = new Command(ToggleSaved);
             PrepareCommand = new Command(TogglePrepared);
         }
@@ -80,9 +82,19 @@ namespace Relish.ViewModels
         public string PrepareButtonText => !Prepared ?
             "Add to Meal Prep" : "Remove from Meal Prep";
 
+        public ICommand OpenInBrowserCommand { get; }
+
         public ICommand SaveCommand { get; }
 
         public ICommand PrepareCommand { get; }
+
+        private void OpenInBrowser()
+        {
+            if (_recipe.Url != null)
+            {
+                Device.OpenUri(new Uri(_recipe.Url));
+            }
+        }
 
         private void ToggleSaved()
         {
@@ -96,7 +108,6 @@ namespace Relish.ViewModels
             Prepared = !Prepared;
 
             await _localDataManager.UpdateRecipe(_recipe);
-            var result = await _localDataManager.GetRecipes();
         }
     }
 }

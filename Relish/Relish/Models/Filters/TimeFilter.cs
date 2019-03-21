@@ -11,7 +11,6 @@
 
         public override string ReturnQueryElement()
         {
-            ////return $"\"{FilterType.ToString()}\" : {_maxTime}";
             return $"{FilterType}={_maxTime}";
         }
     }
