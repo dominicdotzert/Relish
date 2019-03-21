@@ -225,10 +225,10 @@ namespace Relish.ViewModels
                         }
                     }
                 }
-            });
 
-            // Update saved filter data in case an ingredient is no longer in inventory.
-            SaveFilterData();
+                // Update saved filter data in case an ingredient is no longer in inventory.
+                SaveFilterData();
+            });
         }
 
         private void SaveFilterData()

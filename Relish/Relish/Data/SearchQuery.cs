@@ -30,7 +30,7 @@ namespace Relish.Data
         public async Task<List<Recipe>> StartSearch()
         {
             // TODO remove fake list
-            await Task.Delay(500);
+            await Task.Delay(TimeSpan.FromSeconds(1));
             return DummySearchData.RecipeResults1;
 
             // Get query
