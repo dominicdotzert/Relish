@@ -181,37 +181,62 @@ namespace Relish.ViewModels
         {
             var ingredient = (Ingredient)sender;
 
-            // Check if item has changed
+            // Check if ingredient is new
             if (ingredient.Id == 0)
             {
-                // Check if category is already in IngredientMasterList
-                if (IngredientMasterList.Any(i => i.Category.Equals(ingredient.Category.ToString())))
+                InsertIngredient(ingredient);
+            }
+            // Check if the category has changed and re-insert it if it has
+            else
+            {
+                foreach (var ingredientList in IngredientMasterList)
                 {
-                    // Add ingredient to the ObservableCollection
-                    foreach (var list in IngredientMasterList)
+                    if (ingredientList.Category != ingredient.Category.ToString() &&
+                        ingredientList.Ingredients.Select(list => list.Name).Contains(ingredient.Name))
                     {
-                        if (list.Category == ingredient.Category.ToString())
-                        {
-                            list.Ingredients.Add(ingredient);
-                            list.Sort(IngredientComparisons.CompareIngredients);
-                            break;
-                        }
-                    }
-                }
-                // If not, add the category
-                else
-                {
-                    var list = IngredientMasterList.ToList();
-                    list.Add(new IngredientList(ingredient.Category) { ingredient });
-                    list.Sort(IngredientComparisons.CompareIngredientLists);
+                        ingredientList.Remove(ingredient);
 
-                    IngredientMasterList = new ObservableCollection<IngredientList>(list);
-                    return;
+                        if (ingredientList.Ingredients.Count == 0)
+                        {
+                            IngredientMasterList.Remove(ingredientList);
+                        }
+
+                        InsertIngredient(ingredient);
+                        break;
+                    }
                 }
             }
 
             // Force ObservableCollection to update
             IngredientMasterList = new ObservableCollection<IngredientList>(IngredientMasterList.ToList());
+        }
+
+        private void InsertIngredient(Ingredient ingredient)
+        {
+            // Check if category is already in IngredientMasterList
+            if (IngredientMasterList.Any(i => i.Category == ingredient.Category.ToString()))
+            {
+                // Add ingredient to the ObservableCollection
+                foreach (var list in IngredientMasterList)
+                {
+                    if (list.Category == ingredient.Category.ToString())
+                    {
+                        list.Ingredients.Add(ingredient);
+                        list.Sort(IngredientComparisons.CompareIngredients);
+                        break;
+                    }
+                }
+            }
+            // If not, add the category
+            else
+            {
+                var list = IngredientMasterList.ToList();
+                list.Add(new IngredientList(ingredient.Category) { ingredient });
+                list.Sort(IngredientComparisons.CompareIngredientLists);
+
+                IngredientMasterList = new ObservableCollection<IngredientList>(list);
+                return;
+            }
         }
 
        /// <summary>
@@ -266,6 +291,12 @@ namespace Relish.ViewModels
         /// <param name="ingredientObject">The ingredient to be removed.</param>
         private async void RemoveIngredient(object ingredientObject)
         {
+            // Add null check to prevent crash from rapid clicking
+            if (ingredientObject == null)
+            {
+                return;
+            }
+
             var ingredient = (Ingredient)ingredientObject;
 
             // Remove from Database

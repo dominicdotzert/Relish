@@ -9,5 +9,13 @@ namespace Relish.Utilities
             // TODO implement standard units
             return 0f;
         }
+
+        ////public static Units GetStandardUnit(Units unit)
+        ////{
+        ////    switch (unit)
+        ////    {
+
+        ////    }
+        ////}
     }
 }

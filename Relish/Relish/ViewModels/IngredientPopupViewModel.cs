@@ -242,11 +242,9 @@ namespace Relish.ViewModels
                 result = false;
             }
 
-            // Prevent duplicates within the same category
-            // (only need to check for new ingredient case)
+            // Prevent duplicates ingredients (only need to check for new ingredient case)
             if (_newIngredient &&
                 _ingredientList
-                    .Where(list => list.Category.Equals(Category))
                     .SelectMany(list => list.Ingredients)
                     .Any(i => string.Compare(i.Name, IngredientName?.Trim(), CultureInfo.CurrentCulture, CompareOptions.IgnoreCase).Equals(0)))
             {

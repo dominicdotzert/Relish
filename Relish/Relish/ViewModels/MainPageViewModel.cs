@@ -10,6 +10,9 @@ using Xamarin.Forms;
 
 namespace Relish.ViewModels
 {
+    /// <summary>
+    /// ViewModel class to represent the main Relish screen.
+    /// </summary>
     public class MainPageViewModel
     {
         private readonly LocalDataManager _localDataManager;
