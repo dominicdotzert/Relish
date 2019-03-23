@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using Relish.Data;
 using Relish.ViewModels;
+using Relish.Views.Popups;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Relish.Views
@@ -28,18 +31,19 @@ namespace Relish.Views
             await NewPage(new IngredientsView(_localDataManager));
         }
 
-        private void RecipeButton_OnClicked(object sender, EventArgs e)
+        private async void RecipeButton_OnClicked(object sender, EventArgs e)
         {
+            await NewPage(new RecipeListView(_localDataManager.GetRecipes(), _localDataManager, "No saved recipes"));
         }
 
         private async void MealPlanButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new MealPlanView());
+            await NewPopup(new UpdgradeToPremiumPopup());
         }
 
         private async void GroceryListButton_OnClicked(object sender, EventArgs e)
         {
-            await NewPage(new GroceryListView(_localDataManager));
+            await NewPopup(new UpdgradeToPremiumPopup());
         }
 
         // Prevent double clicks of button
@@ -49,6 +53,15 @@ namespace Relish.Views
             if (stack.Count == 1)
             {
                 await Navigation.PushAsync(page);
+            }
+        }
+
+        private async Task NewPopup(PopupPage popup)
+        {
+            var stack = PopupNavigation.Instance.PopupStack;
+            if (stack.Count == 0 || stack[stack.Count - 1].GetType() != popup.GetType())
+            {
+                await PopupNavigation.Instance.PushAsync(popup);
             }
         }
     }

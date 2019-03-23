@@ -34,13 +34,7 @@
         </Style>
     </pages:PopupPage.Resources>
 
-    <StackLayout
-        BackgroundColor="White"
-        Margin="15"
-        Padding="10"
-        VerticalOptions="Center"
-        HorizontalOptions="Center">
-        
+    <StackLayout Style="{StaticResource PopupBackground}">
         <Entry
             FontSize="18"
             FontAttributes="Bold"

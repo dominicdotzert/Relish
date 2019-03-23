@@ -28,10 +28,12 @@
         <Button
             Style="{StaticResource MenuButton}"
             Text="{x:Static res:Strings.MealPrepBtn}"
+            Opacity="0.5"
             Clicked="MealPlanButton_OnClicked"/>
         <Button
             Style="{StaticResource MenuButton}"
             Text="{x:Static res:Strings.GroceryListBtn}"
+            Opacity="0.5"
             Clicked="GroceryListButton_OnClicked"/>
         <StackLayout HeightRequest="50"/>
     </StackLayout>
