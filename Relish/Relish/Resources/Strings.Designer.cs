@@ -491,5 +491,23 @@ namespace Relish.Resources {
                 return ResourceManager.GetString("Title_StartSearch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrade to premium to use this feature!.
+        /// </summary>
+        internal static string UpgradePopup_Text {
+            get {
+                return ResourceManager.GetString("UpgradePopup_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrade.
+        /// </summary>
+        internal static string UpgradePopup_UpgradeBtn {
+            get {
+                return ResourceManager.GetString("UpgradePopup_UpgradeBtn", resourceCulture);
+            }
+        }
     }
 }

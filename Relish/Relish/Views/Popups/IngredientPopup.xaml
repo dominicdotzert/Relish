@@ -34,50 +34,51 @@
         </Style>
     </pages:PopupPage.Resources>
 
-    <StackLayout Style="{StaticResource PopupBackground}">
-        <Entry
+    <Frame Style="{StaticResource PopupBackground}">
+        <StackLayout>
+            <Entry
             FontSize="18"
             FontAttributes="Bold"
             TextColor="Black"
             HorizontalTextAlignment="Center"
             Text="{Binding IngredientName, Mode=TwoWay}"
             Placeholder="{x:Static res:Strings.IngredientsPopup_EntryPlaceholder}">
-            <Entry.Keyboard>
-                <Keyboard x:FactoryMethod="Create">
-                    <x:Arguments>
-                        <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                    </x:Arguments>
-                </Keyboard>
-            </Entry.Keyboard>
-        </Entry>
+                <Entry.Keyboard>
+                    <Keyboard x:FactoryMethod="Create">
+                        <x:Arguments>
+                            <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                        </x:Arguments>
+                    </Keyboard>
+                </Entry.Keyboard>
+            </Entry>
 
-        <Label
+            <Label
             IsVisible="{Binding IngredientNameError, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
             Style="{StaticResource PopupErrorLabel}"
             Text="{Binding IngredientNameError}"/>
 
-        <Grid
+            <Grid
             Margin="10"
             VerticalOptions="CenterAndExpand"
             HorizontalOptions="CenterAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Label
+                <Label
                 Grid.Column="0"
                 Grid.Row="0"
                 Style="{StaticResource PopupLabel}"
                 Text="{x:Static res:Strings.IngredientsPopup_Category}"/>
-            <Picker
+                <Picker
                 Grid.Column="1"
                 Grid.Row="0"
                 VerticalOptions="Center"
@@ -85,12 +86,12 @@
                 ItemsSource="{Binding AvailableCategories}"
                 SelectedItem="{Binding Category, Mode=TwoWay}"/>
 
-            <Label
+                <Label
                 Grid.Column="0"
                 Grid.Row="1"
                 Style="{StaticResource PopupLabel}"
                 Text="{x:Static res:Strings.IngredientsPopup_Quantity}"/>
-            <Entry
+                <Entry
                 Grid.Column="1"
                 Grid.Row="1"
                 HorizontalTextAlignment="Center"
@@ -98,7 +99,7 @@
                 Text="{Binding Quantity, Mode=TwoWay, Converter={StaticResource NegativeToEmptyStringConverter}}"
                 Keyboard="Numeric"/>
 
-            <Label
+                <Label
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.Row="2"
@@ -106,12 +107,12 @@
                 Style="{StaticResource PopupErrorLabel}"
                 Text="{Binding QuantityError}"/>
 
-            <Label
+                <Label
                 Grid.Column="0"
                 Grid.Row="3"
                 Style="{StaticResource PopupLabel}"
                 Text="{x:Static res:Strings.IngredientsPopup_Units}"/>
-            <Picker
+                <Picker
                 Grid.Column="1"
                 Grid.Row="3"
                 VerticalOptions="Center"
@@ -119,16 +120,17 @@
                 ItemsSource="{Binding AvailableUnits}"
                 SelectedItem="{Binding Unit, Mode=TwoWay}"/>
 
-            <Button
+                <Button
                 Grid.Column="0"
                 Grid.Row="4"
                 Text="{x:Static res:Strings.CancelBtn}"
                 Command="{Binding CancelCommand}"/>
-            <Button
+                <Button
                 Grid.Column="1"
                 Grid.Row="4"
                 Text="{x:Static res:Strings.SaveBtn}"
                 Command="{Binding SaveCommand}"/>
-        </Grid>
-    </StackLayout>
+            </Grid>
+        </StackLayout>
+    </Frame>
 </pages:PopupPage>

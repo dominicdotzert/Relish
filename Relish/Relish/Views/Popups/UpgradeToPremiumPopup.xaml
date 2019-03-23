@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:res="clr-namespace:Relish.Resources"
              x:Class="Relish.Views.Popups.UpgradeToPremiumPopup">
 
     <pages:PopupPage.Animation>
@@ -18,24 +19,34 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     
+    <pages:PopupPage.Resources>
+        <Style x:Key="LabelText" TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+    </pages:PopupPage.Resources>
+
     <pages:PopupPage.Content>
-        <StackLayout Style="{StaticResource PopupBackground}">
-            <Label 
-                Text="Upgrade to premium to use this feature!"
-                Margin="50"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-            <StackLayout
-                HorizontalOptions="CenterAndExpand"
-                Orientation="Horizontal">
-                <Button
+        <Frame Style="{StaticResource PopupBackground}">
+            <StackLayout>
+                <Label
+                    Style="{StaticResource LabelText}"
+                    Text="{x:Static res:Strings.UpgradePopup_Text}"/>
+                <StackLayout
                     HorizontalOptions="CenterAndExpand"
-                    Text="Cancel"
-                    Clicked="CancelButtonClicked"/>
-                <Button
-                    HorizontalOptions="CenterAndExpand"
-                    Text="Upgrade"/>
+                    Orientation="Horizontal">
+                    <Button
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{x:Static res:Strings.CancelBtn}"
+                        Clicked="CancelButtonClicked"/>
+                    <Button
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{x:Static res:Strings.UpgradePopup_UpgradeBtn}"/>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </Frame>
     </pages:PopupPage.Content>
 </pages:PopupPage>

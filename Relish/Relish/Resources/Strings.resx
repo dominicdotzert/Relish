@@ -261,4 +261,10 @@
   <data name="Title_StartSearch" xml:space="preserve">
     <value>Search for Recipes</value>
   </data>
+  <data name="UpgradePopup_Text" xml:space="preserve">
+    <value>Upgrade to premium to use this feature!</value>
+  </data>
+  <data name="UpgradePopup_UpgradeBtn" xml:space="preserve">
+    <value>Upgrade</value>
+  </data>
 </root>

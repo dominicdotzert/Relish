@@ -51,10 +51,6 @@ namespace Relish.ViewModels
                     var result = await loadTask;
                     RecipeResults = new ObservableCollection<Recipe>(result);
                     SearchHasResults = RecipeResults.Count != 0;
-
-                    // DEBUG
-                    RecipeResults = new ObservableCollection<Recipe>(DummySearchData.RecipeResults1);
-                    SearchHasResults = true;
                 }
                 catch
                 {
