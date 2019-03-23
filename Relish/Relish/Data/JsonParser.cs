@@ -5,6 +5,9 @@ using Relish.Models;
 
 namespace Relish.Data
 {
+    /// <summary>
+    /// Static parser class to parse the HTTP response from JSON
+    /// </summary>
     public static class JsonParser
     {
         private const string RecipeInfoKey = "recipeInfo";
