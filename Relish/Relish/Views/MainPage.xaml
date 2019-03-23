@@ -10,31 +10,31 @@
         BackgroundColor="White">
         <Label
             Style="{StaticResource RelishLabel}"
-            Text="RELISH"
+            Text="{x:Static res:Strings.Home_Title}"
             VerticalOptions="StartAndExpand"
             Margin="20"/>
         <Button
             Style="{StaticResource MenuButton}"
-            Text="{x:Static res:Strings.FindRecipesBtn}"
-            Clicked="SearchButton_OnClicked"/>
+            Text="{x:Static res:Strings.Home_FindRecipesBtn}"
+            Command="{Binding FindRecipesCommand}"/>
         <Button
             Style="{StaticResource MenuButton}"
-            Text="{x:Static res:Strings.IngredientsBtn}"
-            Clicked="IngredientsButton_OnClicked"/>
+            Text="{x:Static res:Strings.Home_IngredientsBtn}"
+            Command="{Binding IngredientsCommand}"/>
         <Button
             Style="{StaticResource MenuButton}"
-            Text="{x:Static res:Strings.RecipeBookBtn}"
-            Clicked="RecipeButton_OnClicked"/>
+            Text="{x:Static res:Strings.Home_RecipeBookBtn}"
+            Command="{Binding RecipeBookCommand}"/>
         <Button
             Style="{StaticResource MenuButton}"
-            Text="{x:Static res:Strings.MealPrepBtn}"
             Opacity="0.5"
-            Clicked="MealPlanButton_OnClicked"/>
+            Text="{x:Static res:Strings.Home_MealPrepBtn}"
+            Command="{Binding PremiumPopupCommand}"/>
         <Button
             Style="{StaticResource MenuButton}"
-            Text="{x:Static res:Strings.GroceryListBtn}"
             Opacity="0.5"
-            Clicked="GroceryListButton_OnClicked"/>
-        <StackLayout HeightRequest="50"/>
+            Margin="5, 10, 5, 60"
+            Text="{x:Static res:Strings.Home_GroceryListBtn}"
+            Command="{Binding PremiumPopupCommand}"/>
     </StackLayout>
 </ContentPage>

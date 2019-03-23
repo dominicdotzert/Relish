@@ -150,14 +150,23 @@
   <data name="Filter_UseAllIngredients" xml:space="preserve">
     <value>Use all ingredients?</value>
   </data>
-  <data name="FindRecipesBtn" xml:space="preserve">
+  <data name="Home_FindRecipesBtn" xml:space="preserve">
     <value>Find Recipes</value>
   </data>
-  <data name="GroceryListBtn" xml:space="preserve">
+  <data name="Home_GroceryListBtn" xml:space="preserve">
     <value>Grocery List</value>
   </data>
-  <data name="IngredientsBtn" xml:space="preserve">
+  <data name="Home_IngredientsBtn" xml:space="preserve">
     <value>Ingredients</value>
+  </data>
+  <data name="Home_MealPrepBtn" xml:space="preserve">
+    <value>Meal Prep</value>
+  </data>
+  <data name="Home_RecipeBookBtn" xml:space="preserve">
+    <value>Recipe Book</value>
+  </data>
+  <data name="Home_Title" xml:space="preserve">
+    <value>RELISH</value>
   </data>
   <data name="IngredientsPopup_BlankNameError" xml:space="preserve">
     <value>The ingredient name must not be blank.</value>
@@ -192,11 +201,8 @@
   <data name="Ingredients_Toolbar_Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="MealPrepBtn" xml:space="preserve">
-    <value>Meal Prep</value>
-  </data>
-  <data name="RecipeBookBtn" xml:space="preserve">
-    <value>Recipe Book</value>
+  <data name="RecipeBook_NoSavedRecipes" xml:space="preserve">
+    <value>You have no saved recipes.</value>
   </data>
   <data name="Results_CookTime" xml:space="preserve">
     <value>Cook time: {0}</value>
@@ -209,9 +215,6 @@
   </data>
   <data name="Title_GroceryList" xml:space="preserve">
     <value>Grocery List</value>
-  </data>
-  <data name="Title_Home" xml:space="preserve">
-    <value>HOME</value>
   </data>
   <data name="Title_Ingredients" xml:space="preserve">
     <value>Ingredients</value>

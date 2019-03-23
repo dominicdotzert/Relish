@@ -162,18 +162,54 @@ namespace Relish.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Find Recipes.
         /// </summary>
-        internal static string FindRecipesBtn {
+        internal static string Home_FindRecipesBtn {
             get {
-                return ResourceManager.GetString("FindRecipesBtn", resourceCulture);
+                return ResourceManager.GetString("Home_FindRecipesBtn", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Grocery List.
         /// </summary>
-        internal static string GroceryListBtn {
+        internal static string Home_GroceryListBtn {
             get {
-                return ResourceManager.GetString("GroceryListBtn", resourceCulture);
+                return ResourceManager.GetString("Home_GroceryListBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients.
+        /// </summary>
+        internal static string Home_IngredientsBtn {
+            get {
+                return ResourceManager.GetString("Home_IngredientsBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Prep.
+        /// </summary>
+        internal static string Home_MealPrepBtn {
+            get {
+                return ResourceManager.GetString("Home_MealPrepBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipe Book.
+        /// </summary>
+        internal static string Home_RecipeBookBtn {
+            get {
+                return ResourceManager.GetString("Home_RecipeBookBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RELISH.
+        /// </summary>
+        internal static string Home_Title {
+            get {
+                return ResourceManager.GetString("Home_Title", resourceCulture);
             }
         }
         
@@ -210,15 +246,6 @@ namespace Relish.Resources {
         internal static string Ingredients_Toolbar_Edit {
             get {
                 return ResourceManager.GetString("Ingredients_Toolbar_Edit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ingredients.
-        /// </summary>
-        internal static string IngredientsBtn {
-            get {
-                return ResourceManager.GetString("IngredientsBtn", resourceCulture);
             }
         }
         
@@ -286,20 +313,11 @@ namespace Relish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Prep.
+        ///   Looks up a localized string similar to You have no saved recipes..
         /// </summary>
-        internal static string MealPrepBtn {
+        internal static string RecipeBook_NoSavedRecipes {
             get {
-                return ResourceManager.GetString("MealPrepBtn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recipe Book.
-        /// </summary>
-        internal static string RecipeBookBtn {
-            get {
-                return ResourceManager.GetString("RecipeBookBtn", resourceCulture);
+                return ResourceManager.GetString("RecipeBook_NoSavedRecipes", resourceCulture);
             }
         }
         
@@ -336,15 +354,6 @@ namespace Relish.Resources {
         internal static string Title_GroceryList {
             get {
                 return ResourceManager.GetString("Title_GroceryList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HOME.
-        /// </summary>
-        internal static string Title_Home {
-            get {
-                return ResourceManager.GetString("Title_Home", resourceCulture);
             }
         }
         

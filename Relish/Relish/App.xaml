@@ -5,9 +5,6 @@
              xmlns:converters="clr-namespace:Relish.Converters"
              x:Class="Relish.App">
     <Application.Resources>
-        <!--ViewModels-->
-        <local:MainPageViewModel x:Key="MainPageViewModel"/>
-
         <!--Converters-->
         <converters:ToUpperConverter x:Key="ToUpperConverter"/>
         <converters:CommonUnitToDisabledConverter x:Key="CommonUnitToDisabledConverter"/>
