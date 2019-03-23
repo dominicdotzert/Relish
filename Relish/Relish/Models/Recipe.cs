@@ -71,8 +71,6 @@ namespace Relish.Models
 
         public string ServingSize { get; set; }
 
-        public bool IsMealPrepped { get; set; }
-
         public bool IsSaved { get; set; }
     }
 }

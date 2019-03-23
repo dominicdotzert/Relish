@@ -313,6 +313,15 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mins.
+        /// </summary>
+        internal static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have no saved recipes..
         /// </summary>
         internal static string RecipeBook_NoSavedRecipes {
@@ -363,6 +372,69 @@ namespace Relish.Resources {
         internal static string RecipeList_PrepTime {
             get {
                 return ResourceManager.GetString("RecipeList_PrepTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to Meal Prep.
+        /// </summary>
+        internal static string RecipeView_AddToMealPrep {
+            get {
+                return ResourceManager.GetString("RecipeView_AddToMealPrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to recipe book.
+        /// </summary>
+        internal static string RecipeView_AddToRecipeBook {
+            get {
+                return ResourceManager.GetString("RecipeView_AddToRecipeBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directions:.
+        /// </summary>
+        internal static string RecipeView_Directions {
+            get {
+                return ResourceManager.GetString("RecipeView_Directions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients:.
+        /// </summary>
+        internal static string RecipeView_Ingredients {
+            get {
+                return ResourceManager.GetString("RecipeView_Ingredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in Browser.
+        /// </summary>
+        internal static string RecipeView_OpenInBrowser {
+            get {
+                return ResourceManager.GetString("RecipeView_OpenInBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from recipe book.
+        /// </summary>
+        internal static string RecipeView_RemoveFromRecipeBook {
+            get {
+                return ResourceManager.GetString("RecipeView_RemoveFromRecipeBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servings.
+        /// </summary>
+        internal static string RecipeView_Servings {
+            get {
+                return ResourceManager.GetString("RecipeView_Servings", resourceCulture);
             }
         }
         

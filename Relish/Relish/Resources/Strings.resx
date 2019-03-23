@@ -201,6 +201,9 @@
   <data name="Ingredients_Toolbar_Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>mins</value>
+  </data>
   <data name="RecipeBook_NoSavedRecipes" xml:space="preserve">
     <value>You have no saved recipes.</value>
   </data>
@@ -218,6 +221,27 @@
   </data>
   <data name="RecipeList_PrepTime" xml:space="preserve">
     <value>Prep time: {0} mins</value>
+  </data>
+  <data name="RecipeView_AddToMealPrep" xml:space="preserve">
+    <value>Add to Meal Prep</value>
+  </data>
+  <data name="RecipeView_AddToRecipeBook" xml:space="preserve">
+    <value>Add to recipe book</value>
+  </data>
+  <data name="RecipeView_Directions" xml:space="preserve">
+    <value>Directions:</value>
+  </data>
+  <data name="RecipeView_Ingredients" xml:space="preserve">
+    <value>Ingredients:</value>
+  </data>
+  <data name="RecipeView_OpenInBrowser" xml:space="preserve">
+    <value>Open in Browser</value>
+  </data>
+  <data name="RecipeView_RemoveFromRecipeBook" xml:space="preserve">
+    <value>Remove from recipe book</value>
+  </data>
+  <data name="RecipeView_Servings" xml:space="preserve">
+    <value>Servings</value>
   </data>
   <data name="SaveBtn" xml:space="preserve">
     <value>Save</value>

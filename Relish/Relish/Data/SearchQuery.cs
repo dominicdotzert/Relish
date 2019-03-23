@@ -73,7 +73,6 @@ namespace Relish.Data
                     if (r.Url == saved.Url)
                     {
                         r.IsSaved = saved.IsSaved;
-                        r.IsMealPrepped = saved.IsMealPrepped;
                     }
                 }
             }

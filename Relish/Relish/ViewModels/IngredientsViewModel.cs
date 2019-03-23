@@ -184,7 +184,10 @@ namespace Relish.ViewModels
             // Check if ingredient is new
             if (ingredient.Id == 0)
             {
-                InsertIngredient(ingredient);
+                if (InsertIngredient(ingredient))
+                {
+                    return;
+                }
             }
             // Check if the category has changed and re-insert it if it has
             else
@@ -211,7 +214,12 @@ namespace Relish.ViewModels
             IngredientMasterList = new ObservableCollection<IngredientList>(IngredientMasterList.ToList());
         }
 
-        private void InsertIngredient(Ingredient ingredient)
+        /// <summary>
+        /// Inserts a new ingredient into the IngredientMasterList
+        /// </summary>
+        /// <param name="ingredient">The ingredient to be inserted.</param>
+        /// <returns>Returns if the MasterIngredientCollection has be refreshed.</returns>
+        private bool InsertIngredient(Ingredient ingredient)
         {
             // Check if category is already in IngredientMasterList
             if (IngredientMasterList.Any(i => i.Category == ingredient.Category.ToString()))
@@ -223,7 +231,7 @@ namespace Relish.ViewModels
                     {
                         list.Ingredients.Add(ingredient);
                         list.Sort(IngredientComparisons.CompareIngredients);
-                        break;
+                        return false;
                     }
                 }
             }
@@ -235,8 +243,10 @@ namespace Relish.ViewModels
                 list.Sort(IngredientComparisons.CompareIngredientLists);
 
                 IngredientMasterList = new ObservableCollection<IngredientList>(list);
-                return;
+                return true;
             }
+
+            return false;
         }
 
        /// <summary>

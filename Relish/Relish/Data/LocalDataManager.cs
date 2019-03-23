@@ -140,7 +140,7 @@ namespace Relish.Data
         /// <returns>The UpdateRecipe task.</returns>
         public Task UpdateRecipe(Recipe recipe)
         {
-            if (recipe.IsMealPrepped || recipe.IsSaved)
+            if (recipe.IsSaved)
             {
                 if (recipe.Id != 0)
                 {
