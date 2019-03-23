@@ -5,24 +5,21 @@ using Xamarin.Forms;
 namespace Relish.Converters
 {
     /// <summary>
-    /// Converter class to control the opacity of a ViewElement depending on the state
-    /// of the boolean flag controlling whether it is enabled or not.
+    /// Converter class to convert a string to be empty if the supplied integer value is equal to 0.
     /// </summary>
-    public class IsEnabledOpacityConverter : IValueConverter
+    public class ZeroIntToEmptyStringConverter : IValueConverter
     {
-        private const double DisabledOpacity = 0.25;
-
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var isEnabled = (bool)value;
-            return !isEnabled ? 1.0 : DisabledOpacity;
+            var val = (int)value;
+            return val == 0 ? string.Empty : val.ToString();
         }
 
         /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }

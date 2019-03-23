@@ -15,6 +15,9 @@ using static Relish.Models.Enums;
 
 namespace Relish.ViewModels
 {
+    /// <summary>
+    /// ViewModel class to manage Ingredient data which is entered in the IngredientsView page.
+    /// </summary>
     public class IngredientsViewModel : NotifyPropertyChanged
     {
         private readonly LocalDataManager _localDataManager;

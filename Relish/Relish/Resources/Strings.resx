@@ -204,11 +204,20 @@
   <data name="RecipeBook_NoSavedRecipes" xml:space="preserve">
     <value>You have no saved recipes.</value>
   </data>
-  <data name="Results_CookTime" xml:space="preserve">
-    <value>Cook time: {0}</value>
+  <data name="RecipeList_CookTime" xml:space="preserve">
+    <value>Cook time: {0} mins</value>
   </data>
-  <data name="Results_PrepTime" xml:space="preserve">
-    <value>Prep time: {0}</value>
+  <data name="RecipeList_ErrorString" xml:space="preserve">
+    <value>Recipe search failed.</value>
+  </data>
+  <data name="RecipeList_NoRecipesFound" xml:space="preserve">
+    <value>No recipes were found.</value>
+  </data>
+  <data name="RecipeList_NoSavedRecipes" xml:space="preserve">
+    <value>You have no saved recipes.</value>
+  </data>
+  <data name="RecipeList_PrepTime" xml:space="preserve">
+    <value>Prep time: {0} mins</value>
   </data>
   <data name="SaveBtn" xml:space="preserve">
     <value>Save</value>
@@ -219,14 +228,11 @@
   <data name="Title_Ingredients" xml:space="preserve">
     <value>Ingredients</value>
   </data>
-  <data name="Title_MealPlan" xml:space="preserve">
-    <value>Meal Plan</value>
-  </data>
-  <data name="Title_Recipes" xml:space="preserve">
-    <value>Recipes</value>
+  <data name="Title_RecipeBook" xml:space="preserve">
+    <value>Saved Recipes</value>
   </data>
   <data name="Title_Results" xml:space="preserve">
-    <value>Results</value>
+    <value>Search Results</value>
   </data>
   <data name="Title_StartSearch" xml:space="preserve">
     <value>Search for Recipes</value>

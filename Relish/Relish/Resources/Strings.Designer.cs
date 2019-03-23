@@ -322,20 +322,47 @@ namespace Relish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cook time: {0}.
+        ///   Looks up a localized string similar to Cook time: {0} mins.
         /// </summary>
-        internal static string Results_CookTime {
+        internal static string RecipeList_CookTime {
             get {
-                return ResourceManager.GetString("Results_CookTime", resourceCulture);
+                return ResourceManager.GetString("RecipeList_CookTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prep time: {0}.
+        ///   Looks up a localized string similar to Recipe search failed..
         /// </summary>
-        internal static string Results_PrepTime {
+        internal static string RecipeList_ErrorString {
             get {
-                return ResourceManager.GetString("Results_PrepTime", resourceCulture);
+                return ResourceManager.GetString("RecipeList_ErrorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No recipes were found..
+        /// </summary>
+        internal static string RecipeList_NoRecipesFound {
+            get {
+                return ResourceManager.GetString("RecipeList_NoRecipesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have no saved recipes..
+        /// </summary>
+        internal static string RecipeList_NoSavedRecipes {
+            get {
+                return ResourceManager.GetString("RecipeList_NoSavedRecipes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prep time: {0} mins.
+        /// </summary>
+        internal static string RecipeList_PrepTime {
+            get {
+                return ResourceManager.GetString("RecipeList_PrepTime", resourceCulture);
             }
         }
         
@@ -367,25 +394,16 @@ namespace Relish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meal Plan.
+        ///   Looks up a localized string similar to Saved Recipes.
         /// </summary>
-        internal static string Title_MealPlan {
+        internal static string Title_RecipeBook {
             get {
-                return ResourceManager.GetString("Title_MealPlan", resourceCulture);
+                return ResourceManager.GetString("Title_RecipeBook", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recipes.
-        /// </summary>
-        internal static string Title_Recipes {
-            get {
-                return ResourceManager.GetString("Title_Recipes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Results.
+        ///   Looks up a localized string similar to Search Results.
         /// </summary>
         internal static string Title_Results {
             get {

@@ -67,7 +67,12 @@ namespace Relish.ViewModels
         /// </summary>
         private async void OpenRecipeBookPage()
         {
-            await NewPage(new RecipeListView(_localDataManager.GetRecipes(), _localDataManager, Strings.RecipeBook_NoSavedRecipes));
+            await NewPage(
+                new RecipeListView(
+                    _localDataManager.GetRecipes(),
+                    _localDataManager,
+                    Strings.Title_RecipeBook,
+                    Strings.RecipeBook_NoSavedRecipes));
         }
 
         /// <summary>
@@ -75,7 +80,7 @@ namespace Relish.ViewModels
         /// </summary>
         private async void OpenUpgradeToPremiumPopup()
         {
-            await NewPopup(new UpdgradeToPremiumPopup());
+            await NewPopup(new UpgradeToPremiumPopup());
         }
 
         /// <summary>

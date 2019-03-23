@@ -116,8 +116,8 @@ namespace Relish.Data
                     "Cuisine",
                     "PrepStyle",
                     "MealType",
-                    new List<string>() {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
-                    new List<string>() {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
+                    new List<string> {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
+                    new List<string> {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
                 new Recipe(
                     "Chicken Curry with Sweet Potato and Lemongrass",
                     "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",

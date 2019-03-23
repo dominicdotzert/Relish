@@ -5,11 +5,11 @@ using Xamarin.Forms.Xaml;
 namespace Relish.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class UpdgradeToPremiumPopup : PopupPage
+	public partial class UpgradeToPremiumPopup : PopupPage
 	{
-		public UpdgradeToPremiumPopup ()
+		public UpgradeToPremiumPopup()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         private async void CancelButtonClicked(object sender, System.EventArgs e)

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Relish.Data;
 using Relish.Models;
 using Relish.Models.Filters;
+using Relish.Resources;
 using Relish.Views;
 using Relish.Views.Popups;
 using Rg.Plugins.Popup.Services;
@@ -354,7 +355,12 @@ namespace Relish.ViewModels
             }
             
             var query = new SearchQuery(filterList, _localDataManager);
-            await _navigation.PushAsync(new RecipeListView(query.StartSearch(), _localDataManager, "No recipes found."));
+            await _navigation.PushAsync(
+                new RecipeListView(
+                    query.StartSearch(),
+                    _localDataManager,
+                    Strings.Title_Results,
+                    Strings.RecipeList_NoRecipesFound));
         }
 
         // TODO Implement filter validation

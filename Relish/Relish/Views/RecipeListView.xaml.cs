@@ -11,10 +11,14 @@ namespace Relish.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecipeListView : CustomContentPage
     {
-        public RecipeListView(Task<List<Recipe>> loadTask, LocalDataManager localDataManager, string noResultsString)
+        public RecipeListView(
+            Task<List<Recipe>> loadTask,
+            LocalDataManager localDataManager,
+            string titleString,
+            string noResultsString)
         {
             InitializeComponent();
-            BindingContext = new RecipeListViewModel(loadTask, localDataManager, noResultsString, Navigation);
+            BindingContext = new RecipeListViewModel(loadTask, localDataManager, Navigation, titleString, noResultsString);
         }
     }
 }

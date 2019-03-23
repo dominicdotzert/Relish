@@ -22,16 +22,16 @@ namespace Relish.Data
         /// </summary>
         public LocalDataManager()
         {
+            // Connect to local db3 file.
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseName);
             _database = new SQLiteAsyncConnection(databasePath);
 
-            // Initializes table for Ingredient data.
+            // Initializes tables.
             _database.CreateTableAsync<Ingredient>().Wait();
             _database.CreateTableAsync<FilterData>().Wait();
             _database.CreateTableAsync<Recipe>().Wait();
 
             #region debug
-
             // TODO remove regeneration of Ingredients list code (eventually)
             // If empty db, load test data.
             var list = GetIngredients().Result;
@@ -47,7 +47,6 @@ namespace Relish.Data
                     SaveIngredient(i);
                 }
             }
-
             #endregion
         }
 
@@ -94,8 +93,14 @@ namespace Relish.Data
             return _database.DeleteAsync(ingredient);
         }
 
+        /// <summary>
+        /// Task to save the current filter settings.
+        /// </summary>
+        /// <param name="data">The FilterData object which represents the filter settings.</param>
+        /// <returns>The SaveFilterSettings task.</returns>
         public Task SaveFilterSettings(FilterData data)
         {
+            // Ensure that there is only ever 1 FilterData object saved at a time.
             var countTask = _database.Table<FilterData>().CountAsync();
 
             if (countTask.Result != 0)
@@ -109,16 +114,30 @@ namespace Relish.Data
             }
         }
 
+        /// <summary>
+        /// Task to return the previous filter settings.
+        /// </summary>
+        /// <returns>Returns the saved FilterData object</returns>
         public Task<FilterData> GetFilterSettings()
         {
             return _database.GetWithChildrenAsync<FilterData>(1);
         }
 
+        /// <summary>
+        /// Returns a list of recipes which are saved to the Recipe Book or Meal Prep list.
+        /// </summary>
+        /// <returns>Returns all the saved recipes.</returns>
         public Task<List<Recipe>> GetRecipes()
         {
             return _database.GetAllWithChildrenAsync<Recipe>(null, true);
         }
 
+        /// <summary>
+        /// Updates the saved recipe objects in the database. Main use case is saving and removing
+        /// recipes stored locally on the device.
+        /// </summary>
+        /// <param name="recipe">The recipe item which has changed.</param>
+        /// <returns>The UpdateRecipe task.</returns>
         public Task UpdateRecipe(Recipe recipe)
         {
             if (recipe.IsMealPrepped || recipe.IsSaved)
