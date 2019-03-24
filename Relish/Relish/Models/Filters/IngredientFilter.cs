@@ -5,7 +5,7 @@ namespace Relish.Models.Filters
 {
     public class IngredientFilter : Filter
     {
-        private List<Ingredient> _ingredients;
+        private readonly List<Ingredient> _ingredients;
 
         public IngredientFilter(Enums.FilterTypes filterType, List<Ingredient> ingredients)
             : base(filterType)
@@ -15,7 +15,6 @@ namespace Relish.Models.Filters
 
         public override string ReturnQueryElement()
         {
-            return string.Empty;
             if (_ingredients.Count == 0)
             {
                 return string.Empty;
@@ -25,7 +24,8 @@ namespace Relish.Models.Filters
 
             foreach (var i in _ingredients)
             {
-                ingredientList.Add($"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={i.Name}");
+                ingredientList.Add(
+                    $"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={{\"name\":\"{i.Name}\",\"amount\":\"{i.Quantity}\",\"unit\":\"{i.Unit.ToString()}\"}}");
             }
 
             return string.Join("&", ingredientList);

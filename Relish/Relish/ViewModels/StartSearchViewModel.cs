@@ -384,7 +384,7 @@ namespace Relish.ViewModels
             // Construct filters.
             var filterList = new List<Filter>
             {
-                new IngredientFilter(FilterTypes.Ingredients, Ingredients)
+                ////new IngredientFilter(FilterTypes.Ingredients, Ingredients)
             };
 
             if (SpecifiedIngredients.Count != 0)
