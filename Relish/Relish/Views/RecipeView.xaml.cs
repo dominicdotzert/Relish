@@ -9,10 +9,10 @@ namespace Relish.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecipeView : CustomContentPage
     {
-        public RecipeView(Recipe recipe, LocalDataManager localDataManager)
+        public RecipeView(RecipeViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = new RecipeViewModel(recipe, localDataManager);
+            BindingContext = viewModel;
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using Relish.Models;
 
 namespace Relish.Utilities
 {
-    public static class IngredientComparisons
+    public static class ObjectComparisons
     {
         /// <summary>
         /// Comparison method for sorting Ingredients by name.
@@ -39,6 +41,11 @@ namespace Relish.Utilities
             }
 
             return 1;
+        }
+        
+        public static int SortByRecipeName(Recipe x, Recipe y)
+        {
+            return string.Compare(x.Name, y.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);
         }
     }
 }

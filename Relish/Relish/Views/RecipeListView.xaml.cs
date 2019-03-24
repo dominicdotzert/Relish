@@ -15,10 +15,11 @@ namespace Relish.Views
             Task<List<Recipe>> loadTask,
             LocalDataManager localDataManager,
             string titleString,
-            string noResultsString)
+            string noResultsString,
+            bool containsSavedItems = false)
         {
             InitializeComponent();
-            BindingContext = new RecipeListViewModel(loadTask, localDataManager, Navigation, titleString, noResultsString);
+            BindingContext = new RecipeListViewModel(loadTask, localDataManager, Navigation, titleString, noResultsString, containsSavedItems);
         }
     }
 }

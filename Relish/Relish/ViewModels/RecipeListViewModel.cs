@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Relish.Data;
+using Relish.Utilities;
 using Relish.Models;
 using Relish.Views;
 using Xamarin.Forms;
@@ -16,6 +19,7 @@ namespace Relish.ViewModels
     {
         private readonly LocalDataManager _localDataManager;
         private readonly INavigation _navigation;
+        private readonly bool _containsSavedItems;
 
         private bool _loadError;
         private bool _searchComplete;
@@ -26,18 +30,21 @@ namespace Relish.ViewModels
         /// </summary>
         /// <param name="loadTask">The task to load the list of recipes to display.</param>
         /// <param name="localDataManager">The LocalDataManger object.</param>
+        /// <param name="navigation">The INavigation object for managing pages.</param>
         /// <param name="titleString">The string to be displayed in the navigation bar.</param>
         /// <param name="noResultsString">The string to display if no recipes are returned.</param>
-        /// <param name="navigation">The INavigation object for managing pages.</param>
+        /// <param name="containsSavedItems"></param>
         public RecipeListViewModel(
             Task<List<Recipe>> loadTask,
             LocalDataManager localDataManager,
             INavigation navigation,
             string titleString,
-            string noResultsString)
+            string noResultsString,
+            bool containsSavedItems)
         {
             _localDataManager = localDataManager;
             _navigation = navigation;
+            _containsSavedItems = containsSavedItems;
 
             TitleString = titleString;
             NoResultsString = noResultsString;
@@ -49,6 +56,12 @@ namespace Relish.ViewModels
                 try
                 {
                     var result = await loadTask;
+
+                    if (_containsSavedItems)
+                    {
+                        result.Sort(ObjectComparisons.SortByRecipeName);
+                    }
+
                     RecipeResults = new ObservableCollection<Recipe>(result);
                     SearchHasResults = RecipeResults.Count != 0;
                 }
@@ -152,7 +165,43 @@ namespace Relish.ViewModels
             }
 
             var recipe = (Recipe)recipeObject;
-            _navigation.PushAsync(new RecipeView(recipe, _localDataManager));
+            var recipeViewModel = new RecipeViewModel(recipe, _localDataManager);
+
+            if (_containsSavedItems)
+            {
+                recipeViewModel.RecipeUnsaved += ReloadData;
+            }
+
+            _navigation.PushAsync(new RecipeView(recipeViewModel));
+        }
+
+        private void ReloadData(object sender, EventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+
+            var recipe = (Recipe)sender;
+
+            if (recipe.IsSaved && !RecipeResults.Contains(recipe))
+            {
+                RecipeResults.Add(recipe);
+                SortRecipeCollectionAlphabetically();
+            }
+            else if (!recipe.IsSaved && RecipeResults.Contains(recipe))
+            {
+                RecipeResults.Remove(recipe);
+                SortRecipeCollectionAlphabetically();
+            }
+        }
+
+        private void SortRecipeCollectionAlphabetically()
+        {
+            var list = RecipeResults.ToList();
+            list.Sort(ObjectComparisons.SortByRecipeName);
+            RecipeResults = new ObservableCollection<Recipe>(list);
+            OnPropertyChanged(nameof(RecipeResults));
         }
     }
 }

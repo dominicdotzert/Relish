@@ -34,6 +34,12 @@ namespace Relish.ViewModels
         }
 
         /// <summary>
+        /// Event for when a recipe is removed from the Recipe Book.
+        /// Will be used to refresh the Recipe Book list.
+        /// </summary>
+        public event EventHandler RecipeUnsaved;
+
+        /// <summary>
         /// The string representing the Name of the recipe.
         /// </summary>
         public string Name => _recipe.Name;
@@ -156,6 +162,7 @@ namespace Relish.ViewModels
             Saved = !Saved;
 
             _localDataManager.UpdateRecipe(_recipe);
+            RecipeUnsaved?.Invoke(_recipe, null);
         }
 
         /// <summary>

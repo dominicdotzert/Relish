@@ -75,7 +75,8 @@ namespace Relish.ViewModels
                     _localDataManager.GetRecipes(),
                     _localDataManager,
                     Strings.Title_RecipeBook,
-                    Strings.RecipeBook_NoSavedRecipes));
+                    Strings.RecipeBook_NoSavedRecipes,
+                    true));
         }
 
         /// <summary>

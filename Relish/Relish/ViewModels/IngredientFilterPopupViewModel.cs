@@ -30,7 +30,7 @@ namespace Relish.ViewModels
                 }
             }
 
-            ingredients.Sort(IngredientComparisons.CompareIngredients);
+            ingredients.Sort(ObjectComparisons.CompareIngredients);
 
             UnselectedIngredients = new ObservableCollection<Ingredient>(ingredients);
         }

@@ -230,7 +230,7 @@ namespace Relish.ViewModels
                     if (list.Category == ingredient.Category.ToString())
                     {
                         list.Ingredients.Add(ingredient);
-                        list.Sort(IngredientComparisons.CompareIngredients);
+                        list.Sort(ObjectComparisons.CompareIngredients);
                         return false;
                     }
                 }
@@ -240,7 +240,7 @@ namespace Relish.ViewModels
             {
                 var list = IngredientMasterList.ToList();
                 list.Add(new IngredientList(ingredient.Category) { ingredient });
-                list.Sort(IngredientComparisons.CompareIngredientLists);
+                list.Sort(ObjectComparisons.CompareIngredientLists);
 
                 IngredientMasterList = new ObservableCollection<IngredientList>(list);
                 return true;
