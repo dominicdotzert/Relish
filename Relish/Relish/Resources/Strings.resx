@@ -138,6 +138,9 @@
   <data name="Filter_MealType" xml:space="preserve">
     <value>Meal Type</value>
   </data>
+  <data name="Filter_MustSpecifyError" xml:space="preserve">
+    <value>You must specify at least one ingredient.</value>
+  </data>
   <data name="Filter_PrepStyle" xml:space="preserve">
     <value>Preperation Style</value>
   </data>

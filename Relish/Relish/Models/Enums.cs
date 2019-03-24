@@ -16,6 +16,7 @@
         {
             Keyword,
             Ingredients,
+            SpecifiedIngredients,
             PrepTime,
             CookTime,
             Cuisine,
@@ -40,7 +41,7 @@
             Dinner,
         }
 
-        public enum PrepTypes
+        public enum PrepStyles
         {
             All,
             SlowCooker,

@@ -124,6 +124,15 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must specify at least one ingredient..
+        /// </summary>
+        internal static string Filter_MustSpecifyError {
+            get {
+                return ResourceManager.GetString("Filter_MustSpecifyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preperation Style.
         /// </summary>
         internal static string Filter_PrepStyle {

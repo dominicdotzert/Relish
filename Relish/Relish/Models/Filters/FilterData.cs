@@ -29,12 +29,6 @@ namespace Relish.Models.Filters
         public string KeywordString { get; set; }
 
         /// <summary>
-        /// Flag for whether the search should sort by all the user's ingredients
-        /// or if the search should focus on primary ingredients.
-        /// </summary>
-        public bool UseAllIngredients { get; set; }
-
-        /// <summary>
         /// The list of user specified primary search ingredients.
         /// </summary>
         [TextBlob(nameof(SpecifiedIngredientsBlobbed))]

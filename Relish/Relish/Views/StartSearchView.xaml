@@ -26,6 +26,10 @@
             <Setter Property="HorizontalOptions" Value="Start"/>
         </Style>
 
+        <Style x:Key="ErrorLabel" TargetType="Label" BasedOn="{StaticResource FilterNameLabel}">
+            <Setter Property="TextColor" Value="Red"/>
+        </Style>
+
         <Style x:Key="TimeEntry" TargetType="Entry">
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
@@ -81,34 +85,16 @@
                         </Entry.Keyboard>
                     </Entry>
 
-                    <!--Use all ingredient checkbox-->
-                    <StackLayout
-                        Margin="20,20,20,0"
-                        Orientation="Horizontal">
-                        <Label
-                            Style="{StaticResource FilterNameLabel}"
-                            HorizontalOptions="StartAndExpand"
-                            Text="{x:Static res:Strings.Filter_UseAllIngredients}"/>
-                        <Button
-                            VerticalOptions="Center"
-                            HorizontalOptions="End"
-                            Text="{Binding UseAllIngredientsText}"
-                            Command="{Binding UseAllIngredientsCommand}"/>
-                    </StackLayout>
-
                     <!--Selected Ingredient ListView-->
                     <Label
                         Margin="20,20,20,0"
                         Style="{StaticResource FilterNameLabel}"
-                        Text="{x:Static res:Strings.Filter_Ingredient}"
-                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"/>
+                        Text="{x:Static res:Strings.Filter_Ingredient}"/>
                     <StackLayout
                         x:Name="IngredientListLayout"
                         Margin="20,0"
-                        IsEnabled="{Binding UseAllIngredients, Converter={StaticResource InverseBooleanConverter}}"
-                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"
                         BackgroundColor="{StaticResource BackgroundGreen}"
-                        BindableLayout.ItemsSource="{Binding SelectedIngredients}">
+                        BindableLayout.ItemsSource="{Binding SpecifiedIngredients}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <Grid
@@ -142,8 +128,6 @@
                     <Button
                         Margin="0,0,20,0"
                         HorizontalOptions="End"
-                        IsEnabled="{Binding UseAllIngredients, Converter={StaticResource InverseBooleanConverter}}"
-                        Opacity="{Binding UseAllIngredients, Converter={StaticResource IsEnabledOpacityConverter}}"
                         Text="+"
                         FontSize="24"
                         Command="{Binding SpecifyIngredientCommand}"/>
@@ -231,8 +215,8 @@
                             Grid.Column="1"
                             Grid.Row="1"
                             Style="{StaticResource CategoryPicker}"
-                            ItemsSource="{Binding PrepTypes}"
-                            SelectedItem="{Binding PrepType, Mode=TwoWay}"/>
+                            ItemsSource="{Binding PrepStyles}"
+                            SelectedItem="{Binding PrepStyle, Mode=TwoWay}"/>
                         
                         <!--Meal Type-->
                         <Label
@@ -247,6 +231,12 @@
                             ItemsSource="{Binding MealTypes}"
                             SelectedItem="{Binding MealType, Mode=TwoWay}"/>
                     </Grid>
+
+                    <Label
+                        Margin="20,0"
+                        Style="{StaticResource ErrorLabel}"
+                        IsVisible="{Binding ErrorString, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
+                        Text="{Binding ErrorString}"/>
 
                     <Button
                         IsVisible="{Binding DataLoaded}"

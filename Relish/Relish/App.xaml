@@ -13,7 +13,6 @@
         <converters:EmptyStringToNotVisibleConverter x:Key="EmptyStringToNotVisibleConverter"/>
         <converters:ZeroIntToEmptyStringConverter x:Key="ZeroIntToEmptyStringConverter"/>
         <converters:ZeroIntToFalseConverter x:Key="ZeroIntToFalseConverter"/>
-        <converters:IsEnabledOpacityConverter x:Key="IsEnabledOpacityConverter"/>
         
         <!--Colours-->
         <Color x:Key="MainGreen">#118D25</Color>

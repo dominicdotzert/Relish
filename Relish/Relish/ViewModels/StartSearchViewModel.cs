@@ -16,33 +16,40 @@ using static Relish.Models.Enums;
 
 namespace Relish.ViewModels
 {
+    /// <summary>
+    /// ViewModel class to represent the user's search filters screen.
+    /// </summary>
     public class StartSearchViewModel : NotifyPropertyChanged
     {
         private readonly LocalDataManager _localDataManager;
         private readonly INavigation _navigation;
 
         private string _keywordString;
-        private bool _useAllIngredients = true;
         private int _prepTime;
         private int _cookTime;
         private string _cuisine;
         private string _mealType;
-        private string _prepType;
+        private string _prepStyle;
         private bool _dataLoaded;
+        private string _errorString;
 
+        /// <summary>
+        /// Initializes the view model object.
+        /// </summary>
+        /// <param name="localDataManager">The LocalDataManager object.</param>
+        /// <param name="navigation">The INavigation object for managing pages.</param>
         public StartSearchViewModel(LocalDataManager localDataManager, INavigation navigation)
         {
             _localDataManager = localDataManager;
             _navigation = navigation;
 
-            SelectedIngredients = new ObservableCollection<Ingredient>();
+            SpecifiedIngredients = new ObservableCollection<Ingredient>();
             Cuisine = Cuisines.All.ToString();
-            PrepType = Enums.PrepTypes.All.ToString();
+            PrepStyle = Enums.PrepStyles.All.ToString();
             MealType = Enums.MealType.All.ToString();
 
             SaveCommand = new Command(SaveFilterData);
             ClearFiltersCommand = new Command(ClearFilters);
-            UseAllIngredientsCommand = new Command(UseAllIngredientsToggle);
             SpecifyIngredientCommand = new Command(SpecifyNewIngredient);
             RemoveIngredientCommand = new Command(RemoveIngredient);
             SearchCommand = new Command(BeginSearch);
@@ -50,18 +57,34 @@ namespace Relish.ViewModels
             LoadData();
         }
 
+        /// <summary>
+        /// Command for saving filter data.
+        /// </summary>
         public ICommand SaveCommand { get; }
 
+        /// <summary>
+        /// Command for resetting filters to default values.
+        /// </summary>
         public ICommand ClearFiltersCommand { get; }
 
-        public ICommand UseAllIngredientsCommand { get; }
-
+        /// <summary>
+        /// Command for specifying a new ingredient.
+        /// </summary>
         public ICommand SpecifyIngredientCommand { get; }
 
+        /// <summary>
+        /// Command for removing a specified ingredient.
+        /// </summary>
         public ICommand RemoveIngredientCommand { get; }
 
+        /// <summary>
+        /// Command to begin the search.
+        /// </summary>
         public ICommand SearchCommand { get; }
 
+        /// <summary>
+        /// Flag which represented if filter data and ingredients have finished loading from the local device.
+        /// </summary>
         public bool DataLoaded
         {
             get => _dataLoaded;
@@ -75,6 +98,9 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// String which represents the user's desired keyword search.
+        /// </summary>
         public string KeywordString
         {
             get => _keywordString;
@@ -89,27 +115,19 @@ namespace Relish.ViewModels
             }
         }
 
-        public bool UseAllIngredients
-        {
-            get => _useAllIngredients;
-
-            set
-            {
-                if (_useAllIngredients != value)
-                {
-                    _useAllIngredients = value; 
-                    OnPropertyChanged(nameof(UseAllIngredients));
-                    OnPropertyChanged(nameof(UseAllIngredientsText));
-                }
-            }
-        }
-
-        public string UseAllIngredientsText => _useAllIngredients ? "Yes" : "No";
-
+        /// <summary>
+        /// List of the user's current ingredients.
+        /// </summary>
         public List<Ingredient> Ingredients { get; private set; }
 
-        public ObservableCollection<Ingredient> SelectedIngredients { get; set; }
+        /// <summary>
+        /// List of ingredients to filter by in the search.
+        /// </summary>
+        public ObservableCollection<Ingredient> SpecifiedIngredients { get; set; }
 
+        /// <summary>
+        /// The maximum preparation time for the recipe search.
+        /// </summary>
         public int PrepTime
         {
             get => _prepTime;
@@ -124,6 +142,9 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// The maximum cook time for the recipe search.
+        /// </summary>
         public int CookTime
         {
             get => _cookTime;
@@ -138,12 +159,24 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// The list of possible cuisine types.
+        /// </summary>
         public List<string> CuisineTypes { get; } = Enum.GetNames(typeof(Cuisines)).Select(x => x).ToList();
 
-        public List<string> PrepTypes { get; } = Enum.GetNames(typeof(PrepTypes)).Select(x => x).ToList();
+        /// <summary>
+        /// The list of possible preparation styles.
+        /// </summary>
+        public List<string> PrepStyles { get; } = Enum.GetNames(typeof(PrepStyles)).Select(x => x).ToList();
 
+        /// <summary>
+        /// The list of possible meal types.
+        /// </summary>
         public List<string> MealTypes { get; } = Enum.GetNames(typeof(MealType)).Select(x => x).ToList();
 
+        /// <summary>
+        /// The string representing th user's desired cuisine type.
+        /// </summary>
         public string Cuisine
         {
             get => _cuisine;
@@ -158,20 +191,26 @@ namespace Relish.ViewModels
             }
         }
 
-        public string PrepType
+        /// <summary>
+        /// The string representing the user's desired preparation style.
+        /// </summary>
+        public string PrepStyle
         {
-            get => _prepType;
+            get => _prepStyle;
 
             set
             {
-                if (_prepType != value)
+                if (_prepStyle != value)
                 {
-                    _prepType = value;
-                    OnPropertyChanged(nameof(PrepType));
+                    _prepStyle = value;
+                    OnPropertyChanged(nameof(PrepStyle));
                 }
             }
         }
 
+        /// <summary>
+        /// The string representing the user's desired meal type.
+        /// </summary>
         public string MealType
         {
             get => _mealType;
@@ -186,6 +225,26 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// The string representing any validation errors that might occur before starting the search.
+        /// </summary>
+        public string ErrorString
+        {
+            get => _errorString;
+
+            set
+            {
+                if (_errorString != value)
+                {
+                    _errorString = value;
+                    OnPropertyChanged(nameof(ErrorString));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads the user's ingredient data and previous search data.
+        /// </summary>
         private void LoadData()
         {
             Task.Run(async () =>
@@ -207,11 +266,10 @@ namespace Relish.ViewModels
                 var filterData = loadFilterDataTask.Result;
 
                 KeywordString = filterData.KeywordString;
-                UseAllIngredients = filterData.UseAllIngredients;
                 PrepTime = filterData.PrepTime;
                 CookTime = filterData.CookTime;
                 Cuisine = filterData.Cuisine;
-                PrepType = filterData.PrepStyle;
+                PrepStyle = filterData.PrepStyle;
                 MealType = filterData.MealType;
 
                 // Only add previously search ingredients if they still exist.
@@ -222,7 +280,7 @@ namespace Relish.ViewModels
                     {
                         if (previousIngredient.Name == currentIngredient.Name)
                         {
-                            SelectedIngredients.Add(currentIngredient);
+                            SpecifiedIngredients.Add(currentIngredient);
                         }
                     }
                 }
@@ -232,40 +290,42 @@ namespace Relish.ViewModels
             });
         }
 
+        /// <summary>
+        /// Saves the user entered filter to the local device.
+        /// </summary>
         private void SaveFilterData()
         {
             var filterData = new FilterData
             {
                 KeywordString = KeywordString?.Trim(),
-                UseAllIngredients = UseAllIngredients,
-                SpecifiedIngredients = SelectedIngredients.ToList(),
+                SpecifiedIngredients = SpecifiedIngredients.ToList(),
                 PrepTime = PrepTime,
                 CookTime = CookTime,
                 Cuisine = Cuisine,
-                PrepStyle = PrepType,
+                PrepStyle = PrepStyle,
                 MealType = MealType
             };
             _localDataManager.SaveFilterSettings(filterData);
         }
 
+        /// <summary>
+        /// Resets all filters to their default value.
+        /// </summary>
         private void ClearFilters()
         {
             KeywordString = string.Empty;
-            UseAllIngredients = true;
-            SelectedIngredients.Clear();
+            SpecifiedIngredients.Clear();
             PrepTime = 0;
             CookTime = 0;
             Cuisine = Cuisines.All.ToString();
-            PrepType = Enums.PrepTypes.All.ToString();
+            PrepStyle = Enums.PrepStyles.All.ToString();
             MealType = Enums.MealType.All.ToString();
             SaveFilterData();
         }
-
-        private void UseAllIngredientsToggle()
-        {
-            UseAllIngredients = !UseAllIngredients;
-        }
-
+        
+        /// <summary>
+        /// Opens the Ingredients Filter popup.
+        /// </summary>
         private void SpecifyNewIngredient()
         {
             // Prevent button double clicks
@@ -275,25 +335,30 @@ namespace Relish.ViewModels
                 return;
             }
 
+            // TODO remove and replace with string in popup?
             // Don't open popup if all ingredients have already been specified
-            if (SelectedIngredients.Count == Ingredients.Count)
+            if (SpecifiedIngredients.Count == Ingredients.Count)
             {
                 return;
             }
 
             var addNewIngredientAction = new Action<Ingredient>(i =>
             {
-                SelectedIngredients.Add(i);
-                OnPropertyChanged(nameof(SelectedIngredients));
+                SpecifiedIngredients.Add(i);
+                OnPropertyChanged(nameof(SpecifiedIngredients));
             });
             var popup = new IngredientFilterPopup(
-                SelectedIngredients.ToList(),
+                SpecifiedIngredients.ToList(),
                 Ingredients,
                 addNewIngredientAction);
 
             PopupNavigation.Instance.PushAsync(popup);
         }
 
+        /// <summary>
+        /// Removes the specified ingredient from the Specified Ingredients list.
+        /// </summary>
+        /// <param name="parameter">The ingredient to be removed.</param>
         private void RemoveIngredient(object parameter)
         {
             if (parameter == null)
@@ -302,28 +367,30 @@ namespace Relish.ViewModels
             }
 
             var ingredient = (Ingredient)parameter;
-            SelectedIngredients.Remove(ingredient);
+            SpecifiedIngredients.Remove(ingredient);
         }
 
+        /// <summary>
+        /// Gets all the filter objects and begins the search if the user has entered valid information.
+        /// </summary>
         private async void BeginSearch()
         {
-            // Verify all filter inputs are valid
+            // Verify all filter inputs are valid.
             if (!Validate())
             {
                 return;
             }
 
-            // Save filter data on valid search
-            SaveFilterData();
+            // Construct filters.
+            var filterList = new List<Filter>
+            {
+                new IngredientFilter(FilterTypes.Ingredients, Ingredients)
+            };
 
-            // Construct filters
-            ////var filterList = new List<Filter>
-            ////{
-            ////    UseAllIngredients
-            ////        ? new IngredientFilter(FilterTypes.Ingredients, Ingredients)
-            ////        : new IngredientFilter(FilterTypes.Ingredients, SelectedIngredients.ToList())
-            ////};
-            var filterList = new List<Filter>();
+            if (SpecifiedIngredients.Count != 0)
+            {
+                filterList.Add(new IngredientFilter(FilterTypes.SpecifiedIngredients, SpecifiedIngredients.ToList()));
+            }
 
             if (!string.IsNullOrEmpty(KeywordString))
             {
@@ -345,16 +412,20 @@ namespace Relish.ViewModels
                 filterList.Add(new CategoryFilter(FilterTypes.Cuisine, Cuisine));
             }
 
-            if (PrepType != Enums.PrepTypes.All.ToString())
+            if (PrepStyle != Enums.PrepStyles.All.ToString())
             {
-                filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepType)); 
+                filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepStyle)); 
             }
 
             if (MealType != Enums.MealType.All.ToString())
             {
                 filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType)); 
             }
-            
+
+            // Save filter data on valid search.
+            SaveFilterData();
+
+            // Begin search and open Recipe Results page.
             var query = new SearchQuery(filterList, _localDataManager);
             await _navigation.PushAsync(
                 new RecipeListView(
@@ -364,7 +435,10 @@ namespace Relish.ViewModels
                     Strings.RecipeList_NoRecipesFound));
         }
 
-        // TODO Implement filter validation
+        /// <summary>
+        /// Validates that user entered data is valid.
+        /// </summary>
+        /// <returns>Returns if the filter information is valid.</returns>
         private bool Validate()
         {
             // Prevent double clicks
@@ -374,19 +448,15 @@ namespace Relish.ViewModels
                 return false;
             }
 
-            // User must specify ingredients if they are not using all ingredients
-            if (!UseAllIngredients && SelectedIngredients.Count == 0)
-            {
-                // TODO set error string
-                return false;
-            }
+            ErrorString = string.Empty;
 
-            if (Ingredients.Count == 0)
-            {
-                // TODO set error string
-                SaveFilterData();
-                return false;
-            }
+            // Do not block this for now
+            ////if (Ingredients.Count == 0)
+            ////{
+
+            ////    SaveFilterData();
+            ////    return false;
+            ////}
 
             return true;
         }
