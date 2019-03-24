@@ -65,7 +65,7 @@ namespace Relish.ViewModels
                     RecipeResults = new ObservableCollection<Recipe>(result);
                     SearchHasResults = RecipeResults.Count != 0;
                 }
-                catch
+                catch (Exception e)
                 {
                     LoadError = true;
                     SearchHasResults = true; // Set to true in order to hide NoResults Label.

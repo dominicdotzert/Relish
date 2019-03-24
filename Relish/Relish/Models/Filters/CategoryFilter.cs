@@ -1,4 +1,6 @@
-﻿namespace Relish.Models.Filters
+﻿using Relish.Utilities;
+
+namespace Relish.Models.Filters
 {
     public class CategoryFilter : Filter
     {
@@ -11,7 +13,7 @@
 
         public override string ReturnQueryElement()
         {
-            return $"{FilterType} : {_category}";
+            return $"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={_category}";
         }
     }
 }

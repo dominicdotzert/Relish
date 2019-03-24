@@ -1,4 +1,6 @@
-﻿namespace Relish.Models.Filters
+﻿using Relish.Utilities;
+
+namespace Relish.Models.Filters
 {
     public class TimeFilter : Filter
     {
@@ -11,7 +13,7 @@
 
         public override string ReturnQueryElement()
         {
-            return $"{FilterType}={_maxTime}";
+            return $"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={_maxTime}";
         }
     }
 }

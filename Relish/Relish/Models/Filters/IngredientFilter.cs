@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Relish.Utilities;
 
 namespace Relish.Models.Filters
 {
@@ -15,7 +15,20 @@ namespace Relish.Models.Filters
 
         public override string ReturnQueryElement()
         {
-            throw new NotImplementedException();
+            return string.Empty;
+            if (_ingredients.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            var ingredientList = new List<string>();
+
+            foreach (var i in _ingredients)
+            {
+                ingredientList.Add($"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={i.Name}");
+            }
+
+            return string.Join("&", ingredientList);
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Relish.Data
     public class SearchQuery
     {
         private const string BaseUrl = @"https://us-central1-relish-4f211.cloudfunctions.net";
-        private const string GetRecipesEndPoint = @"/dbAPI/recipes/getRecipe/filter?";
-        private const string TestEndPoint = @"/dbAPI/recipes/getRecipe?id=wcmrXAzXCS8zB1NxpPuU";
+        private const string GetRecipesEndPoint = @"/recipeHandlerAPI/recipes/getRecipe/filter?";
+        private const string TestEndPoint = @"/recipeHandlerAPI/recipes/getRecipe?id=uhuowqZGz4oJoih0pgco";
 
         private readonly List<Filter> _filterList;
         private readonly LocalDataManager _localDataManager;
@@ -30,8 +30,8 @@ namespace Relish.Data
         public async Task<List<Recipe>> StartSearch()
         {
             // TODO remove fake list
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            return DummySearchData.RecipeResults1;
+            ////await Task.Delay(TimeSpan.FromSeconds(1));
+            ////return DummySearchData.RecipeResults1;
 
             // Get query
             var query = FormQuery();
@@ -83,19 +83,20 @@ namespace Relish.Data
         private string FormQuery()
         {
             // TODO implement query when database is ready
-            ////var query = GetRecipesEndPoint;
+            var query = GetRecipesEndPoint;
+            var paramsList = new List<string>();
 
-            ////for (int i = 0; i < _filterList.Count; i++)
-            ////{
-            ////    if (i != 0)
-            ////    {
-            ////        query += "&";
-            ////    }
-            ////    query += _filterList[i].ReturnQueryElement();
-            ////}
+            foreach (var filter in _filterList)
+            {
+                paramsList.Add(filter.ReturnQueryElement());
+            }
 
-            // For testing
-            return TestEndPoint;
+            query += string.Join("&", paramsList);
+
+            return query;
+
+            //For testing
+            ////return TestEndPoint;
         }
     }
 

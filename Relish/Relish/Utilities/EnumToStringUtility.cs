@@ -1,13 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Relish.Resources;
 using static Relish.Models.Enums;
 
 namespace Relish.Utilities
 {
     // TODO add remaining enums
-    public static class EnumToFriendlyStringConverter
+    public static class EnumToStringUtility
     {
-        public static string FilterAttributeToString(FilterTypes type)
+        public static readonly Dictionary<FilterTypes, string> FilterTypeToQueryKeyDict =
+            new Dictionary<FilterTypes, string>
+            {
+                { FilterTypes.Keyword, "keyword" },
+                { FilterTypes.Ingredients, "ingredients" },
+                { FilterTypes.PrepTime, "prepTime" },
+                { FilterTypes.CookTime, "cookTime" },
+                { FilterTypes.Cuisine, "cuisineType" },
+                { FilterTypes.PrepStyle, "prepStyle" },
+                { FilterTypes.MealType, "course" },
+            };
+        
+        public static string FilterTypeToString(FilterTypes type)
         {
             switch (type)
             {

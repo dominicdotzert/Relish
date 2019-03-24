@@ -317,12 +317,13 @@ namespace Relish.ViewModels
             SaveFilterData();
 
             // Construct filters
-            var filterList = new List<Filter>
-            {
-                UseAllIngredients
-                    ? new IngredientFilter(FilterTypes.Ingredients, SelectedIngredients.ToList())
-                    : new IngredientFilter(FilterTypes.Ingredients, Ingredients)
-            };
+            ////var filterList = new List<Filter>
+            ////{
+            ////    UseAllIngredients
+            ////        ? new IngredientFilter(FilterTypes.Ingredients, Ingredients)
+            ////        : new IngredientFilter(FilterTypes.Ingredients, SelectedIngredients.ToList())
+            ////};
+            var filterList = new List<Filter>();
 
             if (!string.IsNullOrEmpty(KeywordString))
             {
