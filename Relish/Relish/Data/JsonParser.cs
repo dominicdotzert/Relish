@@ -56,7 +56,7 @@ namespace Relish.Data
                 var ingredientsList = recipe[IngredientsKey];
                 foreach (var i in ingredientsList)
                 {
-                    ingredients.Add(i[IngredientNameKey].ToString());
+                    ingredients.Add(i[IngredientFullNameKey].ToString());
                 }
 
                 var directions = recipe[DirectionsKey].ToObject<List<string>>();

@@ -13,7 +13,7 @@ namespace Relish.Utilities
             {
                 { FilterTypes.Keyword, "keyword" },
                 { FilterTypes.Ingredients, "ing" },
-                { FilterTypes.SpecifiedIngredients, "sping"},
+                { FilterTypes.SpecifiedIngredients, "ingredients"},
                 { FilterTypes.PrepTime, "prepTime" },
                 { FilterTypes.CookTime, "cookTime" },
                 { FilterTypes.Cuisine, "cuisineType" },

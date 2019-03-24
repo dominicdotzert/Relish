@@ -200,6 +200,8 @@ namespace Relish.ViewModels
                 RecipeResults.Remove(recipe);
                 SortRecipeCollectionAlphabetically();
             }
+
+            SearchHasResults = RecipeResults.Count != 0;
         }
 
         /// <summary>

@@ -44,9 +44,9 @@ namespace Relish.ViewModels
             _navigation = navigation;
 
             SpecifiedIngredients = new ObservableCollection<Ingredient>();
-            Cuisine = Cuisines.All.ToString();
-            PrepStyle = Enums.PrepStyles.All.ToString();
-            MealType = Enums.MealType.All.ToString();
+            Cuisine = Cuisines[0];
+            PrepStyle = Enums.PrepStyles[0];
+            MealType = Enums.MealTypes[0];
 
             SaveCommand = new Command(SaveFilterData);
             ClearFiltersCommand = new Command(ClearFilters);
@@ -162,17 +162,17 @@ namespace Relish.ViewModels
         /// <summary>
         /// The list of possible cuisine types.
         /// </summary>
-        public List<string> CuisineTypes { get; } = Enum.GetNames(typeof(Cuisines)).Select(x => x).ToList();
+        public List<string> CuisineTypes { get; } = Cuisines;
 
         /// <summary>
         /// The list of possible preparation styles.
         /// </summary>
-        public List<string> PrepStyles { get; } = Enum.GetNames(typeof(PrepStyles)).Select(x => x).ToList();
+        public List<string> PrepStyles { get; } = Enums.PrepStyles;
 
         /// <summary>
         /// The list of possible meal types.
         /// </summary>
-        public List<string> MealTypes { get; } = Enum.GetNames(typeof(MealType)).Select(x => x).ToList();
+        public List<string> MealTypes { get; } = Enums.MealTypes;
 
         /// <summary>
         /// The string representing th user's desired cuisine type.
@@ -317,9 +317,9 @@ namespace Relish.ViewModels
             SpecifiedIngredients.Clear();
             PrepTime = 0;
             CookTime = 0;
-            Cuisine = Cuisines.All.ToString();
-            PrepStyle = Enums.PrepStyles.All.ToString();
-            MealType = Enums.MealType.All.ToString();
+            Cuisine = Cuisines[0];
+            PrepStyle = Enums.PrepStyles[0];
+            MealType = Enums.MealTypes[0];
             SaveFilterData();
         }
         
@@ -407,17 +407,17 @@ namespace Relish.ViewModels
                 filterList.Add(new TimeFilter(FilterTypes.CookTime, CookTime));
             }
 
-            if (Cuisine != Cuisines.All.ToString())
+            if (Cuisine != Cuisines[0])
             {
                 filterList.Add(new CategoryFilter(FilterTypes.Cuisine, Cuisine));
             }
 
-            if (PrepStyle != Enums.PrepStyles.All.ToString())
+            if (PrepStyle != Enums.PrepStyles[0])
             {
                 filterList.Add(new CategoryFilter(FilterTypes.PrepStyle, PrepStyle)); 
             }
 
-            if (MealType != Enums.MealType.All.ToString())
+            if (MealType != Enums.MealTypes[0])
             {
                 filterList.Add(new CategoryFilter(FilterTypes.MealType, MealType)); 
             }
