@@ -4,10 +4,17 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              xmlns:customComponents="clr-namespace:Relish.Views.CustomComponents"
+             xmlns:res="clr-namespace:Relish.Resources"
              x:Class="Relish.Views.Popups.IngredientFilterPopup">
 
     <pages:PopupPage.Resources>
-        
+        <Style x:Key="TitleLabel" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
     </pages:PopupPage.Resources>
 
     <pages:PopupPage.Animation>
@@ -29,6 +36,7 @@
             Margin="15,50">
             <StackLayout>
                 <Label
+                    Style="{StaticResource TitleLabel}"
                     Text="Specify ingredients"/>
                 <ListView
                     SelectionMode="None"
@@ -55,6 +63,11 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Button
+                    Margin="5"
+                    HorizontalOptions="Center"
+                    Text="{x:Static res:Strings.CancelBtn}"
+                    Command="{Binding CancelCommand}"/>
             </StackLayout>
         </Frame>
     </pages:PopupPage.Content>

@@ -28,6 +28,7 @@ namespace Relish.ViewModels
             _addIngredient = addIngredient;
 
             IngredientTappedCommand = new Command(AddIngredient);
+            CancelCommand = new Command(ClosePopup);
 
             var specifiedIngredientsSet = new HashSet<Ingredient>(specifiedIngredients);
             var ingredients = new List<Ingredient>();
@@ -51,6 +52,11 @@ namespace Relish.ViewModels
         public ICommand IngredientTappedCommand { get; }
 
         /// <summary>
+        /// Command to close the popup.
+        /// </summary>
+        public ICommand CancelCommand { get; }
+
+        /// <summary>
         /// The list of unspecified ingredients.
         /// </summary>
         public ObservableCollection<Ingredient> UnselectedIngredients { get; }
@@ -66,6 +72,18 @@ namespace Relish.ViewModels
             {
                 var ingredient = (Ingredient)ingredientObject;
                 _addIngredient(ingredient);
+                PopupNavigation.Instance.PopAsync();
+            }
+        }
+
+        /// <summary>
+        /// Closes the popup.
+        /// </summary>
+        private void ClosePopup()
+        {
+            var stack = PopupNavigation.Instance.PopupStack;
+            if (stack.Count > 0 && stack[stack.Count - 1].GetType() == typeof(IngredientFilterPopup))
+            {
                 PopupNavigation.Instance.PopAsync();
             }
         }
