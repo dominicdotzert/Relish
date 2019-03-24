@@ -43,6 +43,12 @@ namespace Relish.Utilities
             return 1;
         }
         
+        /// <summary>
+        /// Comparison method for sorting Recipes by Name.
+        /// </summary>
+        /// <param name="x">Recipe x.</param>
+        /// <param name="y">Recipe y.</param>
+        /// <returns></returns>
         public static int SortByRecipeName(Recipe x, Recipe y)
         {
             return string.Compare(x.Name, y.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);

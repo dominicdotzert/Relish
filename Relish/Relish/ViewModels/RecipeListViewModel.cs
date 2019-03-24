@@ -175,6 +175,12 @@ namespace Relish.ViewModels
             _navigation.PushAsync(new RecipeView(recipeViewModel));
         }
 
+        /// <summary>
+        /// Refreshes the RecipeResults collection when a saved item is removed.
+        /// Also re-adds a recipe if it is added back to the collection before the page is closed.
+        /// </summary>
+        /// <param name="sender">The Recipe object which has been added or removed.</param>
+        /// <param name="e">Null</param>
         private void ReloadData(object sender, EventArgs e)
         {
             if (sender == null)
@@ -196,6 +202,9 @@ namespace Relish.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sorts the RecipeResults alphabetically.
+        /// </summary>
         private void SortRecipeCollectionAlphabetically()
         {
             var list = RecipeResults.ToList();
