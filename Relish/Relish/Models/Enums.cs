@@ -132,13 +132,13 @@ namespace Relish.Models
             Quantity,
             g,
             kg,
+            Oz,
             lbs,
             mL,
             L,
             Tsp,
             Tbsp,
             Cup,
-            Oz,
             Common,
         }
     }

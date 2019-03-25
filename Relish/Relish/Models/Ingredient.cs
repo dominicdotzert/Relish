@@ -7,6 +7,7 @@ namespace Relish.Models
 {
     public class Ingredient
     {
+        private Units _unit;
         private float _quantity;
 
         /// <summary>
@@ -73,7 +74,19 @@ namespace Relish.Models
         /// <summary>
         /// The unit in which the ingredient is measured.
         /// </summary>
-        public Units Unit { get; set; }
+        public Units Unit
+        {
+            get => _unit;
+
+            set
+            {
+                _unit = value;
+                StandardUnit = GetStandardUnit(value);
+            }
+        }
+
+        public Units StandardUnit { get; private set; }
+
 
         /// <summary>
         /// The quantity of the ingredient in its standard unit.
@@ -98,14 +111,8 @@ namespace Relish.Models
                     return string.Empty;
                 }
 
-                return $"{_quantity} {ReturnUnitString(Unit)}";
+                return $"{_quantity} {Unit.ToString()}";
             }
-        }
-
-        private string ReturnUnitString(Units unit)
-        {
-            // TODO add strings for these units
-            return unit.ToString();
         }
     }
 }
