@@ -8,11 +8,11 @@ using Xamarin.Forms.Xaml;
 namespace Relish.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class IngredientFilterPopup : PopupPage
+    public partial class IngredientFilterPopup : PopupPage
     {
-		public IngredientFilterPopup(List<Ingredient> specifiedIngredients, List<Ingredient> allIngredients, Action<Ingredient> addIngredient)
+        public IngredientFilterPopup(List<Ingredient> specifiedIngredients, List<Ingredient> allIngredients, Action<Ingredient> addIngredient)
         {
-			InitializeComponent();
+            InitializeComponent();
             BindingContext = new IngredientFilterPopupViewModel(specifiedIngredients, allIngredients, addIngredient);
         }
     }

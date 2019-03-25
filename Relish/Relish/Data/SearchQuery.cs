@@ -7,6 +7,9 @@ using Relish.Models.Filters;
 
 namespace Relish.Data
 {
+    /// <summary>
+    /// Class to represent a search query to the Relish database.
+    /// </summary>
     public class SearchQuery
     {
         private const string BaseUrl = @"https://us-central1-relish-4f211.cloudfunctions.net";
@@ -17,6 +20,11 @@ namespace Relish.Data
         private readonly LocalDataManager _localDataManager;
         private readonly HttpClient _client;
 
+        /// <summary>
+        /// Initializes a search query object.
+        /// </summary>
+        /// <param name="filterList">The list of filters to be applied.</param>
+        /// <param name="localDataManager">The LocalDataManager object.</param>
         public SearchQuery(List<Filter> filterList, LocalDataManager localDataManager)
         {
             _filterList = filterList;
@@ -27,6 +35,10 @@ namespace Relish.Data
             };
         }
 
+        /// <summary>
+        /// Task to begin the search.
+        /// </summary>
+        /// <returns>Returns a list of recipes.</returns>
         public async Task<List<Recipe>> StartSearch()
         {
             // TODO remove fake list
@@ -36,7 +48,7 @@ namespace Relish.Data
             // Get query
             var query = FormQuery();
 
-            // Hit endpoint and await response
+            // Hit endpoint and await response.
             HttpResponseMessage response;
             try
             {
@@ -48,7 +60,7 @@ namespace Relish.Data
                 throw;
             }
 
-            // Extract response
+            // Extract response.
             var content = await response.Content.ReadAsStringAsync();
 
             if (string.IsNullOrEmpty(content))
@@ -56,7 +68,7 @@ namespace Relish.Data
                 return new List<Recipe>(); // return empty list
             }
 
-            // Parse response
+            // Parse response.
             var recipes = JsonParser.ParseJson(content);
 
             if (recipes.Count == 0)
@@ -64,7 +76,7 @@ namespace Relish.Data
                 return recipes;
             }
 
-            // Check if any recipes were previously saved and update recipe flags
+            // Check if any recipes were previously saved and update recipe flags.
             var savedRecipes = await _localDataManager.GetRecipes();
             foreach (var r in recipes)
             {
@@ -80,9 +92,12 @@ namespace Relish.Data
             return recipes;
         }
 
+        /// <summary>
+        /// Gets the query based on the filter list.
+        /// </summary>
+        /// <returns>The http GET request string.</returns>
         private string FormQuery()
         {
-            // TODO implement query when database is ready
             var query = GetRecipesEndPoint;
             var paramsList = new List<string>();
 

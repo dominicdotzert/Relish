@@ -18,6 +18,11 @@ namespace Relish.ViewModels
         private readonly LocalDataManager _localDataManager;
         private readonly INavigation _navigation;
 
+        /// <summary>
+        /// Initializes the view model object.
+        /// </summary>
+        /// <param name="localDataManager">The LocalDataManager object.</param>
+        /// <param name="navigation">The INavigation object for managing pages.</param>
         public MainPageViewModel(LocalDataManager localDataManager, INavigation navigation)
         {
             _localDataManager = localDataManager;
@@ -104,7 +109,7 @@ namespace Relish.ViewModels
         /// <summary>
         /// Adds a new popup page to the PopupNavigation stack and prevents multiple button presses.
         /// </summary>
-        /// <param name="popup"></param>
+        /// <param name="popup">The popup view to be opened.</param>
         /// <returns>The NewPopup task.</returns>
         private async Task NewPopup(PopupPage popup)
         {

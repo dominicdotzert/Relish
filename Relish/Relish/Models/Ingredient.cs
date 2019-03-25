@@ -5,6 +5,9 @@ using static Relish.Utilities.UnitConversions;
 
 namespace Relish.Models
 {
+    /// <summary>
+    /// Model class to represent an individual ingredient.
+    /// </summary>
     public class Ingredient
     {
         private Units _unit;
@@ -86,7 +89,6 @@ namespace Relish.Models
         }
 
         public Units StandardUnit { get; private set; }
-
 
         /// <summary>
         /// The quantity of the ingredient in its standard unit.

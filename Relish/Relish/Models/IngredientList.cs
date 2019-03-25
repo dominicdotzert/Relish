@@ -12,8 +12,14 @@ namespace Relish.Models
             Category = category.ToString();
         }
 
+        /// <summary>
+        /// The Ingredient Category for the list.
+        /// </summary>
         public string Category { get; }
 
+        /// <summary>
+        /// The list of ingredients.
+        /// </summary>
         public List<Ingredient> Ingredients => this;
     }
 }

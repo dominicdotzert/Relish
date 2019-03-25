@@ -6,6 +6,9 @@ using Relish.Models;
 
 namespace Relish.Utilities
 {
+    /// <summary>
+    /// Static utility class for defining Comparison methods for sorting List objects of non-primitive types.
+    /// </summary>
     public static class ObjectComparisons
     {
         /// <summary>

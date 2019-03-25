@@ -2,7 +2,6 @@
 
 namespace Relish.Models
 {
-    // TODO: Cindy to update enums.
     public static class Enums
     {
         public static List<string> Cuisines = new List<string>
@@ -52,28 +51,6 @@ namespace Relish.Models
             "Thai",
             "Vietnamese"
         };
-
-        public enum FilterTypes
-        {
-            Keyword,
-            Ingredients,
-            SpecifiedIngredients,
-            PrepTime,
-            CookTime,
-            Cuisine,
-            PrepStyle,
-            MealType,
-        }
-
-        public enum IngredientCategories
-        {
-            Meat,
-            Dairy,
-            Produce,
-            Pantry,
-            Spices,
-            Other
-        }
 
         public static List<string> MealTypes = new List<string>
         {
@@ -126,6 +103,28 @@ namespace Relish.Models
             "Sous vide",
             "Stir-fry"
         };
+
+        public enum FilterTypes
+        {
+            Keyword,
+            Ingredients,
+            SpecifiedIngredients,
+            PrepTime,
+            CookTime,
+            Cuisine,
+            PrepStyle,
+            MealType,
+        }
+
+        public enum IngredientCategories
+        {
+            Meat,
+            Dairy,
+            Produce,
+            Pantry,
+            Spices,
+            Other
+        }
 
         public enum Units
         {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Relish.Data;
-using Relish.Utilities;
 using Relish.Models;
+using Relish.Utilities;
 using Relish.Views;
 using Xamarin.Forms;
 
@@ -33,7 +33,7 @@ namespace Relish.ViewModels
         /// <param name="navigation">The INavigation object for managing pages.</param>
         /// <param name="titleString">The string to be displayed in the navigation bar.</param>
         /// <param name="noResultsString">The string to display if no recipes are returned.</param>
-        /// <param name="containsSavedItems"></param>
+        /// <param name="containsSavedItems">Flag for whether the recipe list will contain saved recipe items.</param>
         public RecipeListViewModel(
             Task<List<Recipe>> loadTask,
             LocalDataManager localDataManager,
@@ -83,7 +83,7 @@ namespace Relish.ViewModels
         public ICommand OpenRecipeCommand { get; }
 
         /// <summary>
-        /// Flag which represents if a load error has occured.
+        /// Flag which represents if a load error has occurred.
         /// If true, a generic error string will be displayed.
         /// </summary>
         public bool LoadError
@@ -180,7 +180,7 @@ namespace Relish.ViewModels
         /// Also re-adds a recipe if it is added back to the collection before the page is closed.
         /// </summary>
         /// <param name="sender">The Recipe object which has been added or removed.</param>
-        /// <param name="e">Null</param>
+        /// <param name="e">Null.</param>
         private void ReloadData(object sender, EventArgs e)
         {
             if (sender == null)

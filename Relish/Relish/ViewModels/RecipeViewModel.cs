@@ -124,7 +124,7 @@ namespace Relish.ViewModels
             Strings.RecipeView_AddToRecipeBook : Strings.RecipeView_RemoveFromRecipeBook;
 
         /// <summary>
-        /// The string representing the text displayed ont he button for preparing/unpreparing the recipe from the meal prep list.
+        /// The string representing the text displayed on the button for preparing/unpreparing the recipe from the meal prep list.
         /// </summary>
         public string PrepareButtonText => Strings.RecipeView_AddToMealPrep;
 

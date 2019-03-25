@@ -12,6 +12,9 @@ using static Relish.Models.Enums;
 
 namespace Relish.ViewModels
 {
+    /// <summary>
+    /// View model class to represent the popup for adding/editing ingredients.
+    /// </summary>
     public class IngredientPopupViewModel : NotifyPropertyChanged
     {
         private readonly LocalDataManager _localDataManager;

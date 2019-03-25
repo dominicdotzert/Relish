@@ -4,7 +4,10 @@ using Xamarin.Forms;
 
 namespace Relish.Views.CustomComponents
 {
-    class ListViewTappedBehaviour : Behavior<ListView>
+    /// <summary>
+    /// Behaviour for binding ListViewTapped events to an ICommand in the ViewModel.
+    /// </summary>
+    public class ListViewTappedBehaviour : Behavior<ListView>
     {
         public static readonly BindableProperty CommandProperty = 
             BindableProperty.Create(
