@@ -18,8 +18,10 @@ namespace Relish.Utilities
             switch (unit)
             {
                 case Units.kg:
+                    return quantity * 1000.0f; // to g
+
                 case Units.L:
-                    return quantity / 1000.0f; // to mL
+                    return quantity * 1000.0f; // to mL
 
                 case Units.Oz:
                     return quantity * 28.35f; // to g
