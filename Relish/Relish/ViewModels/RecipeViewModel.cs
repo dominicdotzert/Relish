@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Relish.Data;
 using Relish.Models;
@@ -92,7 +93,7 @@ namespace Relish.ViewModels
         /// <summary>
         /// The list of strings representing the ingredients required to make the recipe.
         /// </summary>
-        public List<string> Ingredients => _recipe.Ingredients;
+        public List<string> Ingredients => _recipe.Ingredients.Select(x => x.OriginalString).ToList();
 
         /// <summary>
         /// The list of strings representing the steps required to prepare the recipe.

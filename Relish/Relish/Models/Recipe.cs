@@ -42,7 +42,7 @@ namespace Relish.Models
             string cuisine,
             string prepStyle,
             string mealType,
-            List<string> ingredients,
+            List<SimpleIngredient> ingredients,
             List<string> directions)
         {
             Name = name;
@@ -89,7 +89,7 @@ namespace Relish.Models
         /// The list of ingredients required by the recipe.
         /// </summary>
         [TextBlob(nameof(IngredientsBlobbed))]
-        public List<string> Ingredients { get; set; }
+        public List<SimpleIngredient> Ingredients { get; set; }
 
         /// <summary>
         /// A serialized string of the ingredients list for storage in the local db.
@@ -141,5 +141,11 @@ namespace Relish.Models
         /// Flag which represents if the recipe has been saved by the user.
         /// </summary>
         public bool IsSaved { get; set; }
+
+        [Ignore]
+        public int IngredientsIncluded { get; set; }
+
+        [Ignore]
+        public int IngredientsMissing { get; set; }
     }
 }

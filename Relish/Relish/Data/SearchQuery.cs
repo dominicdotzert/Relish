@@ -41,8 +41,8 @@ namespace Relish.Data
         public async Task<List<Recipe>> StartSearch()
         {
             // TODO remove fake list
-            ////await Task.Delay(TimeSpan.FromSeconds(1));
-            ////return DummySearchData.RecipeResults1;
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            return DummySearchData.RecipeResults1;
 
             // Get query
             var query = FormQuery();
@@ -116,6 +116,14 @@ namespace Relish.Data
 
     public static class DummySearchData
     {
+        public static SimpleIngredient SampleSimpleIngredient = new SimpleIngredient
+        {
+            Name = "Ingredient",
+            Unit = "Unit",
+            Quantity = 4.0f,
+            OriginalString = "1 units of ingredient"
+        };
+
         public static List<Recipe> RecipeResults1 =>
             new List<Recipe>
             {
@@ -130,21 +138,44 @@ namespace Relish.Data
                     "Cuisine",
                     "PrepStyle",
                     "MealType",
-                    new List<string> {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
-                    new List<string> {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
-                new Recipe(
-                    "Chicken Curry with Sweet Potato and Lemongrass",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2.jpg",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
-                    "4 to 6 servings",
-                    5,
-                    40,
-                    "Cuisine",
-                    "PrepStyle",
-                    "MealType",
-                    new List<string>() {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
-                    new List<string>() {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
+                    new List<SimpleIngredient>
+                    {
+                        new SimpleIngredient
+                        {
+                            Name = "Tomatoes",
+                            Unit = "quantity",
+                            Quantity = 5,
+                            OriginalString = "5 tomatoes"
+                        },
+                        new SimpleIngredient
+                        {
+                            Name = "Olive oil",
+                            Unit = "mL",
+                            Quantity = 50f,
+                            OriginalString = "2 tbsp olive oil"
+                        },
+                        new SimpleIngredient
+                        {
+                            Name = "Cabbage",
+                            Unit = "g",
+                            Quantity = 1000f,
+                            OriginalString = "2 lbs cabbage"
+                        },
+                    },
+                    new List<string> { "Direction 1", "Direction 2", "Direction 3", "Direction 4" }),
+                ////new Recipe(
+                ////    "Chicken Curry with Sweet Potato and Lemongrass",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2.jpg",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/03/chicken_lemongrass_curry_HERO00001_V2-214x300.jpg",
+                ////    "4 to 6 servings",
+                ////    5,
+                ////    40,
+                ////    "Cuisine",
+                ////    "PrepStyle",
+                ////    "MealType",
+                ////    new List<SimpleIngredient> { SampleSimpleIngredient, SampleSimpleIngredient, SampleSimpleIngredient, SampleSimpleIngredient },
+                ////    new List<string>() { "Direction 1", "Direction 2", "Direction 3", "Direction 4" }),
                 new Recipe(
                     "BBQ Chicken Burrito Bowl",
                     "https://www.simplyrecipes.com/wp-content/uploads/2016/07/2016-08-03-BBQ-Chicken-Bowls-9-200x300.jpg",
@@ -156,21 +187,44 @@ namespace Relish.Data
                     "Cuisine",
                     "PrepStyle",
                     "MealType",
-                    new List<string>() {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
-                    new List<string>() {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
-                new Recipe(
-                    "Easy No-Bean Chili",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
-                    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
-                    "6 servings",
-                    20,
-                    30,
-                    "Cuisine",
-                    "PrepStyle",
-                    "MealType",
-                    new List<string>() {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"},
-                    new List<string>() {"Direction 1", "Direction 2", "Direction 3", "Direction 4"}),
+                    new List<SimpleIngredient>
+                    {
+                        new SimpleIngredient
+                        {
+                            Name = "Chicken breast",
+                            Unit = "quantity",
+                            Quantity = 2,
+                            OriginalString = "2 chicken breast"
+                        },
+                        new SimpleIngredient
+                        {
+                            Name = "Lettuce",
+                            Unit = "quantity",
+                            Quantity = 2f,
+                            OriginalString = "Lots of lettuce"
+                        },
+                        new SimpleIngredient
+                        {
+                            Name = "BBQ sauce",
+                            Unit = "Common",
+                            Quantity = -1f,
+                            OriginalString = "BBQ sauce"
+                        },
+                    },
+                    new List<string>() { "Direction 1", "Direction 2", "Direction 3", "Direction 4" }),
+                ////new Recipe(
+                ////    "Easy No-Bean Chili",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
+                ////    "https://www.simplyrecipes.com/wp-content/uploads/2019/01/No-Bean-Chili-LEAD-2-214x300.jpg",
+                ////    "6 servings",
+                ////    20,
+                ////    30,
+                ////    "Cuisine",
+                ////    "PrepStyle",
+                ////    "MealType",
+                ////    new List<SimpleIngredient> { SampleSimpleIngredient, SampleSimpleIngredient, SampleSimpleIngredient, SampleSimpleIngredient },
+                ////    new List<string>() { "Direction 1", "Direction 2", "Direction 3", "Direction 4" }),
             };
     }
 }

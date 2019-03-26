@@ -55,11 +55,14 @@ namespace Relish.ViewModels
             {
                 try
                 {
+                    UserIngredients = await _localDataManager.GetIngredients();
                     var result = await loadTask;
 
                     if (_containsSavedItems)
                     {
-                        result.Sort(ObjectComparisons.SortByRecipeName);
+                        CalculateMissingIngredients(result);
+                        ////result.Sort(ObjectComparisons.SortByRecipeName);
+                        result.Sort(ObjectComparisons.SortByMissingIngredients);
                     }
 
                     RecipeResults = new ObservableCollection<Recipe>(result);
@@ -151,6 +154,8 @@ namespace Relish.ViewModels
         /// </summary>
         public ObservableCollection<Recipe> RecipeResults { get; private set; }
 
+        private List<Ingredient> UserIngredients { get; set; }
+
         /// <summary>
         /// Opens a detailed recipe view for the selected recipe.
         /// Prevents double taps.
@@ -213,6 +218,40 @@ namespace Relish.ViewModels
             list.Sort(ObjectComparisons.SortByRecipeName);
             RecipeResults = new ObservableCollection<Recipe>(list);
             OnPropertyChanged(nameof(RecipeResults));
+        }
+
+        private void CalculateMissingIngredients(List<Recipe> result)
+        {
+            foreach (var recipe in result)
+            {
+                var includedCount = 0;
+                var missingCount = 0;
+
+                foreach (var recipeIngredient in recipe.Ingredients)
+                {
+                    var ingredientIncluded = false;
+                    foreach (var userIngredient in UserIngredients)
+                    {
+                        if (recipeIngredient.Name.ToLower().Contains(userIngredient.Name.ToLower()) &&
+                            (string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
+                            userIngredient.QuantityStandardUnit >= recipeIngredient.Quantity ||
+                            userIngredient.Unit == Enums.Units.Common))
+                        {
+                            includedCount++;
+                            ingredientIncluded = true;
+                            break;
+                        }
+                    }
+
+                    if (!ingredientIncluded)
+                    {
+                        missingCount++;
+                    }
+                }
+
+                recipe.IngredientsIncluded = includedCount;
+                recipe.IngredientsMissing = missingCount;
+            }
         }
     }
 }

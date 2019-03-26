@@ -56,5 +56,20 @@ namespace Relish.Utilities
         {
             return string.Compare(x.Name, y.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);
         }
+
+        public static int SortByMissingIngredients(Recipe x, Recipe y)
+        {
+            if (x.IngredientsMissing == y.IngredientsMissing)
+            {
+                return 0;
+            }
+
+            if (x.IngredientsMissing < y.IngredientsMissing)
+            {
+                return -1;
+            }
+
+            return 1;
+        }
     }
 }
