@@ -10,5 +10,6 @@ namespace Relish.Models
         public string Unit { get; set; }
         public float Quantity { get; set; }
         public string OriginalString { get; set; }
+        public bool UserHasIngredient { get; set; }
     }
 }

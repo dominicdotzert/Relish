@@ -32,6 +32,8 @@ namespace Relish.ViewModels
             OpenInBrowserCommand = new Command(OpenInBrowser);
             SaveCommand = new Command(ToggleSaved);
             PrepareCommand = new Command(OpenPremiumPopup);
+
+            CheckIngredients();
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace Relish.ViewModels
         /// <summary>
         /// The list of strings representing the ingredients required to make the recipe.
         /// </summary>
-        public List<string> Ingredients => _recipe.Ingredients.Select(x => x.OriginalString).ToList();
+        public List<SimpleIngredient> Ingredients => _recipe.Ingredients;
 
         /// <summary>
         /// The list of strings representing the steps required to prepare the recipe.
@@ -175,6 +177,25 @@ namespace Relish.ViewModels
             if (stack.Count == 0 || stack[stack.Count - 1].GetType() != typeof(UpgradeToPremiumPopup))
             {
                 await PopupNavigation.Instance.PushAsync(new UpgradeToPremiumPopup());
+            }
+        }
+
+        private void CheckIngredients()
+        {
+            var userIngredients = _localDataManager.GetIngredients().Result;
+            foreach (var recipeIngredient in Ingredients)
+            {
+                foreach (var userIngredient in userIngredients)
+                {
+                    if (recipeIngredient.Name.ToLower().Contains(userIngredient.Name.ToLower()) &&
+                        (string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
+                         userIngredient.QuantityStandardUnit >= recipeIngredient.Quantity ||
+                         userIngredient.Unit == Enums.Units.Common))
+                    {
+                        recipeIngredient.UserHasIngredient = true;
+                        break;
+                    }
+                }
             }
         }
     }
