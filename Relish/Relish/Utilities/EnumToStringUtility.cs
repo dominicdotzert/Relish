@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using Relish.Resources;
 using static Relish.Models.Enums;
 
 namespace Relish.Utilities
 {
-    // TODO add remaining enums
     public static class EnumToStringUtility
     {
         public static readonly Dictionary<FilterTypes, string> FilterTypeToQueryKeyDict =
             new Dictionary<FilterTypes, string>
             {
-                { FilterTypes.Keyword, "keyword" },
-                { FilterTypes.Ingredients, "ing" },
-                { FilterTypes.SpecifiedIngredients, "ingredients"},
+                { FilterTypes.Keyword, "keyWord" },
+                { FilterTypes.Ingredients, "userIngredient" },
+                { FilterTypes.SpecifiedIngredients, "ingredients" },
                 { FilterTypes.PrepTime, "prepTime" },
                 { FilterTypes.CookTime, "cookTime" },
                 { FilterTypes.Cuisine, "cuisineType" },

@@ -213,8 +213,8 @@ namespace Relish.ViewModels
             {
                 _ingredient.Name = IngredientName.Trim();
                 _ingredient.Category = (IngredientCategories)Enum.Parse(typeof(IngredientCategories), Category);
-                _ingredient.Quantity = Quantity;
                 _ingredient.Unit = (Units)Enum.Parse(typeof(Units), Unit);
+                _ingredient.Quantity = Quantity;
 
                 await _localDataManager.SaveIngredient(_ingredient);
                 ClosePopup();

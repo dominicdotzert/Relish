@@ -1,9 +1,6 @@
-﻿using System;
-using Relish.Data;
-using Relish.Models;
+﻿using Relish.Data;
 using Relish.ViewModels;
 using Relish.Views.CustomComponents;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Relish.Views

@@ -14,7 +14,7 @@ namespace Relish.Data
     /// </summary>
     public class LocalDataManager
     {
-        private const string DatabaseName = "LocalData.db3";
+        private const string DatabaseName = "UserData.db3";
         private readonly SQLiteAsyncConnection _database;
 
         /// <summary>
@@ -118,9 +118,16 @@ namespace Relish.Data
         /// Task to return the previous filter settings.
         /// </summary>
         /// <returns>Returns the saved FilterData object</returns>
-        public Task<FilterData> GetFilterSettings()
+        public async Task<FilterData> GetFilterSettings()
         {
-            return _database.GetWithChildrenAsync<FilterData>(1);
+            var countTask = await _database.Table<FilterData>().CountAsync();
+
+            if (countTask == 0)
+            {
+                return null;
+            }
+
+            return await _database.GetWithChildrenAsync<FilterData>(1);
         }
 
         /// <summary>

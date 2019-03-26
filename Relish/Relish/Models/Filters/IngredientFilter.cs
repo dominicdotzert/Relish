@@ -37,7 +37,7 @@ namespace Relish.Models.Filters
             foreach (var i in _ingredients)
             {
                 ingredientList.Add(
-                    $"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={{\"name\":\"{i.Name}\",\"amount\":\"{i.Quantity}\",\"unit\":\"{i.Unit.ToString()}\"}}");
+                    $"{EnumToStringUtility.FilterTypeToQueryKeyDict[FilterType]}={{\"name\":\"{i.Name}\",\"amount\":\"{i.QuantityStandardUnit}\",\"unit\":\"{i.StandardUnit.ToString()}\"}}");
             }
 
             return string.Join("&", ingredientList);

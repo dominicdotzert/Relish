@@ -39,24 +39,21 @@ namespace Relish.Data
             {
                 var name = recipe[NameKey].ToString();
                 var url = recipe[UrlKey].ToString();
-                var thumbnail = recipe[ThumbnailKey]?.ToString();
-                var image = recipe[ImageUrlKey]?.ToString();
-                var servings = recipe[ServingSizeKey]?.ToString();
-                var prepTime = recipe[PrepTimeKey]?.ToObject<int>();
-                var cookTime = recipe[CookTimKey]?.ToObject<int>();
+                var thumbnail = ParseString(recipe[ThumbnailKey]);
+                var image = ParseString(recipe[ImageUrlKey]);
+                var servings = ParseString(recipe[ServingSizeKey]);
+                var prepTime = ParseInt(recipe[PrepTimeKey]);
+                var cookTime = ParseInt(recipe[CookTimKey]);
 
-                var cuisineList = recipe[CuisineKey]?.ToObject<List<string>>();
-                var cuisine = cuisineList == null ? string.Empty : string.Join(", ", cuisineList);
-                var prepStyleList = recipe[PrepStyleKey]?.ToObject<List<string>>();
-                var prepStyle = prepStyleList == null ? string.Empty : string.Join(", ", prepStyleList);
-                var mealTypeList = recipe[MealTypeKey]?.ToObject<List<string>>();
-                var mealType = mealTypeList == null ? string.Empty : string.Join(", ", mealTypeList);
+                var cuisine = ParseStringList(recipe[CuisineKey]);
+                var prepStyle = ParseStringList(recipe[PrepStyleKey]);
+                var mealType = ParseStringList(recipe[MealTypeKey]);
 
                 var ingredients = new List<string>();
                 var ingredientsList = recipe[IngredientsKey];
                 foreach (var i in ingredientsList)
                 {
-                    ingredients.Add(i[IngredientFullNameKey].ToString());
+                    ingredients.Add(ParseString(i[IngredientFullNameKey]));
                 }
 
                 var directions = recipe[DirectionsKey].ToObject<List<string>>();
@@ -67,8 +64,8 @@ namespace Relish.Data
                     image,
                     url,
                     servings,
-                    prepTime ?? 0,
-                    cookTime ?? 0,
+                    prepTime,
+                    cookTime,
                     cuisine,
                     prepStyle,
                     mealType,
@@ -83,9 +80,6 @@ namespace Relish.Data
         {
             var recipes = new List<Recipe>();
 
-            #region Loop here
-
-            // TODO convert to JArray when possible
             var json = JArray.Parse(content);
 
             foreach (var recipe in json)
@@ -135,9 +129,39 @@ namespace Relish.Data
                     directions));
             }
 
-            #endregion
-
             return recipes;
+        }
+
+        private static string ParseString(JToken token)
+        {
+            var result = token.ToString();
+            if (result == "N/A")
+            {
+                result = string.Empty;
+            }
+
+            return result;
+        }
+
+        private static int ParseInt(JToken token)
+        {
+            if (token.Type == JTokenType.Null || token.ToString() == "N/A")
+            {
+                return 0;
+            }
+
+            return token.ToObject<int>();
+        }
+
+        private static string ParseStringList(JToken token)
+        {
+            if (token.Type == JTokenType.Null)
+            {
+                return string.Empty;
+            }
+
+            var list = token.ToObject<List<string>>();
+            return string.Join(", ", list);
         }
     }
 }

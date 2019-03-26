@@ -85,6 +85,7 @@ namespace Relish.Models
             {
                 _unit = value;
                 StandardUnit = GetStandardUnit(value);
+                QuantityStandardUnit = ConvertToStandardUnit(Unit, Quantity);
             }
         }
 

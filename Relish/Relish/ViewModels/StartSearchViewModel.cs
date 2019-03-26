@@ -384,7 +384,8 @@ namespace Relish.ViewModels
             // Construct filters.
             var filterList = new List<Filter>
             {
-                ////new IngredientFilter(FilterTypes.Ingredients, Ingredients)
+                // Comment out until filter is implemented server side.
+                //new IngredientFilter(FilterTypes.Ingredients, Ingredients)
             };
 
             if (SpecifiedIngredients.Count != 0)
