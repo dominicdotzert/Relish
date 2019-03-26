@@ -156,7 +156,8 @@
                         <DataTemplate>
                             <Label
                                 Style="{StaticResource IngredientsLabel}"
-                                Text="{Binding}"/>
+                                TextColor="{Binding UserHasIngredient, Converter={StaticResource BoolToColourConverter}}"
+                                Text="{Binding OriginalString}"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>

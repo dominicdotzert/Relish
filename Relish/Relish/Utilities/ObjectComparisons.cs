@@ -56,5 +56,26 @@ namespace Relish.Utilities
         {
             return string.Compare(x.Name, y.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);
         }
+
+        /// <summary>
+        /// Comparison method for sorting Recipes in increasing order of missing items.
+        /// </summary>
+        /// <param name="x">Recipe x.</param>
+        /// <param name="y">Recipe y.</param>
+        /// <returns></returns>
+        public static int SortByMissingIngredients(Recipe x, Recipe y)
+        {
+            if (x.IngredientsMissing == y.IngredientsMissing)
+            {
+                return 0;
+            }
+
+            if (x.IngredientsMissing < y.IngredientsMissing)
+            {
+                return -1;
+            }
+
+            return 1;
+        }
     }
 }

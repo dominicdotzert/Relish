@@ -4,6 +4,7 @@ namespace Relish.Models
 {
     public static class Enums
     {
+        // TODO verify jon takes lowercase
         public static List<string> Cuisines = new List<string>
         {
             "All",
@@ -132,7 +133,7 @@ namespace Relish.Models
             g,
             kg,
             Oz,
-            lbs,
+            lb,
             mL,
             L,
             Tsp,

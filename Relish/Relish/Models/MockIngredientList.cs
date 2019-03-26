@@ -16,7 +16,7 @@ namespace Relish.Models
         public static List<Ingredient> SampleMeatList = new List<Ingredient>
         {
             new Ingredient("Chicken Breast", IngredientCategories.Meat, 3, Units.Quantity),
-            new Ingredient("Pork Tenderloin", IngredientCategories.Meat, 2.5f, Units.lbs),
+            new Ingredient("Pork Tenderloin", IngredientCategories.Meat, 2.5f, Units.lb),
             new Ingredient("Turkey Slices", IngredientCategories.Meat, 500, Units.g),
         };
 

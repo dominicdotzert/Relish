@@ -10,8 +10,8 @@ namespace Relish.Utilities
             new Dictionary<FilterTypes, string>
             {
                 { FilterTypes.Keyword, "keyWord" },
-                { FilterTypes.Ingredients, "userIngredient" },
-                { FilterTypes.SpecifiedIngredients, "ingredients" },
+                { FilterTypes.Ingredients, "allIngredient" },
+                { FilterTypes.SpecifiedIngredients, "specIngredients" },
                 { FilterTypes.PrepTime, "prepTime" },
                 { FilterTypes.CookTime, "cookTime" },
                 { FilterTypes.Cuisine, "cuisineType" },

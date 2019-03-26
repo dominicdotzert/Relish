@@ -28,6 +28,13 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="Margin" Value="10,20"/>
         </Style>
+
+        <Style x:Key="IngredientCountLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="Margin" Value="0,10,10,10"/>
+        </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -68,7 +75,7 @@
                                         Source="{Binding ThumbnailUrl}"/>
                                     <StackLayout
                                         Orientation="Vertical"
-                                        HorizontalOptions="Fill">
+                                        HorizontalOptions="FillAndExpand">
                                         <Label
                                             Style="{StaticResource RecipeResultLabel}"
                                             Margin="10, 10, 10, 5"
@@ -92,6 +99,19 @@
                                             Margin="10, 5"
                                             IsVisible="{Binding ServingSize, Converter={StaticResource EmptyStringToNotVisibleConverter}}"
                                             Text="{Binding ServingSize}"/>
+                                    </StackLayout>
+                                    <StackLayout
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Fill">
+                                        <Label
+                                            Style="{StaticResource IngredientCountLabel}"
+                                            TextColor="Red"
+                                            Text="{Binding IngredientsMissing}"/>
+                                        <Label
+                                            Style="{StaticResource IngredientCountLabel}"
+                                            TextColor="{StaticResource MainGreen}"
+                                            Text="{Binding IngredientsIncluded}"/>
+                                        <Label/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>

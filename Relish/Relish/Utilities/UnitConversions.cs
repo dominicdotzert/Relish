@@ -26,7 +26,7 @@ namespace Relish.Utilities
                 case Units.Oz:
                     return quantity * 28.35f; // to g
 
-                case Units.lbs:
+                case Units.lb:
                     return quantity * 453.592f; // to g
 
                 case Units.Tsp:
@@ -64,7 +64,7 @@ namespace Relish.Utilities
                 case Units.Oz:
                     return Units.g;
 
-                case Units.lbs:
+                case Units.lb:
                     return Units.g;
 
                 case Units.mL:
