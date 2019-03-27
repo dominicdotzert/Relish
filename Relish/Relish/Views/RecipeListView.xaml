@@ -30,7 +30,7 @@
         </Style>
 
         <Style x:Key="IngredientCountLabel" TargetType="Label">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="HorizontalOptions" Value="End"/>
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             <Setter Property="Margin" Value="0,10,10,10"/>
@@ -66,16 +66,21 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout
-                                    Orientation="Horizontal"
-                                    HorizontalOptions="Fill">
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
                                     <Image
+                                        Grid.Column="0"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
                                         Source="{Binding ThumbnailUrl}"/>
                                     <StackLayout
+                                        Grid.Column="1"
                                         Orientation="Vertical"
-                                        HorizontalOptions="FillAndExpand">
+                                        HorizontalOptions="Fill">
                                         <Label
                                             Style="{StaticResource RecipeResultLabel}"
                                             Margin="10, 10, 10, 5"
@@ -101,8 +106,9 @@
                                             Text="{Binding ServingSize}"/>
                                     </StackLayout>
                                     <StackLayout
+                                        Grid.Column="2"
                                         HorizontalOptions="End"
-                                        VerticalOptions="Fill">
+                                        VerticalOptions="CenterAndExpand">
                                         <Label
                                             Style="{StaticResource IngredientCountLabel}"
                                             TextColor="Red"
@@ -113,7 +119,7 @@
                                             Text="{Binding IngredientsIncluded}"/>
                                         <Label/>
                                     </StackLayout>
-                                </StackLayout>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

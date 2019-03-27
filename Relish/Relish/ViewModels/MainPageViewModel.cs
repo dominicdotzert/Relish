@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Relish.Data;
-using Relish.Models;
 using Relish.Resources;
 using Relish.Views;
 using Relish.Views.Popups;
@@ -78,20 +75,13 @@ namespace Relish.ViewModels
         /// </summary>
         private async void OpenRecipeBookPage()
         {
-            // TODO undo debug line
             await NewPage(
                 new RecipeListView(
-                    GetRecipes(),
+                    _localDataManager.GetRecipes(),
                     _localDataManager,
                     Strings.Title_RecipeBook,
                     Strings.RecipeBook_NoSavedRecipes,
                     true));
-        }
-
-        private async Task<List<Recipe>> GetRecipes()
-        {
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            return DummySearchData.RecipeResults1;
         }
 
         /// <summary>

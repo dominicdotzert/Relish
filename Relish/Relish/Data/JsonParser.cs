@@ -9,9 +9,7 @@ namespace Relish.Data
     /// </summary>
     public static class JsonParser
     {
-        private const string RecipeInfoKey = "recipeInfo";
         private const string IngredientsKey = "ingredients";
-        private const string IngredientsListKey = "ingredientList";
         private const string NameKey = "name";
         private const string ThumbnailKey = "thumbnail";
         private const string ImageUrlKey = "image";
@@ -27,6 +25,8 @@ namespace Relish.Data
         private const string UnitKey = "unit";
         private const string QuantityKey = "amount";
         private const string IngredientFullNameKey = "fullData";
+        private const string IngredientsIncludedKey = "includedIngredients";
+        private const string IngredientsMissingKey = "missingIngredients";
 
         public static List<Recipe> ParseJson(string content)
         {
@@ -47,6 +47,9 @@ namespace Relish.Data
                 var cuisine = ParseStringList(recipe[CuisineKey]);
                 var prepStyle = ParseStringList(recipe[PrepStyleKey]);
                 var mealType = ParseStringList(recipe[MealTypeKey]);
+
+                var includedIngredients = ParseInt(recipe[IngredientsIncludedKey]);
+                var missingIngredients = ParseInt(recipe[IngredientsMissingKey]);
 
                 var ingredients = new List<ReadonlyIngredient>();
                 var ingredientsList = recipe[IngredientsKey];
@@ -75,7 +78,9 @@ namespace Relish.Data
                     prepStyle,
                     mealType,
                     ingredients,
-                    directions));
+                    directions,
+                    includedIngredients,
+                    missingIngredients));
             }
 
             return recipes;

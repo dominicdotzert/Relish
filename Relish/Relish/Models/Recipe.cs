@@ -31,6 +31,8 @@ namespace Relish.Models
         /// <param name="mealType">The meal type of the recipe.</param>
         /// <param name="ingredients">The list of ingredients required by the recipe.</param>
         /// <param name="directions">The directions to prepare the recipe.</param>
+        /// <param name="ingredientsIncluded">The number of ingredients that the user currently has.</param>
+        /// <param name="ingredientsMissing">The number of ingredients that the user is currently missing.</param>
         public Recipe(
             string name,
             string thumbnailUrl,
@@ -43,7 +45,9 @@ namespace Relish.Models
             string prepStyle,
             string mealType,
             List<ReadonlyIngredient> ingredients,
-            List<string> directions)
+            List<string> directions,
+            int ingredientsIncluded = 0,
+            int ingredientsMissing = 0)
         {
             Name = name;
             ThumbnailUrl = thumbnailUrl;
@@ -57,6 +61,8 @@ namespace Relish.Models
             MealType = mealType;
             Ingredients = ingredients;
             Directions = directions;
+            IngredientsIncluded = ingredientsIncluded;
+            IngredientsMissing = ingredientsMissing;
         }
 
         /// <summary>
