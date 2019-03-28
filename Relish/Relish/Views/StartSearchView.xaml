@@ -45,15 +45,9 @@
 
     <customComponents:CustomContentPage.ToolbarItems>
         <ToolbarItem
-            Text="Save"
-            Order="Secondary"
-            Priority="0"
-            Command="{Binding SaveCommand}"/>
-
-        <ToolbarItem
             Text="Reset to defaults"
             Order="Secondary"
-            Priority="1"
+            Priority="0"
             Command="{Binding ClearFiltersCommand}"/>
     </customComponents:CustomContentPage.ToolbarItems>
 
@@ -83,6 +77,9 @@
                                 </x:Arguments>
                             </Keyboard>
                         </Entry.Keyboard>
+                        <Entry.Behaviors>
+                            <customComponents:EntryUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                        </Entry.Behaviors>
                     </Entry>
 
                     <!--Selected Ingredient ListView-->
@@ -141,19 +138,16 @@
                         Margin="20,0"
                         HorizontalOptions="Fill"
                         Orientation="Horizontal">
-                        <!--<Entry Style="{StaticResource TimeEntry}"/>
-                        <Label
-                            Style="{StaticResource TimeFilterLabel}"
-                            Text="mins -"/>-->
                         <Label
                             Style="{StaticResource TimeFilterLabel}"
                             Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
                         <Entry
                             Style="{StaticResource TimeEntry}"
-                            Text="{Binding PrepTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}"/>
-                        <!--<Label
-                            Style="{StaticResource TimeFilterLabel}"
-                            Text="mins"/>-->
+                            Text="{Binding PrepTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}">
+                            <Entry.Behaviors>
+                                <customComponents:EntryUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                            </Entry.Behaviors>
+                        </Entry>
                     </StackLayout>
 
                     <!--Cook time filter-->
@@ -165,19 +159,16 @@
                         Margin="20,0"
                         HorizontalOptions="Fill"
                         Orientation="Horizontal">
-                        <!--<Entry Style="{StaticResource TimeEntry}"/>
-                        <Label
-                            Style="{StaticResource TimeFilterLabel}"
-                            Text="mins -"/>-->
                         <Label
                             Style="{StaticResource TimeFilterLabel}"
                             Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
                         <Entry
                             Style="{StaticResource TimeEntry}"
-                            Text="{Binding CookTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}"/>
-                        <!--<Label
-                            Style="{StaticResource TimeFilterLabel}"
-                            Text="mins"/>-->
+                            Text="{Binding CookTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}">
+                            <Entry.Behaviors>
+                                <customComponents:EntryUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                            </Entry.Behaviors>
+                        </Entry>
                     </StackLayout>
 
                     <!--Category Filters-->
@@ -203,7 +194,11 @@
                             Grid.Row="0"
                             Style="{StaticResource CategoryPicker}"
                             ItemsSource="{Binding CuisineTypes}"
-                            SelectedItem="{Binding Cuisine, Mode=TwoWay}"/>
+                            SelectedItem="{Binding Cuisine, Mode=TwoWay}">
+                            <Picker.Behaviors>
+                                <customComponents:PickerUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>
 
                         <!--Preparation Style-->
                         <Label
@@ -216,7 +211,11 @@
                             Grid.Row="1"
                             Style="{StaticResource CategoryPicker}"
                             ItemsSource="{Binding PrepStyles}"
-                            SelectedItem="{Binding PrepStyle, Mode=TwoWay}"/>
+                            SelectedItem="{Binding PrepStyle, Mode=TwoWay}">
+                            <Picker.Behaviors>
+                                <customComponents:PickerUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>
                         
                         <!--Meal Type-->
                         <Label
@@ -229,7 +228,11 @@
                             Grid.Row="2"
                             Style="{StaticResource CategoryPicker}"
                             ItemsSource="{Binding MealTypes}"
-                            SelectedItem="{Binding MealType, Mode=TwoWay}"/>
+                            SelectedItem="{Binding MealType, Mode=TwoWay}">
+                            <Picker.Behaviors>
+                                <customComponents:PickerUnfocusedBehaviour Command="{Binding SaveCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>
                     </Grid>
 
                     <Label

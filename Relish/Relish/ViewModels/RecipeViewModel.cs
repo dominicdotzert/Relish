@@ -190,9 +190,10 @@ namespace Relish.ViewModels
                 foreach (var userIngredient in userIngredients)
                 {
                     if (recipeIngredient.Name.ToLower().Contains(userIngredient.Name.ToLower()) &&
-                        (string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
-                         userIngredient.QuantityStandardUnit >= recipeIngredient.Quantity ||
-                         userIngredient.Unit == Enums.Units.Common))
+                        ((string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
+                         userIngredient.QuantityStandardUnit >= recipeIngredient.Quantity) ||
+                         userIngredient.Unit == Enums.Units.Common ||
+                         string.Equals(recipeIngredient.Unit, Enums.Units.Common.ToString(), StringComparison.CurrentCultureIgnoreCase)))
                     {
                         recipeIngredient.UserHasIngredient = true;
                         break;

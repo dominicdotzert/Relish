@@ -2,9 +2,11 @@
 
 namespace Relish.Models
 {
+    /// <summary>
+    /// Static class to contain enums and static lists for Pickers
+    /// </summary>
     public static class Enums
     {
-        // TODO verify jon takes lowercase
         public static List<string> Cuisines = new List<string>
         {
             "All",

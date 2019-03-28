@@ -299,8 +299,8 @@ namespace Relish.ViewModels
             {
                 KeywordString = KeywordString?.Trim(),
                 SpecifiedIngredients = SpecifiedIngredients.ToList(),
-                PrepTime = PrepTime,
-                CookTime = CookTime,
+                PrepTime = PrepTime > 0 ? PrepTime : 0,
+                CookTime = CookTime > 0 ? CookTime : 0,
                 Cuisine = Cuisine,
                 PrepStyle = PrepStyle,
                 MealType = MealType
@@ -346,6 +346,7 @@ namespace Relish.ViewModels
             {
                 SpecifiedIngredients.Add(i);
                 OnPropertyChanged(nameof(SpecifiedIngredients));
+                SaveFilterData();
             });
             var popup = new IngredientFilterPopup(
                 SpecifiedIngredients.ToList(),
@@ -368,6 +369,7 @@ namespace Relish.ViewModels
 
             var ingredient = (Ingredient)parameter;
             SpecifiedIngredients.Remove(ingredient);
+            SaveFilterData();
         }
 
         /// <summary>

@@ -241,7 +241,8 @@ namespace Relish.ViewModels
                         if (recipeIngredient.Name.ToLower().Contains(userIngredient.Name.ToLower()) &&
                             ((string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
                             userIngredient.QuantityStandardUnit >= recipeIngredient.Quantity) ||
-                            userIngredient.Unit == Enums.Units.Common))
+                            userIngredient.Unit == Enums.Units.Common ||
+                            string.Equals(recipeIngredient.Unit, userIngredient.StandardUnit.ToString(), StringComparison.CurrentCultureIgnoreCase)))
                         {
                             includedCount++;
                             ingredientIncluded = true;
