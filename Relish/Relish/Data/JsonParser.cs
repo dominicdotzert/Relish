@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Relish.Models;
 
@@ -32,55 +33,64 @@ namespace Relish.Data
         {
             var recipes = new List<Recipe>();
 
+            ////var parsedContent = content.Replace("\\", "").Trim('"');
+            ////var json = JArray.Parse(parsedContent);
             var json = JArray.Parse(content);
 
             foreach (var recipe in json)
             {
-                var name = recipe[NameKey].ToString();
-                var url = recipe[UrlKey].ToString();
-                var thumbnail = ParseString(recipe[ThumbnailKey]);
-                var image = ParseString(recipe[ImageUrlKey]);
-                var servings = ParseString(recipe[ServingSizeKey]);
-                var prepTime = ParseInt(recipe[PrepTimeKey]);
-                var cookTime = ParseInt(recipe[CookTimKey]);
-
-                var cuisine = ParseStringList(recipe[CuisineKey]);
-                var prepStyle = ParseStringList(recipe[PrepStyleKey]);
-                var mealType = ParseStringList(recipe[MealTypeKey]);
-
-                var includedIngredients = ParseInt(recipe[IngredientsIncludedKey]);
-                var missingIngredients = ParseInt(recipe[IngredientsMissingKey]);
-
-                var ingredients = new List<ReadonlyIngredient>();
-                var ingredientsList = recipe[IngredientsKey];
-                foreach (var i in ingredientsList)
+                try
                 {
-                    ingredients.Add(new ReadonlyIngredient
+                    var name = recipe[NameKey].ToString();
+                    var url = recipe[UrlKey].ToString();
+                    var thumbnail = ParseString(recipe[ThumbnailKey]);
+                    var image = ParseString(recipe[ImageUrlKey]);
+                    var servings = ParseString(recipe[ServingSizeKey]);
+                    var prepTime = ParseInt(recipe[PrepTimeKey]);
+                    var cookTime = ParseInt(recipe[CookTimKey]);
+
+                    var cuisine = ParseString(recipe[CuisineKey]);
+                    var prepStyle = ParseString(recipe[PrepStyleKey]);
+                    var mealType = ParseString(recipe[MealTypeKey]);
+
+                    var includedIngredients = ParseInt(recipe[IngredientsIncludedKey]);
+                    var missingIngredients = ParseInt(recipe[IngredientsMissingKey]);
+
+                    var ingredients = new List<ReadonlyIngredient>();
+                    var ingredientsList = recipe[IngredientsKey];
+                    foreach (var i in ingredientsList)
                     {
-                        Name = ParseString(i[IngredientNameKey]),
-                        Unit = ParseString(i[UnitKey]),
-                        Quantity = i[QuantityKey].ToObject<float>(),
-                        OriginalString = ParseString(i[IngredientFullNameKey])
-                    });
+                        ingredients.Add(new ReadonlyIngredient
+                        {
+                            Name = ParseString(i[IngredientNameKey]),
+                            Unit = ParseString(i[UnitKey]),
+                            Quantity = i[QuantityKey].ToObject<float>(),
+                            OriginalString = ParseString(i[IngredientFullNameKey])
+                        });
+                    }
+
+                    var directions = ParseList(recipe[DirectionsKey]);
+
+                    recipes.Add(new Recipe(
+                        name,
+                        thumbnail,
+                        image,
+                        url,
+                        servings,
+                        prepTime,
+                        cookTime,
+                        cuisine,
+                        prepStyle,
+                        mealType,
+                        ingredients,
+                        directions,
+                        includedIngredients,
+                        missingIngredients));
                 }
-
-                var directions = recipe[DirectionsKey].ToObject<List<string>>();
-
-                recipes.Add(new Recipe(
-                    name,
-                    thumbnail,
-                    image,
-                    url,
-                    servings,
-                    prepTime,
-                    cookTime,
-                    cuisine,
-                    prepStyle,
-                    mealType,
-                    ingredients,
-                    directions,
-                    includedIngredients,
-                    missingIngredients));
+                catch (Exception e)
+                {
+                    throw;
+                }
             }
 
             return recipes;
@@ -144,6 +154,16 @@ namespace Relish.Data
 
         private static string ParseString(JToken token)
         {
+            if (token.Type == JTokenType.Null)
+            {
+                return string.Empty;
+            }
+
+            if (token.Type == JTokenType.Array)
+            {
+                return ParseStringList(token);
+            }
+
             var result = token.ToString();
             if (result == "N/A")
             {
@@ -170,8 +190,28 @@ namespace Relish.Data
                 return string.Empty;
             }
 
+            if (token.Type == JTokenType.String && token.ToString() == "N/A")
+            {
+                return string.Empty;
+            }
+
             var list = token.ToObject<List<string>>();
             return string.Join(", ", list);
+        }
+
+        private static List<string> ParseList(JToken token)
+        {
+            if (token.Type != JTokenType.String && token.Type != JTokenType.Array)
+            {
+                return new List<string>();
+            }
+
+            if (token.Type == JTokenType.String)
+            {
+                return new List<string> { token.ToString() };
+            }
+
+            return token.ToObject<List<string>>();
         }
     }
 }
