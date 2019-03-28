@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using System;
+using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms.Xaml;
 
@@ -17,7 +18,7 @@ namespace Relish.Views.Popups
         /// </summary>
         /// <param name="sender">The sender object.</param>
         /// <param name="e">EventArgs.</param>
-        private async void CancelButtonClicked(object sender, System.EventArgs e)
+        private async void CancelButtonClicked(object sender, EventArgs e)
         {
             if (PopupNavigation.Instance.PopupStack.Count != 0)
             {

@@ -79,6 +79,33 @@ namespace Relish.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cook time must be a positive integer..
+        /// </summary>
+        internal static string Error_BadCookTime {
+            get {
+                return ResourceManager.GetString("Error_BadCookTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prep time must be a positive integer..
+        /// </summary>
+        internal static string Error_BadPrepTime {
+            get {
+                return ResourceManager.GetString("Error_BadPrepTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must specify some ingredients to begin the search..
+        /// </summary>
+        internal static string Error_NoIngredients {
+            get {
+                return ResourceManager.GetString("Error_NoIngredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cook Time.
         /// </summary>
         internal static string Filter_CookTime {

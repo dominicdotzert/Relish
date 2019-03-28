@@ -33,8 +33,6 @@ namespace Relish.Data
         {
             var recipes = new List<Recipe>();
 
-            ////var parsedContent = content.Replace("\\", "").Trim('"');
-            ////var json = JArray.Parse(parsedContent);
             var json = JArray.Parse(content);
 
             foreach (var recipe in json)

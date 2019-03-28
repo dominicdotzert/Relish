@@ -143,7 +143,7 @@
                             Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
                         <Entry
                             Style="{StaticResource TimeEntry}"
-                            Text="{Binding PrepTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}">
+                            Text="{Binding PrepTime, Mode=TwoWay}">
                             <Entry.Behaviors>
                                 <customComponents:EntryUnfocusedBehaviour Command="{Binding SaveCommand}"/>
                             </Entry.Behaviors>
@@ -164,7 +164,7 @@
                             Text="{x:Static res:Strings.Filter_TimeFilter_Label}"/>
                         <Entry
                             Style="{StaticResource TimeEntry}"
-                            Text="{Binding CookTime, Mode=TwoWay, Converter={StaticResource ZeroIntToEmptyStringConverter}}">
+                            Text="{Binding CookTime, Mode=TwoWay}">
                             <Entry.Behaviors>
                                 <customComponents:EntryUnfocusedBehaviour Command="{Binding SaveCommand}"/>
                             </Entry.Behaviors>

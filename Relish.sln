@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relish.Android", "Relish\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relish.iOS", "Relish\Relish.iOS\Relish.iOS.csproj", "{E8660D8D-8509-4D9F-8E83-2754E6AC7336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relish", "Relish\Relish\Relish.csproj", "{133A86AB-6692-4AF8-8078-D50E29B0D0F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Relish", "Relish\Relish\Relish.csproj", "{133A86AB-6692-4AF8-8078-D50E29B0D0F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -123,6 +123,15 @@
   <data name="Delete_Btn" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="Error_BadCookTime" xml:space="preserve">
+    <value>Cook time must be a positive integer.</value>
+  </data>
+  <data name="Error_BadPrepTime" xml:space="preserve">
+    <value>Prep time must be a positive integer.</value>
+  </data>
+  <data name="Error_NoIngredients" xml:space="preserve">
+    <value>You must specify some ingredients to begin the search.</value>
+  </data>
   <data name="Filter_CookTime" xml:space="preserve">
     <value>Cook Time</value>
   </data>

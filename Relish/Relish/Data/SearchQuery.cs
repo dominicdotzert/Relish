@@ -40,10 +40,6 @@ namespace Relish.Data
         /// <returns>Returns a list of recipes.</returns>
         public async Task<List<Recipe>> StartSearch()
         {
-            // TODO remove fake list
-            ////await Task.Delay(TimeSpan.FromSeconds(1));
-            ////return DummySearchData.RecipeResults1;
-
             // Get query
             var query = FormQuery();
 
@@ -108,9 +104,6 @@ namespace Relish.Data
             query += string.Join("&", paramsList);
 
             return query;
-
-            //For testing
-            ////return TestEndPoint;
         }
     }
 

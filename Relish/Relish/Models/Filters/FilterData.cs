@@ -42,12 +42,12 @@ namespace Relish.Models.Filters
         /// <summary>
         /// The maximum prep time for a recipe specified by the user in integer minutes.
         /// </summary>
-        public int PrepTime { get; set; }
+        public string PrepTime { get; set; }
 
         /// <summary>
         /// The maximum cook time for a recipe specified by the user in integer minutes.
         /// </summary>
-        public int CookTime { get; set; }
+        public string CookTime { get; set; }
 
         /// <summary>
         /// The user specified meal type for the recipe search.

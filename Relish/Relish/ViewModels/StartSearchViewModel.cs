@@ -25,8 +25,8 @@ namespace Relish.ViewModels
         private readonly INavigation _navigation;
 
         private string _keywordString;
-        private int _prepTime;
-        private int _cookTime;
+        private string _prepTime;
+        private string _cookTime;
         private string _cuisine;
         private string _mealType;
         private string _prepStyle;
@@ -128,7 +128,7 @@ namespace Relish.ViewModels
         /// <summary>
         /// The maximum preparation time for the recipe search.
         /// </summary>
-        public int PrepTime
+        public string PrepTime
         {
             get => _prepTime;
 
@@ -145,7 +145,7 @@ namespace Relish.ViewModels
         /// <summary>
         /// The maximum cook time for the recipe search.
         /// </summary>
-        public int CookTime
+        public string CookTime
         {
             get => _cookTime;
 
@@ -295,12 +295,17 @@ namespace Relish.ViewModels
         /// </summary>
         private void SaveFilterData()
         {
+            if (!Validate())
+            {
+                return;
+            }
+
             var filterData = new FilterData
             {
                 KeywordString = KeywordString?.Trim(),
                 SpecifiedIngredients = SpecifiedIngredients.ToList(),
-                PrepTime = PrepTime > 0 ? PrepTime : 0,
-                CookTime = CookTime > 0 ? CookTime : 0,
+                PrepTime = PrepTime,
+                CookTime = CookTime,
                 Cuisine = Cuisine,
                 PrepStyle = PrepStyle,
                 MealType = MealType
@@ -315,8 +320,8 @@ namespace Relish.ViewModels
         {
             KeywordString = string.Empty;
             SpecifiedIngredients.Clear();
-            PrepTime = 0;
-            CookTime = 0;
+            PrepTime = string.Empty;
+            CookTime = string.Empty;
             Cuisine = Cuisines[0];
             PrepStyle = Enums.PrepStyles[0];
             MealType = Enums.MealTypes[0];
@@ -377,6 +382,13 @@ namespace Relish.ViewModels
         /// </summary>
         private async void BeginSearch()
         {
+            // Prevent double clicks
+            var stack = _navigation.NavigationStack;
+            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(RecipeListView))
+            {
+                return;
+            }
+
             // Verify all filter inputs are valid.
             if (!Validate())
             {
@@ -400,14 +412,23 @@ namespace Relish.ViewModels
                 filterList.Add(new KeywordFilter(FilterTypes.Keyword, KeywordString));
             }
 
-            if (PrepTime > 0)
+            if (!string.IsNullOrEmpty(PrepTime))
             {
-                filterList.Add(new TimeFilter(FilterTypes.PrepTime, PrepTime));
+                var prepTime = int.Parse(PrepTime);
+                if (prepTime > 0)
+                {
+
+                    filterList.Add(new TimeFilter(FilterTypes.PrepTime, prepTime));
+                }
             }
 
-            if (CookTime > 0)
+            if (!string.IsNullOrEmpty(CookTime))
             {
-                filterList.Add(new TimeFilter(FilterTypes.CookTime, CookTime));
+                var cookTime = int.Parse(CookTime);
+                if (cookTime > 0)
+                {
+                    filterList.Add(new TimeFilter(FilterTypes.CookTime, cookTime));
+                }
             }
 
             if (Cuisine != Cuisines[0])
@@ -444,24 +465,36 @@ namespace Relish.ViewModels
         /// <returns>Returns if the filter information is valid.</returns>
         private bool Validate()
         {
-            // Prevent double clicks
-            var stack = _navigation.NavigationStack;
-            if (stack.Count != 0 && stack[stack.Count - 1].GetType() == typeof(RecipeListView))
-            {
-                return false;
-            }
-
+            var result = true;
+            var errors = new List<string>();
             ErrorString = string.Empty;
 
-            // Do not block this for now
-            ////if (Ingredients.Count == 0)
-            ////{
+            if (Ingredients.Count == 0)
+            {
+                errors.Add(Strings.Error_NoIngredients);
+                result = false;
+            }
 
-            ////    SaveFilterData();
-            ////    return false;
-            ////}
+            if (!string.IsNullOrEmpty(PrepTime) &&
+                (!int.TryParse(PrepTime, out var prepTime)
+                || prepTime <= 0))
+            {
+                errors.Add(Strings.Error_BadPrepTime);
+                result = false;
+            }
 
-            return true;
+            if (!string.IsNullOrEmpty(CookTime) &&
+                (!int.TryParse(CookTime?.Trim(), out var cookTime) ||
+                cookTime <= 0))
+
+            {
+                errors.Add(Strings.Error_BadCookTime);
+                result = false;
+            }
+
+            ErrorString = string.Join("\n", errors);
+
+            return result;
         }
     }
 }
